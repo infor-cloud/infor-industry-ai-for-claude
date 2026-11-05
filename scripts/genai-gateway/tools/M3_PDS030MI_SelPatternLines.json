@@ -1,0 +1,188 @@
+{
+  "name": "M3_PDS030MI_SelPatternLines",
+  "program": "PDS030MI",
+  "transaction": "SelPatternLines",
+  "version": "2026-10-26T02:02:07.07Z",
+  "type": "list",
+  "description": "Retrieve all shift pattern lines for a range of facilities to support capacity planning based on predefined shift patterns and shift models. The operation covers every pattern line belonging to the selected facilities, together with validity dates, the number of days covered by each line, and the referenced shift model. Descriptive text and short names for the shift pattern or shift model are included so external planning or scheduling tools can present user-friendly information. Audit fields indicate when each line was last changed and by whom, enabling traceability of planning data changes.",
+  "inputParameters": [
+    {
+      "name": "FFAC",
+      "description": "Starting facility in the facility range used to select shift pattern lines.",
+      "type": "string",
+      "longName": "FromFacility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TFAC",
+      "description": "Ending facility in the facility range used to select shift pattern lines.",
+      "type": "string",
+      "longName": "ToFacility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number to use when selecting shift pattern lines.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "WHGR",
+      "description": "Warehouse group whose production calendar is used as a basis when selecting shift pattern lines.",
+      "type": "string",
+      "longName": "WarehouseGroup",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number for the returned shift pattern line.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FACI",
+      "description": "Facility for which this shift pattern line is defined.",
+      "type": "string",
+      "longName": "Facility",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SHPA",
+      "description": "Identifier of the shift pattern to which this line belongs.",
+      "type": "string",
+      "longName": "ShiftPattern",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FDAT",
+      "description": "Start date from which this shift pattern line is valid.",
+      "type": "date",
+      "longName": "FromDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TDAT",
+      "description": "End date through which this shift pattern line is valid.",
+      "type": "date",
+      "longName": "ToDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SHFM",
+      "description": "Identifier of the shift model used on this shift pattern line.",
+      "type": "string",
+      "longName": "ShiftModel",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "NODY",
+      "description": "Number of consecutive days that this shift pattern line applies the referenced shift model.",
+      "type": "integer",
+      "longName": "NumberOfDays",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TX40",
+      "description": "Description of the shift model referenced by this shift pattern line.",
+      "type": "string",
+      "longName": "Description",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "LMDT",
+      "description": "Date when this shift pattern line was last modified.",
+      "type": "date",
+      "longName": "LastModifiedDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CHNO",
+      "description": "Revision number that is incremented each time this shift pattern line is changed.",
+      "type": "integer",
+      "longName": "ChangeNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CHID",
+      "description": "User ID of the person who last changed or created this shift pattern line.",
+      "type": "string",
+      "longName": "LastModifiedBy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TX15",
+      "description": "Short name of the shift model referenced by this shift pattern line.",
+      "type": "string",
+      "longName": "Name",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "name": "M3_CRS420MI_LstFreeText",
+  "program": "CRS420MI",
+  "transaction": "LstFreeText",
+  "version": "2026-05-08T10:10:12.12Z",
+  "type": "list",
+  "description": "List the user-defined free-text lines connected to a specific application message. The free-text block corresponds to what is shown when pressing F6 in the application message details panel (CRS420/E). Each returned record contains the company, the unique mail id, an internal line number, and a text segment of up to 60 characters, representing the stored user comments or notes.",
+  "inputParameters": [
+    {
+      "name": "MLID",
+      "description": "Unique mail ID identifying the application message whose free text should be listed.",
+      "type": "integer",
+      "longName": "MailId",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number for the application message.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number for the application message.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "MLID",
+      "description": "Unique mail ID of the application message.",
+      "type": "integer",
+      "longName": "MailId",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "LINO",
+      "description": "Internal line number of the free-text line within the message.",
+      "type": "integer",
+      "longName": "TextLineNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TX60",
+      "description": "User-defined free-text for this line of the application message.",
+      "type": "string",
+      "longName": "AdditionalText",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

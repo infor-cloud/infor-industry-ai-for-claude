@@ -1,0 +1,67 @@
+{
+  "name": "M3_PPS001MI_FinishMark",
+  "program": "PPS001MI",
+  "transaction": "FinishMark",
+  "version": "2026-05-08T07:07:14.14Z",
+  "type": "get",
+  "description": "Mark purchase orders or individual purchase order lines as finished and, when applicable, close the purchase order. The operation sets the completion flag so that M3 treats the order or line as fully delivered, even if an ordered quantity remains. When used for the whole order, it also closes the purchase order so that no further standard processing is expected for it.",
+  "inputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number identifying the order to be marked as finished or closed.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number of the company that owns the purchase order to be updated.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "PNLI",
+      "description": "Optional purchase order line number identifying a specific line on the order to mark as finished.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PNLS",
+      "description": "Optional purchase order subline suffix identifying a specific subline on the line to mark as finished.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

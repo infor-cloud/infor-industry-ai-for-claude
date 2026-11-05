@@ -1,0 +1,232 @@
+{
+  "name": "M3_OIS100MI_UpdCOPlanDates",
+  "program": "OIS100MI",
+  "transaction": "UpdCOPlanDates",
+  "version": "2026-10-16T09:09:42.42Z",
+  "type": "update",
+  "description": "Update planning, requested delivery, departure, and confirmed delivery dates on existing customer orders by creating a background update in *Batch Customer Order. Open* (OIS275). The logic is the same as changing dates interactively in *Customer Order. Open Line* (OIS101): available-to-promise (ATP) is checked, and potential shortages are handled in the same way. Dates can be adjusted for the whole order or for a single line, in either the customer's or the warehouse's time zone. The operation does not recalculate sales prices; use the price update operation instead.",
+  "inputParameters": [
+    {
+      "name": "ORNO",
+      "description": "Customer order number whose planning and delivery dates are to be updated.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PONR",
+      "description": "Order line number to update; leave blank to update all lines on the order.",
+      "type": "integer",
+      "longName": "LineNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "POSX",
+      "description": "Line suffix identifying a specific subline of the order line to update.",
+      "type": "integer",
+      "longName": "LineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DWDT",
+      "description": "Requested delivery date in the delivering warehouse time zone to set for the selected lines.",
+      "type": "date",
+      "longName": "RequestedDeliveryDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DWHM",
+      "description": "Requested delivery time in the delivering warehouse time zone to set for the selected lines.",
+      "type": "time",
+      "longName": "RequestedDeliveryTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DWDZ",
+      "description": "Requested delivery date at the customer's final destination in the customer's time zone to set for the selected lines.",
+      "type": "date",
+      "longName": "RequestedDeliveryDateAtDestination",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DWHZ",
+      "description": "Requested delivery time at the customer's final destination in the customer's time zone to set for the selected lines.",
+      "type": "time",
+      "longName": "RequestedDeliveryTimeAtDestination",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLDT",
+      "description": "Planning date for the lines, overriding the normal supply planning date when entered.",
+      "type": "date",
+      "longName": "PlanningDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLHM",
+      "description": "Planning time of day for the lines, used together with the planning date.",
+      "type": "integer",
+      "longName": "PlanningTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DSDT",
+      "description": "Planned departure date for the delivery of the selected lines.",
+      "type": "date",
+      "longName": "DepartureDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DSHM",
+      "description": "Planned departure time for the delivery of the selected lines.",
+      "type": "integer",
+      "longName": "DepartureTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CODT",
+      "description": "Confirmed delivery date in the delivering warehouse time zone to set for the selected lines.",
+      "type": "date",
+      "longName": "ConfirmedDeliveryDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "COHM",
+      "description": "Confirmed delivery time in the delivering warehouse time zone to set for the selected lines.",
+      "type": "integer",
+      "longName": "ConfirmedDeliveryTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CODZ",
+      "description": "Confirmed delivery date at the customer's final destination in the customer's time zone to set for the selected lines.",
+      "type": "date",
+      "longName": "ConfirmedDeliveryDateAtDestination",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "COHZ",
+      "description": "Confirmed delivery time at the customer's final destination in the customer's time zone to set for the selected lines.",
+      "type": "integer",
+      "longName": "ConfirmedDeliveryTimeAtDestination",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RSC7",
+      "description": "Time-related reason code explaining why the planning or delivery time is changed.",
+      "type": "string",
+      "longName": "TimeReasonCode",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OATP",
+      "description": "Indicator to bypass available-to-promise checks for the affected lines; must be set to 1 when a planning date is entered.",
+      "type": "boolean",
+      "longName": "OverrideAtp",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "UATP",
+      "description": "Indicator controlling whether an ATP date suggested due to shortage is automatically accepted and used as the new date (1) or not (0).",
+      "type": "integer",
+      "longName": "UseAtpDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "MODE",
+      "description": "Update execution mode, where 'A' runs via autojob OIS960 and is recommended; blank or 'S' runs a submitted job, but GetUpdateSts can be used to check completion when 'S' is selected.",
+      "type": "string",
+      "longName": "UpdateMode",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "TSTM",
+      "description": "Timestamp key for the submitted update job to be used as input to GetUpdateSts when checking its status.",
+      "type": "string",
+      "longName": "UpdateJobTimestamp",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "M3_OIS100MI_GetUpdateSts",
+  "program": "OIS100MI",
+  "transaction": "GetUpdateSts",
+  "version": "2026-05-08T05:05:55.55Z",
+  "type": "get",
+  "description": "Retrieve the processing status for background updates of customer orders that were started by the price, planning date, or payment term update operations. When those updates are run in update mode **A** (via autojob OIS960) or **S** (via submitted job OIS100Sbm), they create a control record in *Batch Customer Order. Open* (OIS275) and return a timestamp. This status operation uses that timestamp as key and returns whether the update is still waiting, currently running, or finished, and whether OIS275 reported any header or line errors. It also returns the temporary customer order number used in OIS275 so you can inspect the error log there if needed.",
+  "inputParameters": [
+    {
+      "name": "TSTM",
+      "description": "Timestamp key returned from UpdCOPlanDates, UpdCOPmtTerms, or UpdCOPrice that identifies the batch update job whose status to check.",
+      "type": "string",
+      "longName": "UpdateJobTimestamp",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "STAT",
+      "description": "Status of the batch update job: 20 = waiting or processing via autojob (MODE 'A'), 30 = waiting or processing via submitted job (MODE 'S'), 90 = finished.",
+      "type": "enum",
+      "longName": "Status",
+      "enumConstants": "TemplateItem,ItemNumber-Cost,ReplaceItem,Released,AlternateItem,LwTurnovr,Discontinued,NotCarrd,NotStock,ItmNoChg",
+      "enumValues": "05,10,15,20,30,40,50,80,90,99",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ILST",
+      "description": "Error status from 'Batch Customer Order. Open' (OIS275); blank if the update completed successfully (status 90), otherwise 15 or 25 indicating header or line errors.",
+      "type": "string",
+      "longName": "LineErrorStatus",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORNO",
+      "description": "Temporary customer order number used in OIS275 to identify the batch update record.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "name": "M3_MMS120MI_DeAllocateOrLne",
+  "program": "MMS120MI",
+  "transaction": "DeAllocateOrLne",
+  "version": "2026-05-08T02:02:49.49Z",
+  "type": "get",
+  "description": "Deallocate allocated stock for a specific order line. This operation removes existing allocation from one order line of an order, based on the stock transaction type and allocation origin. It works across different order categories (for example customer, distribution, or manufacturing issues) and returns the previously allocated quantity to available stock. The logic is part of detailed allocation handling in M3 and follows the same allocation rules as the interactive allocation functions, but without any returned data; it only updates the allocation status on the selected line.",
+  "inputParameters": [
+    {
+      "name": "TTYP",
+      "description": "Stock transaction type indicating which kind of order transaction the deallocation relates to.",
+      "type": "enum",
+      "longName": "StockTransactionType",
+      "required": true,
+      "enumConstants": "Forecast,InventoryBuildUp,ManufacturingOrderReceipt,ManufacturingOrderIssue,ManufacturingOrderReceiptOfCo-produc,ManufacturingOrderReceiptOfBy-produc,ManufacturingOrderReceiptQi,ManufacturingOrderReceiptOfCo-prdQi,ManufacturingOrderReceiptOfBy-prdQi,PurchaseOrderReceipt,PoReceiptInInventoryForInspection,PurchaseOrderRejectedDuringInspect,PurchaseOrderApprovedFromInspect,PurchaseOrderPut-away,PurchaseOrder-AgreementOrder,CustomerOrderReceipt,CustomerOrderIssue,RequisitionOrderReceipt,RequisitionOrderIssue,DistributionOrderReceipt,DistributionOrderIssue,DistributionOrderTransit,Do-ReceiptVariances,WorkOrderReceipt,WorkOrderIssue,WorkOrderScrap,WorkOrderRemoval,WorkOrderInstallation,WorkOrder-Scrapping,ServiceOrderReceipt,ServiceOrderIssue,PhysicalInventoryVariances,Scrapping,ReplenishmentMoveOrderIssue,ReplenishmentMoveOrderReceipt,ResetOn-handBalance,CatchWeightAdjustment,Reclassification-StockStatus,Reclassification-Lot,Reclassification-ItemNumber",
+      "enumValues": "1,2,10,11,12,13,17,18,19,20,21,22,23,25,28,30,31,40,41,50,51,52,53,60,61,64,66,67,69,70,71,90,91,92,93,94,95,96,97,98",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RIDN",
+      "description": "Order number identifying the order from which allocation is removed.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RIDL",
+      "description": "Order line number on the order whose allocation is removed.",
+      "type": "integer",
+      "longName": "OrderLineNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "MAAL",
+      "description": "Code specifying the origin or method of the allocation to be removed, such as manual or automatic.",
+      "type": "string",
+      "longName": "AllocationOrigin",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RIDX",
+      "description": "Line suffix identifying a subline or sequence within the order line to deallocate, when applicable.",
+      "type": "integer",
+      "longName": "LineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "ALQT",
+      "description": "Quantity to deallocate in the item's basic unit of measure, used when removing only part of the allocation.",
+      "type": "number",
+      "longName": "AllocatedQuantityBasicUom",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": []
+}

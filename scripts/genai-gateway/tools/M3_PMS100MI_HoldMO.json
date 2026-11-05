@@ -1,0 +1,133 @@
+{
+  "name": "M3_PMS100MI_HoldMO",
+  "program": "PMS100MI",
+  "transaction": "HoldMO",
+  "version": "2026-05-08T06:06:14.14Z",
+  "type": "get",
+  "description": "Place manufacturing orders on short‑term or long‑term hold. A hold changes the manufacturing order status to a held state (short or long) so that normal processing is stopped until the order is released. Short‑term hold can include immediate rescheduling of the order and its lower‑level orders. Long‑term hold only marks the order as held; dates and rescheduling are handled separately, for example by moving a long‑term held order at a later time. Use the hold type to choose between short‑term and long‑term hold for the identified manufacturing order.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility where the manufacturing order to be held is registered.",
+      "type": "string",
+      "longName": "Facility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PRNO",
+      "description": "Product number for the item on the manufacturing order to be held.",
+      "type": "string",
+      "longName": "ProductNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "MFNO",
+      "description": "Manufacturing order number identifying the order to put on hold.",
+      "type": "string",
+      "longName": "ManufacturingOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "MOHS",
+      "description": "Indicates whether the manufacturing order is placed on short-term or long-term hold. Enter 1 for short-term hold or 2 for long-term hold.",
+      "type": "string",
+      "longName": "HoldMoStatus",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number where the manufacturing order is registered.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "STDT",
+      "description": "New planned start date of the manufacturing order when applying a short-term hold.",
+      "type": "date",
+      "longName": "StartDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "MSTI",
+      "description": "New planned start time of the manufacturing order when applying a short-term hold.",
+      "type": "integer",
+      "longName": "PlannedStartTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FIDT",
+      "description": "New planned finish date of the manufacturing order when applying a short-term hold.",
+      "type": "date",
+      "longName": "PlannedFinishDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "MFTI",
+      "description": "New planned finish time of the manufacturing order when applying a short-term hold.",
+      "type": "integer",
+      "longName": "PlannedFinishTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RPLL",
+      "description": "Indicates whether lower-level orders created through explosion should also be rescheduled with the manufacturing order.",
+      "type": "integer",
+      "longName": "RescheduleLowerLevels",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "name": "M3_CRS100MI_Get",
+  "program": "CRS100MI",
+  "transaction": "Get",
+  "version": "2026-05-08T10:10:44.44Z",
+  "type": "get",
+  "description": "Retrieve a single salesperson by identifier and return the core information stored for that person. The response includes identity and description, organizational context (sales department, business area, shop), and sales process settings such as automatic log-off for Sales Hub. Use this operation to read existing salesperson master data without changing it. Exactly one salesperson record is returned when the identifier exists; otherwise an error message is issued.",
+  "inputParameters": [
+    {
+      "name": "SMCD",
+      "description": "Identifier of the salesperson whose information is retrieved.",
+      "type": "string",
+      "longName": "Salesperson",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "SMCD",
+      "description": "Identifier of the salesperson.",
+      "type": "string",
+      "longName": "Salesperson",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TX40",
+      "description": "Description of the salesperson.",
+      "type": "string",
+      "longName": "Description",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TX15",
+      "description": "Short name for the salesperson.",
+      "type": "string",
+      "longName": "Name",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SDEP",
+      "description": "Sales department to which the salesperson belongs, used for budgeting and statistics.",
+      "type": "string",
+      "longName": "SalesDepartment",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "BUAR",
+      "description": "Business area associated with the salesperson, used for budgeting and statistics.",
+      "type": "string",
+      "longName": "BusinessArea",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PWMT",
+      "description": "PIN code used to authenticate the salesperson in order entry and point-of-sale processes.",
+      "type": "string",
+      "longName": "PinCode",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SHOP",
+      "description": "Shop where the salesperson primarily operates.",
+      "type": "string",
+      "longName": "Shop",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "LOSD",
+      "description": "Indicates whether the salesperson is automatically logged off after each sale in Sales Hub.",
+      "type": "integer",
+      "longName": "AutomaticLogoff",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

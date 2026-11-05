@@ -1,0 +1,67 @@
+{
+  "name": "M3_PPS600MI_PrintPO",
+  "program": "PPS600MI",
+  "transaction": "PrintPO",
+  "version": "2026-10-21T05:05:47.47Z",
+  "type": "get",
+  "description": "Print a purchase order.",
+  "inputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number identifying the purchase order to print.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PRVW",
+      "description": "Indicates whether to generate the purchase order as a print preview instead of a direct print.",
+      "type": "date",
+      "longName": "PrintPreview",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CPPL",
+      "description": "Controls whether copies of previously printed purchase orders should be printed, including options for handling status 99 orders.",
+      "type": "integer",
+      "longName": "PrintCopies",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PPIN",
+      "description": "Controls whether related packing instructions are printed automatically together with the purchase order.",
+      "type": "enum",
+      "longName": "PrintPackingInstruction",
+      "required": false,
+      "enumConstants": "No,StockedKit",
+      "enumValues": "0,1",
+      "enabled": true,
+      "showValues": true
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "BJNO",
+      "description": "Job number assigned to the batch print job.",
+      "type": "string",
+      "longName": "JobNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

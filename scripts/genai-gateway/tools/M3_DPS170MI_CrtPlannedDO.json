@@ -1,0 +1,221 @@
+{
+  "name": "M3_DPS170MI_CrtPlannedDO",
+  "program": "DPS170MI",
+  "transaction": "CrtPlannedDO",
+  "version": "2026-05-08T12:12:33.33Z",
+  "type": "update",
+  "description": "Create planned distribution orders directly in M3 based on item, warehouse, and planning information. This operation creates a distribution order proposal (planned distribution order) without using the distribution-order inbox and batch update flow. You supply the receiving warehouse, sending warehouse, item, planning date, planned quantity, and planned order status, together with optional logistics and reference data. When creation is successful, the operation returns the planned order number, which can be used later for status updates or deletion through other operations in the same interface. The M3 user running the call is stored as the “changed by” user on the created proposal, ensuring correct audit trail and responsibility tracking.",
+  "inputParameters": [
+    {
+      "name": "WHLO",
+      "description": "Receiving warehouse for which the planned distribution order is created.",
+      "type": "string",
+      "longName": "Warehouse",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FWHL",
+      "description": "Supplying warehouse from which the goods in the planned distribution order will be shipped.",
+      "type": "string",
+      "longName": "FromWarehouse",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ITNO",
+      "description": "Item number for the product on the planned distribution order.",
+      "type": "string",
+      "longName": "ItemNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLDT",
+      "description": "Planning date when this planned distribution order affects material planning.",
+      "type": "date",
+      "longName": "PlanningDate",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PPQT",
+      "description": "Quantity of the item to be planned on the distribution order in the item's unit of measure.",
+      "type": "number",
+      "longName": "PlannedQuantity",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PSTS",
+      "description": "Initial status to assign to the planned distribution order.",
+      "type": "enum",
+      "longName": "PlannedOrderStatus",
+      "required": true,
+      "enumConstants": "PlanOrdMan,Pur/planMan,PlanPolicy,ManualStatus,ManualOrAuto,Released,FlaggedForDel",
+      "enumValues": "10,20,30,40,50,60,90",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number for which the planned distribution order is created.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLHM",
+      "description": "Planning time within the planning date when this planned distribution order affects material planning.",
+      "type": "integer",
+      "longName": "PlanningTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "MODL",
+      "description": "Delivery method to use for the shipment on the planned distribution order.",
+      "type": "string",
+      "longName": "DeliveryMethod",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TEDL",
+      "description": "Delivery terms defining when responsibility for the shipment is transferred between parties.",
+      "type": "string",
+      "longName": "DeliveryTerms",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ORTY",
+      "description": "Order type that controls how the planned distribution order is processed.",
+      "type": "string",
+      "longName": "OrderType",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RORC",
+      "description": "Category indicating the type of reference order linked to this planned distribution order.",
+      "type": "enum",
+      "longName": "ReferenceOrderCategory",
+      "required": false,
+      "enumConstants": "UseVaries,ManufactOrder,PurchaseOrder,CustomerOrder,RequisitionOrd,DistribOrd,WorkOrder,ServiceOrder,ProjectOrder,PickLst&Rep",
+      "enumValues": "0,1,2,3,4,5,6,7,8,9",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RORN",
+      "description": "Reference order number related to the planned distribution order, such as the triggering customer or manufacturing order.",
+      "type": "string",
+      "longName": "ReferenceOrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RORL",
+      "description": "Line number on the reference order associated with this planned distribution order.",
+      "type": "integer",
+      "longName": "ReferenceOrderLine",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RORX",
+      "description": "Line suffix on the reference order line associated with this planned distribution order.",
+      "type": "integer",
+      "longName": "ReferenceOrderLineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ORQA",
+      "description": "Ordered quantity for the planned distribution order expressed in an alternate unit of measure.",
+      "type": "number",
+      "longName": "OrderedQuantityAltUom",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TRDY",
+      "description": "Planned transportation lead time in workdays between the supplying and receiving warehouses.",
+      "type": "integer",
+      "longName": "TransportationDays",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TRTE",
+      "description": "Planned transportation time in hours and minutes between the supplying and receiving warehouses.",
+      "type": "number",
+      "longName": "TransportationHours",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "PLPN",
+      "description": "Internal number assigned to the created planned distribution order.",
+      "type": "integer",
+      "longName": "PlannedOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

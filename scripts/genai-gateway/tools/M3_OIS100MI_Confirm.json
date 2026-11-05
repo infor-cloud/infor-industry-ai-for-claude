@@ -1,0 +1,67 @@
+{
+  "name": "M3_OIS100MI_Confirm",
+  "program": "OIS100MI",
+  "transaction": "Confirm",
+  "version": "2026-05-08T05:05:40.40Z",
+  "type": "get",
+  "description": "Confirm batch customer orders and create the final customer order from a temporary batch order. The Confirm operation runs the standard customer order processing logic for a batch order created via batch entry (for example after creating a batch header and lines) and validates all header, line, and credit information. When processing succeeds, it converts the temporary batch order number into a real customer order and returns the resulting order number together with a processing status. Confirm can run either interactively (online) or as a background job, controlled by the confirmation type input. An order is regarded as fully completed only when the returned status code is 90.",
+  "inputParameters": [
+    {
+      "name": "ORNO",
+      "description": "Temporary customer order number (batch order number) to confirm and release into a final customer order.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company in which the batch customer order is registered, if different from the default company.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "CTYP",
+      "description": "Confirmation processing type controlling whether the batch order is processed interactively or via batch and whether an order number is returned.",
+      "type": "string",
+      "longName": "ConfirmationType",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "ORNO",
+      "description": "Final customer order number created from the batch order, or a reserved order number when processed in batch mode.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "STAT",
+      "description": "Processing status of the batch order after confirmation, where 90 means the order is completed and other values indicate validation, credit, or processing issues.",
+      "type": "enum",
+      "longName": "Status",
+      "enumConstants": "New,ErrorInHeader,LinesMissing,ErrorOrdLine,CreditBlocked,Processing,AbnormalEnd,OrderCreated",
+      "enumValues": "10,15,20,25,30,50,55,90",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

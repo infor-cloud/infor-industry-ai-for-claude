@@ -1,0 +1,331 @@
+{
+  "name": "M3_OIS120MI_GetCOStopInfo",
+  "program": "OIS120MI",
+  "transaction": "GetCOStopInfo",
+  "version": "2026-08-26T05:05:18.18Z",
+  "type": "get",
+  "description": "Retrieve customer order stop and credit information for a single customer order. The operation exposes header-level data such as customer and payer, order status and dates, stop and block indicators, and detailed credit-check figures including the three main credit limits, corresponding outstanding amounts, and remaining headroom. The information mirrors what is shown in the customer order stop inquiry and is based on the order header, customer/payer, order type, facility, and credit control settings.",
+  "inputParameters": [
+    {
+      "name": "ORNO",
+      "description": "Customer order number identifying the order for which stop information is retrieved.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "PYNO",
+      "description": "Number identifying the payer responsible for the invoices on the order.",
+      "type": "string",
+      "longName": "PayerNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CUNO",
+      "description": "Number identifying the customer who placed the order.",
+      "type": "string",
+      "longName": "CustomerNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "BLCD",
+      "description": "Block code controlling whether customer order entry and picking list printing are blocked for the customer.",
+      "type": "enum",
+      "longName": "CustomerBlockCode",
+      "enumConstants": "NotBlocked,BlockPartially,BlockCo,BlockCo-Eqm",
+      "enumValues": "0,1,2,3",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SMCD",
+      "description": "Salesperson responsible for the customer or this order.",
+      "type": "string",
+      "longName": "Salesperson",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORNO",
+      "description": "Customer order number identifying the order for which stop information is retrieved.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORTP",
+      "description": "Customer order type that controls number series and processing rules for the order.",
+      "type": "string",
+      "longName": "CustomerOrderType",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORSL",
+      "description": "Lowest line status among all lines on the customer order.",
+      "type": "enum",
+      "longName": "LowestOrderStatus",
+      "enumConstants": "Quotation,Preliminary,Registered,Reserved,Reserved/allocated,Reserved/pickingList,Reserved/delivered,Reserved/invoiced,Reserved/completed,Allocated,Allocated/pickingList,Allocated/delivered,Allocated/invoiced,Allocated/completed,PickingList,PickingList/delivered,PickingList/invoiced,PickingList/completed,Delivered,Delivered/invoiced,Delivered/completed,Invoiced,Invoiced/completed,Deleted,FlaggedAsComp",
+      "enumValues": "05,10,20,22,23,24,26,27,29,33,34,36,37,39,44,46,47,49,66,67,69,77,79,90,99",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORST",
+      "description": "Highest line status among all lines on the customer order.",
+      "type": "enum",
+      "longName": "HighestOrderStatus",
+      "enumConstants": "Quotation,Preliminary,Registered,Reserved,Reserved/allocated,Reserved/pickingList,Reserved/delivered,Reserved/invoiced,Reserved/completed,Allocated,Allocated/pickingList,Allocated/delivered,Allocated/invoiced,Allocated/completed,PickingList,PickingList/delivered,PickingList/invoiced,PickingList/completed,Delivered,Delivered/invoiced,Delivered/completed,Invoiced,Invoiced/completed,Deleted,FlaggedAsComp",
+      "enumValues": "05,10,20,22,23,24,26,27,29,33,34,36,37,39,44,46,47,49,66,67,69,77,79,90,99",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORDT",
+      "description": "Date when the customer order was registered.",
+      "type": "date",
+      "longName": "OrderDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RLDT",
+      "description": "Date requested by the customer for delivery of the order.",
+      "type": "date",
+      "longName": "RequestedDeliveryDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "NTAM",
+      "description": "Net order value including discounts, expressed in the domestic currency and excluding charges.",
+      "type": "number",
+      "longName": "NetOrderValue",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OBLC",
+      "description": "Stop code used to filter the list to customer orders blocked for a specific reason.",
+      "type": "enum",
+      "longName": "CustomerOrderStopCode",
+      "enumConstants": "No stop - picking list can be printed,Credit limit 1 (overdue),Credit limit 2 (total outstanding),Credit limit 3 (outstanding + order stock),Credit limit 4 (number of days overdue),Connected to letter of credit via (RMS100),Time fenced credit limit issue,Manually set stop for optional use,Manually set stop for optional use,Manually released order",
+      "enumValues": "0,1,2,3,4,5,6,7,8,9",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "STAT",
+      "description": "Status of the customer order stop record.",
+      "type": "enum",
+      "longName": "Status",
+      "enumConstants": "TemplateItem,ItemNumber-Cost,ReplaceItem,Released,AlternateItem,LwTurnovr,Discontinued,NotCarrd,NotStock,ItmNoChg",
+      "enumValues": "05,10,15,20,30,40,50,80,90,99",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "LNCD",
+      "description": "Language code used for printing external documents for this order.",
+      "type": "string",
+      "longName": "LanguageCode",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TEPY",
+      "description": "Payment terms defining how the invoice due date for this order is calculated.",
+      "type": "string",
+      "longName": "PaymentTerms",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CUCD",
+      "description": "Currency code used for the credit limits and monetary amounts shown for this payer.",
+      "type": "string",
+      "longName": "Currency",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CRLM",
+      "description": "Credit limit for past due invoices used when checking the payer's credit.",
+      "type": "number",
+      "longName": "CreditLimitPastDueInvoices",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ODIN",
+      "description": "Total invoice amount that is overdue for payment, excluding VAT, in the customer's currency.",
+      "type": "number",
+      "longName": "OverdueInvoiceAmount",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "DIF1",
+      "description": "Available credit for past due invoices, calculated as credit limit 1 minus the overdue invoice amount.",
+      "type": "number",
+      "longName": "AvailableCreditPastDueInvoices",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CRL2",
+      "description": "Credit limit for total outstanding invoices used when checking the payer's credit.",
+      "type": "number",
+      "longName": "CreditLimitOutstandingInvoices",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OINA",
+      "description": "Total outstanding invoice amount, excluding VAT, in the customer's currency.",
+      "type": "number",
+      "longName": "OutstandingInvoiceAmount",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "DIF2",
+      "description": "Available credit for outstanding invoices, calculated as credit limit 2 minus the outstanding invoice amount.",
+      "type": "number",
+      "longName": "AvailableCreditOutstandingInvoices",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CRL3",
+      "description": "Credit limit for combined outstanding invoices and open orders used when checking the payer's credit.",
+      "type": "number",
+      "longName": "CreditLimitInvoicesAndOrders",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OVNI",
+      "description": "Total order value not yet invoiced, expressed in the customer's currency.",
+      "type": "number",
+      "longName": "IncludingBacklog",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OWOR",
+      "description": "Outstanding invoice amount considered without credit risk and excluded when evaluating credit limits.",
+      "type": "number",
+      "longName": "OutstandingAmountWithoutRisk",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OVWR",
+      "description": "Order value considered without credit risk and excluded when evaluating credit limit 3.",
+      "type": "number",
+      "longName": "OrderValueWithoutRisk",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "DIF3",
+      "description": "Available credit for invoices and orders combined, calculated as credit limit 3 minus the order value not yet invoiced.",
+      "type": "number",
+      "longName": "AvailableCreditInvoicesAndOrders",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PYGR",
+      "description": "Credit group used for joint credit checking and credit limits across associated payers.",
+      "type": "string",
+      "longName": "CreditGroup",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

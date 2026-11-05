@@ -1,0 +1,45 @@
+{
+  "name": "M3_OIS100MI_DelHead",
+  "program": "OIS100MI",
+  "transaction": "DelHead",
+  "version": "2026-05-08T05:05:09.09Z",
+  "type": "delete",
+  "description": "Delete an existing customer order and mark it as deleted by setting its header status to 90 (Deleted). Use this operation when the entire order should be removed from further processing. The order is identified by its customer order number, and there is no response payload; the result is visible when the order header later shows status 90. This operation acts on the whole order header, not on individual lines.",
+  "inputParameters": [
+    {
+      "name": "ORNO",
+      "description": "Customer order number whose header will be deleted and the order set to status 90 (Deleted).",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company in which the customer order is registered, if different from the default company.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

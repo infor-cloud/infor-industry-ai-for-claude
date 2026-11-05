@@ -1,0 +1,265 @@
+{
+  "name": "M3_PMS100MI_SplitMO",
+  "program": "PMS100MI",
+  "transaction": "SplitMO",
+  "version": "2026-05-08T06:06:32.32Z",
+  "type": "get",
+  "description": "Split a manufacturing order into two separate orders based on a specified operation and quantity. The original order keeps part of the quantity, and a new manufacturing order is created for the remaining part. You identify the order to split by facility, product number, manufacturing order number, and the operation that defines the split point. You also control how dates, times, priority, manual reclassification, and subcontracting behave for both the remaining and the new order. The response returns the generated manufacturing order number for the new order and the job number that identifies the related background job.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility where the manufacturing order to be split is registered.",
+      "type": "string",
+      "longName": "Facility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PRNO",
+      "description": "Product number for the manufactured item on the order to be split.",
+      "type": "string",
+      "longName": "ProductNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "MFNO",
+      "description": "Manufacturing order number to split into two orders.",
+      "type": "string",
+      "longName": "ManufacturingOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OPNO",
+      "description": "Operation number at which the manufacturing order is to be split.",
+      "type": "integer",
+      "longName": "OperationNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "KORQ",
+      "description": "Order quantity to assign to the new manufacturing order created by the split.",
+      "type": "integer",
+      "longName": "OrderQuantity",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OFDT",
+      "description": "Finish date for the original manufacturing order after the split when entered manually.",
+      "type": "date",
+      "longName": "OriginalFinishDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OMFT",
+      "description": "Finish time for the original manufacturing order after the split when entered manually.",
+      "type": "integer",
+      "longName": "OriginalFinishTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OSTD",
+      "description": "Start date for the original manufacturing order after the split when entered manually.",
+      "type": "date",
+      "longName": "OriginalStartDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OMST",
+      "description": "Start time for the original manufacturing order after the split when entered manually.",
+      "type": "integer",
+      "longName": "OriginalStartTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OMRE",
+      "description": "Manual reclassification date for the original manufacturing order after the split, if used.",
+      "type": "date",
+      "longName": "OriginalManualReclassificationDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OMCR",
+      "description": "Manual reclassification time for the original manufacturing order after the split, if used.",
+      "type": "integer",
+      "longName": "OriginalManualReclassificationTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "NFDT",
+      "description": "Finish date to assign to the new manufacturing order created by the split.",
+      "type": "date",
+      "longName": "NewOrderFinishDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "NMFT",
+      "description": "Finish time to assign to the new manufacturing order created by the split.",
+      "type": "integer",
+      "longName": "NewOrderFinishTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "NSTD",
+      "description": "Start date to assign to the new manufacturing order created by the split.",
+      "type": "date",
+      "longName": "NewOrderStartDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "NMST",
+      "description": "Start time to assign to the new manufacturing order created by the split.",
+      "type": "integer",
+      "longName": "NewOrderStartTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "NMRE",
+      "description": "Manual reclassification date for the new manufacturing order created by the split, if used.",
+      "type": "date",
+      "longName": "NewOrderManualReclassificationDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "NMRC",
+      "description": "Manual reclassification time for the new manufacturing order created by the split, if used.",
+      "type": "integer",
+      "longName": "NewOrderManualReclassificationTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PRIO",
+      "description": "Priority of the new manufacturing order for planning and scheduling.",
+      "type": "enum",
+      "longName": "OrderPriority",
+      "required": false,
+      "enumConstants": "HighPriority,HighPriority2,HighPriority3,HighPriority4,HighPriority5,NormPriority,LowPriority,LowPriority2,LowPriority3,LowPriority4",
+      "enumValues": "0,1,2,3,4,5,6,7,8,9",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CRNS",
+      "description": "Indicator specifying whether a new subcontract order should be created for the split order.",
+      "type": "integer",
+      "longName": "CreateSubcontractOrder",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "UDAT",
+      "description": "Option controlling whether the start and finish date/time of the original manufacturing order are entered manually or copied from the existing order. For options that copy dates from the original order, the corresponding original date and time fields must be left blank.",
+      "type": "integer",
+      "longName": "UseOriginalOrderDates",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "BJNO",
+      "description": "Batch job number to use when processing the split via autojob, if applicable.",
+      "type": "string",
+      "longName": "JobNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "MFNO",
+      "description": "Manufacturing order number of the new order generated by the split.",
+      "type": "string",
+      "longName": "ManufacturingOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "BJNO",
+      "description": "Batch job number associated with processing the split, if the split runs via autojob.",
+      "type": "string",
+      "longName": "JobNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

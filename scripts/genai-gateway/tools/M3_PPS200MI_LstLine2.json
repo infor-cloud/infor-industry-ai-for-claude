@@ -1,0 +1,287 @@
+{
+  "name": "M3_PPS200MI_LstLine2",
+  "program": "PPS200MI",
+  "transaction": "LstLine2",
+  "version": "2026-05-08T07:07:35.35Z",
+  "type": "list",
+  "description": "List purchase order lines for a specific purchase order and return the full-length item and text fields for each line. The operation outputs the complete item name, the purchase order–specific item name, and the purchase order–specific item description, avoiding the truncation that applies in the standard list of purchase order lines. In addition to these texts, it returns basic line identity, configuration and kit control, date and planning data, pricing and reservation method, completion and charge flags, and key project, geographical, origin, and tax information. It is designed as a complement to the more detailed quantitative line listing.",
+  "inputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number whose lines are listed in this transaction.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number used to select the purchase order; defaults to the logged-in company.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number that owns the purchase order.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PUNO",
+      "description": "Purchase order number for which lines are displayed.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PNLI",
+      "description": "Purchase order line number identifying the line being listed.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PNLS",
+      "description": "Purchase order line suffix identifying a specific split or subline of the line.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineSuffix",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "CFIN",
+      "description": "Configuration number identifying the item configuration used for this purchase order line.",
+      "type": "integer",
+      "longName": "ConfigurationNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "FSCD",
+      "description": "Kit control setting indicating whether the kit structure for this line is fixed or can be modified.",
+      "type": "enum",
+      "longName": "KitControl",
+      "enumConstants": "NotUsed,FixedStructure,VariableStruct,AttrControl",
+      "enumValues": "0,1,2,3",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "DT4T",
+      "description": "Date type controlling which key date, such as requested delivery or planned put-away, applies to this line.",
+      "type": "enum",
+      "longName": "DateType",
+      "enumConstants": "ReqDelyDate,Put-awayDate,ReqDelyDt-NoChg,ReqDelyDt-HrMin",
+      "enumValues": "1,2,3,4",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PLDT",
+      "description": "Date when this purchase order line affects material planning.",
+      "type": "date",
+      "longName": "PlanningDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PSET",
+      "description": "Pricing method that defines how kit prices are calculated and distributed across component lines for this order line.",
+      "type": "enum",
+      "longName": "PricingMethod",
+      "enumConstants": "NotUsed,FixedStructure,VariableStruct",
+      "enumValues": "0,1,2",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "SRCD",
+      "description": "Reservation level indicating whether inventory is reserved at kit level or component level for this line.",
+      "type": "enum",
+      "longName": "ReservationLevel",
+      "enumConstants": "NotUsed,KitNo.Level,MaterialLevel",
+      "enumValues": "0,1,2",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "OEND",
+      "description": "Indicator showing whether the purchase order line is flagged as fully completed with no remaining quantity to receive.",
+      "type": "boolean",
+      "longName": "FinishMark",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "INEP",
+      "description": "Total internal charges allocated to this purchase order line, excluding line-unique charges.",
+      "type": "number",
+      "longName": "InternalCharge",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "EXEP",
+      "description": "Total external charges allocated to this purchase order line, excluding line-unique charges.",
+      "type": "number",
+      "longName": "ExternalCharge",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "GTNF",
+      "description": "Flag indicating whether GT Nexus processing for this purchase order line is completed.",
+      "type": "integer",
+      "longName": "GtNexusCompletedFlag",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "ITDS",
+      "description": "Full-length item name for the ordered item on the purchase order line.",
+      "type": "string",
+      "longName": "ItemName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PITD",
+      "description": "Full-length item name as printed on the purchase order line.",
+      "type": "string",
+      "longName": "PurchaseOrderItemName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PITT",
+      "description": "Full-length extended item description as printed on the purchase order line.",
+      "type": "string",
+      "longName": "PurchaseOrderItemDescription",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "GEOC",
+      "description": "Geographical code used for tax calculation on this purchase order line.",
+      "type": "integer",
+      "longName": "GeographicalCode",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "ETRF",
+      "description": "Reference code for standard external text to print on this purchase order line.",
+      "type": "string",
+      "longName": "ExternalTextReference",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PROJ",
+      "description": "Project number that this purchase order line is linked to.",
+      "type": "string",
+      "longName": "ProjectNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ELNO",
+      "description": "Project element within the linked project that this purchase order line is associated with.",
+      "type": "string",
+      "longName": "ProjectElement",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORCO",
+      "description": "Country of origin for the item on this purchase order line.",
+      "type": "string",
+      "longName": "CountryOfOrigin",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TAXC",
+      "description": "Tax code indicating whether this purchase order line is taxable for sales tax calculations.",
+      "type": "string",
+      "longName": "TaxCode",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

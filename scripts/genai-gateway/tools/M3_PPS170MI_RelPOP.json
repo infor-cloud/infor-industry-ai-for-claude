@@ -1,0 +1,111 @@
+{
+  "name": "M3_PPS170MI_RelPOP",
+  "program": "PPS170MI",
+  "transaction": "RelPOP",
+  "version": "2026-05-08T07:07:56.56Z",
+  "type": "get",
+  "description": "Release multiple planned purchase orders into firm purchase orders in one request. This operation runs the same batch release logic as the PPS914 batch function, converting planning proposals into actual purchase orders that can be processed and sent to suppliers. When several planned purchase orders share the same purchase order consolidation group and other compatible data (for example supplier and purchase order type), the release can consolidate them into a single purchase order. This supports scenarios such as turning all proposals related to a work order into one consolidated purchase order, instead of many separate orders.",
+  "inputParameters": [
+    {
+      "name": "FBUY",
+      "description": "Starting buyer in the buyer range for which planned purchase orders are released.",
+      "type": "string",
+      "longName": "FromBuyer",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TBUY",
+      "description": "Ending buyer in the buyer range for which planned purchase orders are released.",
+      "type": "string",
+      "longName": "ToBuyer",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FSUN",
+      "description": "Starting supplier number in the supplier range for which planned purchase orders are released.",
+      "type": "string",
+      "longName": "FromSupplierNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TSUN",
+      "description": "Ending supplier number in the supplier range for which planned purchase orders are released.",
+      "type": "string",
+      "longName": "ToSupplierNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FFAC",
+      "description": "Starting facility in the facility range for which planned purchase orders are released.",
+      "type": "string",
+      "longName": "FromFacility",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TFAC",
+      "description": "Ending facility in the facility range for which planned purchase orders are released.",
+      "type": "string",
+      "longName": "ToFacility",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FPUN",
+      "description": "Starting purchase order number in the range of planned purchase orders to be released.",
+      "type": "string",
+      "longName": "FromPurchaseOrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TPUN",
+      "description": "Ending purchase order number in the range of planned purchase orders to be released.",
+      "type": "string",
+      "longName": "ToPurchaseOrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

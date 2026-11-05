@@ -1,0 +1,276 @@
+{
+  "name": "M3_PMS100MI_Reschedule",
+  "program": "PMS100MI",
+  "transaction": "Reschedule",
+  "version": "2026-05-08T06:06:30.30Z",
+  "type": "get",
+  "description": "Reschedule an existing manufacturing order by updating its planned dates, times, quantity and priority at header level. This request recalculates the order’s timing using either infinite or finite capacity planning and can optionally propagate changes to lower‑level orders created by explosion. It can also maintain manual expiration and reclassification dates for lot‑controlled items so that shelf‑life and reclassification follow the new plan. No data is returned; the operation only updates the identified manufacturing order.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility where the manufacturing order to be rescheduled is registered.",
+      "type": "string",
+      "longName": "Facility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PRNO",
+      "description": "Product number for the item on the manufacturing order to be rescheduled.",
+      "type": "string",
+      "longName": "ProductNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "MFNO",
+      "description": "Manufacturing order number identifying the order to be rescheduled.",
+      "type": "string",
+      "longName": "ManufacturingOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ORQA",
+      "description": "Ordered quantity for the manufacturing order expressed in an alternate unit of measure.",
+      "type": "number",
+      "longName": "OrderedQuantityAltUom",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "WLDE",
+      "description": "Indicates whether the manufacturing order is rescheduled using finite or infinite capacity planning.",
+      "type": "boolean",
+      "longName": "FiniteCapacityPlanning",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number that owns the manufacturing order.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "STDT",
+      "description": "New planned start date for the manufacturing order when rescheduling.",
+      "type": "date",
+      "longName": "StartDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FIDT",
+      "description": "New planned finish date for the manufacturing order when rescheduling.",
+      "type": "date",
+      "longName": "PlannedFinishDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PRIO",
+      "description": "Updated priority of the manufacturing order for planning and scheduling.",
+      "type": "enum",
+      "longName": "OrderPriority",
+      "required": false,
+      "enumConstants": "HighPriority,HighPriority2,HighPriority3,HighPriority4,HighPriority5,NormPriority,LowPriority,LowPriority2,LowPriority3,LowPriority4",
+      "enumValues": "0,1,2,3,4,5,6,7,8,9",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "DSP1",
+      "description": "Warning indicator used to acknowledge date-related warnings when rescheduling the manufacturing order.",
+      "type": "integer",
+      "longName": "WarningIndicator1",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "DSP2",
+      "description": "Warning indicator used to acknowledge additional rescheduling warnings related to start date or order connections.",
+      "type": "integer",
+      "longName": "WarningIndicator2",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "DSP3",
+      "description": "Warning indicator used to acknowledge warnings about finish date or subcontracted content when rescheduling.",
+      "type": "integer",
+      "longName": "WarningIndicator3",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "DSP4",
+      "description": "Warning indicator used to acknowledge quantity-related warnings when rescheduling.",
+      "type": "integer",
+      "longName": "WarningIndicator4",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "DSP5",
+      "description": "Warning indicator used to acknowledge warnings about previous rescheduling or alternate routing when rescheduling.",
+      "type": "integer",
+      "longName": "WarningIndicator5",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "DSP6",
+      "description": "Warning indicator used to acknowledge warnings about started operations or order multiples when rescheduling.",
+      "type": "integer",
+      "longName": "WarningIndicator6",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "DSP7",
+      "description": "Additional warning indicator used to acknowledge specific system warnings during rescheduling.",
+      "type": "integer",
+      "longName": "WarningIndicator7",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "DSP8",
+      "description": "Warning indicator used to acknowledge warnings that operations have already been started when rescheduling.",
+      "type": "integer",
+      "longName": "WarningIndicator8",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "MEXP",
+      "description": "Manual expiration date for the manufactured item or lot, overriding any system-calculated expiry if used.",
+      "type": "date",
+      "longName": "ManualExpirationDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "MSTI",
+      "description": "New planned start time for the manufacturing order when rescheduling.",
+      "type": "integer",
+      "longName": "PlannedStartTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "MFTI",
+      "description": "New planned finish time for the manufacturing order when rescheduling.",
+      "type": "integer",
+      "longName": "PlannedFinishTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "RPLL",
+      "description": "Indicates whether lower-level orders created from the manufacturing order should also be rescheduled.",
+      "type": "integer",
+      "longName": "RescheduleLowerLevels",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "MREC",
+      "description": "Manual reclassification date specifying when the manufactured items may be reclassified between quality statuses.",
+      "type": "date",
+      "longName": "ManualReclassificationDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "MRCT",
+      "description": "Manual reclassification time specifying when on the reclassification date the status change may occur.",
+      "type": "integer",
+      "longName": "ManualReclassificationTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

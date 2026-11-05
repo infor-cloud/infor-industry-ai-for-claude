@@ -1,0 +1,210 @@
+{
+  "name": "M3_PDS016MI_GetDailyCap",
+  "program": "PDS016MI",
+  "transaction": "GetDailyCap",
+  "version": "2026-05-08T06:06:50.50Z",
+  "type": "get",
+  "description": "Retrieve daily capacity for a specific work center, date, and time interval. The call returns one capacity bucket within a facility, including company, work center, shift, start and end time, nominal number of hours, capacity type (man-hours or machine hours), utilization rate, number of machines, and, when configured, alternate capacity and its unit of measure. The call is read-only and does not change any capacity definitions.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility where the work center daily capacity record to retrieve is defined.",
+      "type": "string",
+      "longName": "Facility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLGR",
+      "description": "Work center whose daily capacity record is to be retrieved.",
+      "type": "string",
+      "longName": "WorkCenter",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DATE",
+      "description": "Calendar date of the daily capacity record to retrieve.",
+      "type": "date",
+      "longName": "Date",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "STIM",
+      "description": "Start time of the daily capacity interval to retrieve on the specified date.",
+      "type": "integer",
+      "longName": "StartTime",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number to which the daily capacity record belongs.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FACI",
+      "description": "Facility where the daily capacity for the work center is defined.",
+      "type": "string",
+      "longName": "Facility",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLGR",
+      "description": "Work center for which this daily capacity record is defined.",
+      "type": "string",
+      "longName": "WorkCenter",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "DATE",
+      "description": "Calendar date of the daily capacity record.",
+      "type": "date",
+      "longName": "Date",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "STIM",
+      "description": "Start time of the daily capacity interval on the specified date.",
+      "type": "integer",
+      "longName": "StartTime",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SHFC",
+      "description": "Shift to which this daily capacity record applies.",
+      "type": "string",
+      "longName": "Shift",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ETIM",
+      "description": "End time of the daily capacity interval on the specified date.",
+      "type": "integer",
+      "longName": "EndTime",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "AVEF",
+      "description": "Utilization rate expressing net capacity as a percentage of rated capacity for this work center and day.",
+      "type": "number",
+      "longName": "UtilizationRate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "GHRS",
+      "description": "Nominal number of capacity hours for this work center and day.",
+      "type": "number",
+      "longName": "NominalHours",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PCAP",
+      "description": "Capacity type indicating whether capacity is expressed in machine hours or man-hours.",
+      "type": "enum",
+      "longName": "CapacityType",
+      "enumConstants": "MachineHours,ManHours",
+      "enumValues": "1,2",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "WCNM",
+      "description": "Number of machines included in the work center for this daily capacity record.",
+      "type": "number",
+      "longName": "NumberOfMachines",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CPTY",
+      "description": "Rated capacity per unit and shift for the work center on this day.",
+      "type": "number",
+      "longName": "CapacityPerUnitAndShift",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ACAP",
+      "description": "Rated alternate capacity per unit and shift for the work center on this day.",
+      "type": "number",
+      "longName": "AlternateCapacity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RCUN",
+      "description": "Unit of measure used for the alternate capacity for this work center and day.",
+      "type": "string",
+      "longName": "AlternateCapacityUnitOfMeasure",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

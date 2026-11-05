@@ -1,0 +1,56 @@
+{
+  "name": "M3_PMS170MI_SetStatus",
+  "program": "PMS170MI",
+  "transaction": "SetStatus",
+  "version": "2026-05-08T06:06:32.32Z",
+  "type": "get",
+  "description": "Set the status of a manufacturing order proposal using its internal proposal number. This operation updates only the proposal status in M3 and leaves quantities, dates and other planning data unchanged. Use it to move a proposal through its lifecycle, for example from planned to purchase requisition or to released for manufacturing, according to your planning policy. It works on existing planned orders created by material planning and uses the same numeric status codes as interactive manufacturing order proposal handling.",
+  "inputParameters": [
+    {
+      "name": "PLPN",
+      "description": "Planned order number identifying the manufacturing order proposal whose status is updated.",
+      "type": "integer",
+      "longName": "PlannedOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PSTS",
+      "description": "New status to assign to the planned manufacturing order proposal.",
+      "type": "enum",
+      "longName": "PlannedOrderStatus",
+      "required": true,
+      "enumConstants": "AutoError,AutoWarning,PlanOrdMan,PlanOrdAuto,Pur/planMan,ForcFromCo,DeferredOrder,ManualStatus,Authorized,Released,WoInProgress,Cancelled,EstimateNeeded,EstimateDone,EstimateConf,QuotePrinted,QuoteRejected,QuotePartAcc,QuoteAccepted",
+      "enumValues": "00,05,10,15,20,25,30,40,55,60,65,90,Q0,Q1,Q2,Q3,Q4,Q5,Q6",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number for the manufacturing order proposal whose status is updated.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

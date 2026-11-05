@@ -1,0 +1,77 @@
+{
+  "name": "M3_MMS120MI_AllocateOrdLine",
+  "program": "MMS120MI",
+  "transaction": "AllocateOrdLine",
+  "version": "2026-05-08T02:02:38.38Z",
+  "type": "get",
+  "description": "Allocate a specific order line to available stock for a given stock transaction type and allocation origin. This operation performs the same high-level allocation as Allocation. Perform (MMS120) but is limited to one line, for example a single customer or distribution order line. It uses the order number, order line, and optional line suffix to identify the demand, then reserves allocatable on-hand balance according to standard M3 allocation rules. Use this instead of the full-order allocation operation when only one line requires allocation or a different quantity.",
+  "inputParameters": [
+    {
+      "name": "TTYP",
+      "description": "Stock transaction type for the order line being allocated.",
+      "type": "enum",
+      "longName": "StockTransactionType",
+      "required": true,
+      "enumConstants": "Forecast,InventoryBuildUp,ManufacturingOrderReceipt,ManufacturingOrderIssue,ManufacturingOrderReceiptOfCo-produc,ManufacturingOrderReceiptOfBy-produc,ManufacturingOrderReceiptQi,ManufacturingOrderReceiptOfCo-prdQi,ManufacturingOrderReceiptOfBy-prdQi,PurchaseOrderReceipt,PoReceiptInInventoryForInspection,PurchaseOrderRejectedDuringInspect,PurchaseOrderApprovedFromInspect,PurchaseOrderPut-away,PurchaseOrder-AgreementOrder,CustomerOrderReceipt,CustomerOrderIssue,RequisitionOrderReceipt,RequisitionOrderIssue,DistributionOrderReceipt,DistributionOrderIssue,DistributionOrderTransit,Do-ReceiptVariances,WorkOrderReceipt,WorkOrderIssue,WorkOrderScrap,WorkOrderRemoval,WorkOrderInstallation,WorkOrder-Scrapping,ServiceOrderReceipt,ServiceOrderIssue,PhysicalInventoryVariances,Scrapping,ReplenishmentMoveOrderIssue,ReplenishmentMoveOrderReceipt,ResetOn-handBalance,CatchWeightAdjustment,Reclassification-StockStatus,Reclassification-Lot,Reclassification-ItemNumber",
+      "enumValues": "1,2,10,11,12,13,17,18,19,20,21,22,23,25,28,30,31,40,41,50,51,52,53,60,61,64,66,67,69,70,71,90,91,92,93,94,95,96,97,98",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RIDN",
+      "description": "Order number for the order whose line is being allocated.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RIDL",
+      "description": "Order line number on the order whose balance will be allocated.",
+      "type": "integer",
+      "longName": "OrderLineNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "MAAL",
+      "description": "Code specifying the origin or method of the allocation, such as manual or automatic.",
+      "type": "string",
+      "longName": "AllocationOrigin",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RIDX",
+      "description": "Line suffix identifying the subline or sequence on the order line being allocated, when applicable.",
+      "type": "integer",
+      "longName": "LineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "ALQT",
+      "description": "Quantity to allocate in the item's basic unit of measure.",
+      "type": "number",
+      "longName": "AllocatedQuantityBasicUom",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": []
+}

@@ -1,0 +1,254 @@
+{
+  "name": "M3_PDS013MI_LstAltMat",
+  "program": "PDS013MI",
+  "transaction": "LstAltMat",
+  "version": "2026-05-08T06:06:30.30Z",
+  "type": "list",
+  "description": "List alternate material records defined for a product in a facility. The operation returns all alternate component materials that belong to the product structure, including identity, description, quantity settings, priority, issue method, normal waste, attribute reference, and text identity. It is read-only and is used to review how alternate materials are set up for planning and manufacturing across structure types and sequences for the selected product and facility.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility for which to list alternate material records.",
+      "type": "string",
+      "longName": "Facility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PRNO",
+      "description": "Product number whose product structure's alternate materials are to be listed.",
+      "type": "string",
+      "longName": "ProductNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "STRT",
+      "description": "Product structure type used to filter the alternate material records.",
+      "type": "string",
+      "longName": "ProductStructureType",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "MSEQ",
+      "description": "Sequence number of the material line used to filter the alternate material records.",
+      "type": "integer",
+      "longName": "SequenceNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "MTAL",
+      "description": "Alternate component item number used to filter the list of records.",
+      "type": "string",
+      "longName": "AlternativeComponentNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "FDAT",
+      "description": "Start date from which valid alternate material records are listed.",
+      "type": "date",
+      "longName": "FromDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility where the alternate material record is defined.",
+      "type": "string",
+      "longName": "Facility",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PRNO",
+      "description": "Product number whose structure includes the alternate material.",
+      "type": "string",
+      "longName": "ProductNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "STRT",
+      "description": "Product structure type for which the alternate material record is defined.",
+      "type": "string",
+      "longName": "ProductStructureType",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "MSEQ",
+      "description": "Sequence number identifying the specific material line in the product structure.",
+      "type": "integer",
+      "longName": "SequenceNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "MTAL",
+      "description": "Item number of the alternate component in the product structure.",
+      "type": "string",
+      "longName": "AlternativeComponentNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ITDS",
+      "description": "Name or description of the alternate component item.",
+      "type": "string",
+      "longName": "ItemName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FDAT",
+      "description": "Start date from which the alternate material record is valid.",
+      "type": "date",
+      "longName": "FromDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PREX",
+      "description": "Priority of this alternate material compared to other alternatives for the same component.",
+      "type": "string",
+      "longName": "Priority",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CNQT",
+      "description": "Quantity of the alternate component used in the product structure.",
+      "type": "number",
+      "longName": "ComponentQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PEUN",
+      "description": "Unit of measure used to express the alternate component quantity in the product structure.",
+      "type": "string",
+      "longName": "EngineeringUnitOfMeasure",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "DCCD",
+      "description": "Number of decimal places used when processing the component quantity for this alternate material.",
+      "type": "enum",
+      "longName": "QuantityDecimalPlaces",
+      "enumConstants": "NoDecimals,OneDecimal,TwoDecimals,ThreeDecimals,FourDecimals,FiveDecimals,SixDecimals",
+      "enumValues": "0,1,2,3,4,5,6",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "SPMT",
+      "description": "Method used to issue the alternate component to manufacturing or work orders.",
+      "type": "enum",
+      "longName": "IssueMethod",
+      "enumConstants": "PickingList,Requisition,BackflPut-away,BackflushOp2,BackfPut-away2,BackfOp2,Redistribution,AutomaticWeighing-inAndOutByExternSystem,AutomaticWeighing-inByExternSystem",
+      "enumValues": "1,2,3,4,5,6,7,8,9",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "WAPC",
+      "description": "Expected scrap or waste percentage for the alternate component.",
+      "type": "number",
+      "longName": "NormalWastePercentage",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "ATNR",
+      "description": "Attribute number associated with this alternate material, if attribute-controlled.",
+      "type": "integer",
+      "longName": "AttributeNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TXID",
+      "description": "Identifier for any text or comments linked to this alternate material line.",
+      "type": "integer",
+      "longName": "TextIdentity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "FXCD",
+      "description": "Indicates whether the alternate component quantity is fixed regardless of the order quantity.",
+      "type": "enum",
+      "longName": "FixedQuantityFlag",
+      "enumConstants": "Normal,Fixed,Percent",
+      "enumValues": "0,1,2",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    }
+  ]
+}

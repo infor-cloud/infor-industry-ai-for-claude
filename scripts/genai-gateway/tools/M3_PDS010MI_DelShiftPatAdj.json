@@ -1,0 +1,67 @@
+{
+  "name": "M3_PDS010MI_DelShiftPatAdj",
+  "program": "PDS010MI",
+  "transaction": "DelShiftPatAdj",
+  "version": "2026-05-08T06:06:05.05Z",
+  "type": "delete",
+  "description": "Delete a shift pattern adjustment for a specific work center and start date. A shift pattern adjustment temporarily overrides the normal shift pattern that controls capacity and scheduling. This operation removes that override, so only the remaining shift pattern setup is used for the affected period. The adjustment to delete is uniquely identified by facility, work center, and the adjustment start date.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility where the work center shift pattern adjustment to delete is defined.",
+      "type": "string",
+      "longName": "Facility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLGR",
+      "description": "Work center for which the shift pattern adjustment to delete is defined.",
+      "type": "string",
+      "longName": "WorkCenter",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FRDT",
+      "description": "Start date of the shift pattern adjustment to delete.",
+      "type": "date",
+      "longName": "FromDate",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company to which the facility and work center for this shift pattern adjustment belong.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

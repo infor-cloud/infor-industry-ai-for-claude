@@ -1,0 +1,78 @@
+{
+  "name": "M3_PDS010MI_CrtCapacity",
+  "program": "PDS010MI",
+  "transaction": "CrtCapacity",
+  "version": "2026-05-08T06:06:57.57Z",
+  "type": "update",
+  "description": "Re-create work center capacity for a given facility and date range. CrtCapacity regenerates capacity records for a single work center between a start date and an end date so that they reflect the current setup of that work center. It updates the capacity stored in M3 that is used by planning and scheduling, but it does not return any data in the response.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility where the work center whose capacity will be recreated is located.",
+      "type": "string",
+      "longName": "Facility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLGR",
+      "description": "Work center for which server capacity will be recreated.",
+      "type": "string",
+      "longName": "WorkCenter",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FRDT",
+      "description": "First date in the period for which work center capacity will be recreated.",
+      "type": "date",
+      "longName": "FromDate",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TODT",
+      "description": "Last date in the period for which work center capacity will be recreated.",
+      "type": "date",
+      "longName": "ToDate",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company for which the work center capacity will be recreated.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

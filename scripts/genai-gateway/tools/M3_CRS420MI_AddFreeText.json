@@ -1,0 +1,56 @@
+{
+  "name": "M3_CRS420MI_AddFreeText",
+  "program": "CRS420MI",
+  "transaction": "AddFreeText",
+  "version": "2026-05-08T10:10:04.04Z",
+  "type": "get",
+  "description": "Add user-defined free text to an existing application message. This operation attaches a short, user-maintained text entry to the message, equivalent to pressing F6 on panel E in Application Message. Open (CRS420). The free text becomes part of the message’s user-defined free-text block and is stored separately from the standard application message text.",
+  "inputParameters": [
+    {
+      "name": "MLID",
+      "description": "Unique mail ID of the application message to which the free text will be added.",
+      "type": "integer",
+      "longName": "MailId",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number for the application message.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TX60",
+      "description": "User-defined free-text line to add to the application message.",
+      "type": "string",
+      "longName": "AdditionalText",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

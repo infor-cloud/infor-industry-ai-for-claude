@@ -1,0 +1,342 @@
+{
+  "name": "M3_PMS170MI_CrtPlannedMO",
+  "program": "PMS170MI",
+  "transaction": "CrtPlannedMO",
+  "version": "2026-05-08T06:06:57.57Z",
+  "type": "update",
+  "description": "Create planned manufacturing order proposals either as simulated or real records in material planning. The operation creates a proposal to manufacture a specific product in a selected facility and warehouse, for a given quantity and planning date/time. Proposals can be linked to an order type, product structure or process, schedule, configuration, project, and external references, or created as copies of existing proposals. On success, M3 assigns a unique proposal number and subnumber, returned in the response, which identify the proposal for later retrieval, update, release, or deletion.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility where the manufacturing order proposal is created.",
+      "type": "string",
+      "longName": "Facility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "WHLO",
+      "description": "Warehouse associated with the manufacturing order proposal.",
+      "type": "string",
+      "longName": "Warehouse",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PRNO",
+      "description": "Product number to be manufactured in the planned order.",
+      "type": "string",
+      "longName": "ProductNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PPQT",
+      "description": "Planned manufacturing quantity for the order in the item's unit of measure.",
+      "type": "number",
+      "longName": "PlannedQuantity",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLDT",
+      "description": "Date when the manufacturing order proposal is planned to affect material requirements.",
+      "type": "date",
+      "longName": "PlanningDate",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLHM",
+      "description": "Time of day when the proposal is planned to affect material requirements.",
+      "type": "integer",
+      "longName": "PlanningTime",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PSTS",
+      "description": "Status to assign to the planned manufacturing order proposal.",
+      "type": "enum",
+      "longName": "PlannedOrderStatus",
+      "required": true,
+      "enumConstants": "AutoError,AutoWarning,PlanOrdMan,PlanOrdAuto,Pur/planMan,ForcFromCo,DeferredOrder,ManualStatus,Authorized,Released,WoInProgress,Cancelled,EstimateNeeded,EstimateDone,EstimateConf,QuotePrinted,QuoteRejected,QuotePartAcc,QuoteAccepted",
+      "enumValues": "00,05,10,15,20,25,30,40,55,60,65,90,Q0,Q1,Q2,Q3,Q4,Q5,Q6",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "SIMD",
+      "description": "Simulation identity used when creating simulated manufacturing order proposals.",
+      "type": "integer",
+      "longName": "SimulationId",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number for which the planned manufacturing order proposal is created.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "STRT",
+      "description": "Product structure type used to derive components and routing for the product.",
+      "type": "string",
+      "longName": "ProductStructureType",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ORTY",
+      "description": "Manufacturing order type controlling how the proposal is processed.",
+      "type": "string",
+      "longName": "OrderType",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RORN",
+      "description": "Reference order number that initiates or is linked to this manufacturing order proposal.",
+      "type": "string",
+      "longName": "ReferenceOrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RORL",
+      "description": "Line number on the reference order connected to this proposal.",
+      "type": "integer",
+      "longName": "ReferenceOrderLine",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RORX",
+      "description": "Line suffix on the reference order connected to this proposal.",
+      "type": "integer",
+      "longName": "ReferenceOrderLineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RORC",
+      "description": "Order category of the reference order, indicating its origin such as customer or distribution order.",
+      "type": "enum",
+      "longName": "ReferenceOrderCategory",
+      "required": false,
+      "enumConstants": "UseVaries,ManufactOrder,PurchaseOrder,CustomerOrder,RequisitionOrd,DistribOrd,WorkOrder,ServiceOrder,ProjectOrder,PickLst&Rep",
+      "enumValues": "0,1,2,3,4,5,6,7,8,9",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PROJ",
+      "description": "Project number to which the manufacturing order proposal is linked.",
+      "type": "string",
+      "longName": "ProjectNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ELNO",
+      "description": "Project element within the project that this manufacturing order proposal relates to.",
+      "type": "string",
+      "longName": "ProjectElement",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "SCHN",
+      "description": "Schedule number used to group and sequence the proposal in production planning.",
+      "type": "integer",
+      "longName": "ScheduleNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "AOID",
+      "description": "Identifier of an alternate routing to use instead of the standard routing for this proposal.",
+      "type": "string",
+      "longName": "AlternateRoutingId",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CFXX",
+      "description": "Previous configuration number from which the current configuration is derived.",
+      "type": "integer",
+      "longName": "OldConfigurationNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ECVS",
+      "description": "Simulation round identifying a specific configuration simulation used for this proposal.",
+      "type": "integer",
+      "longName": "SimulationRound",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLPN",
+      "description": "Planned order number identifying an existing proposal, for example when copying or referencing a proposal.",
+      "type": "integer",
+      "longName": "PlannedOrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CPLP",
+      "description": "Indicator that the new proposal should be copied from an existing planned manufacturing order.",
+      "type": "integer",
+      "longName": "CopyFromPlannedMo",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CFIN",
+      "description": "Configuration number identifying the configured product variant for this proposal.",
+      "type": "integer",
+      "longName": "ConfigurationNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "MFPC",
+      "description": "Process identifier specifying which product structure to use for manufacturing.",
+      "type": "string",
+      "longName": "Process",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PCCO",
+      "description": "Process code defining the manufacturing order category, such as discrete, standard, process, or pack order.",
+      "type": "enum",
+      "longName": "ProcessCode",
+      "required": false,
+      "enumConstants": "Discrete,DefaultMo,EndProduct,ProcessOrder,PackOrder,ChildProcessOrder,ChildPackOrder",
+      "enumValues": "0,1,2,3,4,5,6",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "EXRN",
+      "description": "External reference number used to link the proposal to an external system record.",
+      "type": "integer",
+      "longName": "ExternalReferenceNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "EXD2",
+      "description": "Free-text description for the external reference linked to this proposal.",
+      "type": "string",
+      "longName": "ExternalReferenceDescription",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "PLPN",
+      "description": "Planned order number assigned to the created manufacturing order proposal.",
+      "type": "integer",
+      "longName": "PlannedOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLPS",
+      "description": "Subnumber that further identifies the planned manufacturing order proposal.",
+      "type": "integer",
+      "longName": "PlannedOrderSubnumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

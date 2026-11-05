@@ -1,0 +1,56 @@
+{
+  "name": "M3_PMS170MI_DelPlannedMO",
+  "program": "PMS170MI",
+  "transaction": "DelPlannedMO",
+  "version": "2026-05-08T06:06:59.59Z",
+  "type": "delete",
+  "description": "Delete a single planned manufacturing order proposal that is no longer needed in the manufacturing plan. The operation removes the proposal header identified by its proposal number, including any associated planning details, so it no longer affects material and capacity planning. Use it to clean up proposals created in error or proposals that have been replaced by other planning decisions, while respecting the rules that protect proposals tied to higher‑level customer or distribution demand.",
+  "inputParameters": [
+    {
+      "name": "PLPN",
+      "description": "Planned manufacturing order proposal number identifying the proposal to delete.",
+      "type": "integer",
+      "longName": "PlannedOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company in which the manufacturing order proposal to delete is registered.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "PLPS",
+      "description": "Optional subnumber of the planned order used when a specific subrecord must be deleted.",
+      "type": "integer",
+      "longName": "PlannedOrderSubnumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

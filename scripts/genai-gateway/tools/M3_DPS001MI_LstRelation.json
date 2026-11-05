@@ -1,0 +1,144 @@
+{
+  "name": "M3_DPS001MI_LstRelation",
+  "program": "DPS001MI",
+  "transaction": "LstRelation",
+  "version": "2026-08-20T03:03:03.03Z",
+  "type": "list",
+  "description": "List warehouse distribution relations for a given relation type. Each relation connects a from-warehouse with a to-warehouse and a delivery method, and includes transportation days and hours that influence lead-time and available-date calculations at the receiving warehouse.\r\n\r\nRelation type defines how the relation is maintained:\r\n\r\n- **1 – Warehouse to warehouse:** Direct distribution between two warehouses; transport time and distribution calendar are maintained per warehouse pair, without item-specific identities.\r\n- **2 – Distribution group based:** Relation is maintained per distribution group, defined per item and warehouse, typically for items with multiple supply alternatives.\r\n- **3 – Item/warehouse exception:** Distribution exception per item and warehouse, also only for items with multiple supply alternatives.",
+  "inputParameters": [
+    {
+      "name": "RLTY",
+      "description": "Relation type that determines how warehouse distribution is controlled and which relations to list.",
+      "type": "enum",
+      "longName": "RelationType",
+      "required": true,
+      "enumConstants": "Distr-TwoWhs,PerDistrGrp,Exception",
+      "enumValues": "1,2,3",
+      "enabled": true,
+      "showValues": true
+    },
+    {
+      "name": "CONO",
+      "description": "Company number used to restrict the listed distribution relations to a specific company.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FWLO",
+      "description": "From warehouse used to filter distribution relations where this warehouse supplies goods.",
+      "type": "string",
+      "longName": "FromWarehouse",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TWLO",
+      "description": "To warehouse used to filter distribution relations where this warehouse receives goods.",
+      "type": "string",
+      "longName": "ToWarehouse",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "WHGR",
+      "description": "Warehouse group used to filter distribution relations maintained for that group.",
+      "type": "string",
+      "longName": "WarehouseGroup",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number for the distribution relation.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RLTY",
+      "description": "Relation type defining whether the distribution is maintained by warehouse-to-warehouse link, warehouse group, or item and warehouse.",
+      "type": "enum",
+      "longName": "RelationType",
+      "enumConstants": "Distr-TwoWhs,PerDistrGrp,Exception",
+      "enumValues": "1,2,3",
+      "enabled": false,
+      "filter": true,
+      "showValues": true
+    },
+    {
+      "name": "FWLO",
+      "description": "Warehouse from which goods are distributed in this relation.",
+      "type": "string",
+      "longName": "FromWarehouse",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TWLO",
+      "description": "Warehouse to which goods are distributed in this relation.",
+      "type": "string",
+      "longName": "ToWarehouse",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "MODL",
+      "description": "Delivery method used for transportation between the warehouses in this relation.",
+      "type": "string",
+      "longName": "DeliveryMethod",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TRDY",
+      "description": "Number of workdays expected to transport goods between the warehouses in this relation.",
+      "type": "integer",
+      "longName": "TransportationDays",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TRTE",
+      "description": "Number of hours expected to transport goods between the warehouses in this relation.",
+      "type": "number",
+      "longName": "TransportationHours",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    }
+  ]
+}

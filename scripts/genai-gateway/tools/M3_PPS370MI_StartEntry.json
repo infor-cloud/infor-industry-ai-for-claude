@@ -1,0 +1,45 @@
+{
+  "name": "M3_PPS370MI_StartEntry",
+  "program": "PPS370MI",
+  "transaction": "StartEntry",
+  "version": "2026-05-08T07:07:36.36Z",
+  "type": "get",
+  "description": "Initiate purchase order batch entry by generating a new message number that groups all batch records belonging to one import. This operation is normally the first step when creating or updating purchase orders through purchase order batch entry. Based on the specified batch origin and entry code for purchase order batch, M3 creates a unique message number that acts as a container for later batch data such as headers, lines, addresses, charges, accounting strings and texts. The operation itself does not create purchase orders; it only establishes the batch context.",
+  "inputParameters": [
+    {
+      "name": "BAOR",
+      "description": "Batch origin identifying the external or internal source system for this purchase order batch and controlling its processing parameters.",
+      "type": "string",
+      "longName": "BatchOrigin",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PBEC",
+      "description": "Entry code specifying whether this batch should create a new purchase order or update an existing one (0=new order, 1=update existing PO).",
+      "type": "enum",
+      "longName": "BatchEntryCode",
+      "required": false,
+      "enumConstants": "NewOrder,UpdateOnExistingPo",
+      "enumValues": "0,1",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "MSGN",
+      "description": "Message number that uniquely identifies the purchase order batch entry started by this transaction.",
+      "type": "string",
+      "longName": "MessageNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

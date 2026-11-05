@@ -1,0 +1,77 @@
+{
+  "name": "M3_OIS100MI_DelLine",
+  "program": "OIS100MI",
+  "transaction": "DelLine",
+  "version": "2026-05-08T05:05:11.11Z",
+  "type": "delete",
+  "description": "Delete a single customer order line from an existing customer order. The operation removes the line that was created during normal customer order entry (not a batch order line). The line must still be open: its line status must be lower than 66 (that is, not fully delivered). When the line is deleted, related allocations, reservations and pricing details are removed, and the order header status may be updated based on the remaining lines.",
+  "inputParameters": [
+    {
+      "name": "ORNO",
+      "description": "Customer order number identifying the order that contains the line to delete.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PONR",
+      "description": "Order line number identifying the customer order line to delete.",
+      "type": "integer",
+      "longName": "LineNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company in which the customer order is registered; optional if the default company is used.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "POSX",
+      "description": "Optional line suffix identifying a specific subline to delete.",
+      "type": "integer",
+      "longName": "LineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OT65",
+      "description": "Code indicating whether the deleted order line should be registered as lost sales in statistics.",
+      "type": "integer",
+      "longName": "LostSalesStatisticsCode",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "RSCD",
+      "description": "Reason code explaining why the order line is deleted.",
+      "type": "string",
+      "longName": "TransactionReasonCode",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": []
+}

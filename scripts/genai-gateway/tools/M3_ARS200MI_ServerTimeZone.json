@@ -1,0 +1,33 @@
+{
+  "name": "M3_ARS200MI_ServerTimeZone",
+  "program": "ARS200MI",
+  "transaction": "ServerTimeZone",
+  "version": "2026-08-26T08:08:53.53Z",
+  "type": "get",
+  "description": "Retrieves information about the current system date and time. The system date and time might differ from the users date and time depending on timezones. ",
+  "inputParameters": [],
+  "outputParameters": [
+    {
+      "name": "TMTZ",
+      "description": "Date/time with time zone",
+      "type": "string",
+      "longName": "DatetimeWithTimeZone",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "UTCT",
+      "description": "UTC time",
+      "type": "string",
+      "longName": "UTCTime",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "M3_PPS200MI_DltLine",
+  "program": "PPS200MI",
+  "transaction": "DltLine",
+  "version": "2026-05-08T07:07:04.04Z",
+  "type": "get",
+  "description": "Delete a purchase order line and all its connected records from related objects in M3. The operation removes the selected line and any associated line-level information so that it no longer appears in purchase order inquiries, follow-up, or reporting.",
+  "inputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number containing the line to delete.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PNLI",
+      "description": "Purchase order line number identifying the line to delete.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PNLS",
+      "description": "Purchase order line suffix identifying the specific split of the line to delete when sublines exist.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "name": "M3_MMS080MI_LstPOHBalance",
+  "program": "MMS080MI",
+  "transaction": "LstPOHBalance",
+  "version": "2026-05-08T02:02:42.42Z",
+  "type": "list",
+  "description": "List projected on-hand balance per item and warehouse for a specific planning date. The operation returns multiple records, each showing the expected stock level for one item in one warehouse on the selected date. The projected on‑hand balance starts from the approved on‑hand quantity and then adds planned receipts and subtracts planned issues and reservations, and optionally forecasted demand. Use this to get a compact snapshot of future inventory positions across all or selected items and warehouses, without displaying the underlying material plan transactions.",
+  "inputParameters": [
+    {
+      "name": "PLDT",
+      "description": "Planning date for which projected on-hand balances are listed.",
+      "type": "date",
+      "longName": "PlanningDate",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company for which projected on-hand balances are listed.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "FWLO",
+      "description": "Starting warehouse in the selection range for listing projected on-hand balances.",
+      "type": "string",
+      "longName": "FromWarehouse",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TWLO",
+      "description": "Ending warehouse in the selection range for listing projected on-hand balances.",
+      "type": "string",
+      "longName": "ToWarehouse",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "FITN",
+      "description": "First item number in the selection range for listing projected on-hand balances.",
+      "type": "string",
+      "longName": "FromItemNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TITN",
+      "description": "Last item number in the selection range for listing projected on-hand balances.",
+      "type": "string",
+      "longName": "ToItemNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "IFOR",
+      "description": "Indicates whether forecast demand is included when calculating projected on-hand balances.",
+      "type": "integer",
+      "longName": "IncludeForecast",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "NRCT",
+      "description": "Option specifying whether reclassification transactions are included when calculating projected on-hand balances.",
+      "type": "integer",
+      "longName": "NoReclassificationCalculation",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company to which the item and warehouse belong.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "WHLO",
+      "description": "Warehouse for which the projected on-hand balance is calculated.",
+      "type": "string",
+      "longName": "Warehouse",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ITNO",
+      "description": "Item number for which the projected on-hand balance is calculated.",
+      "type": "string",
+      "longName": "ItemNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLDT",
+      "description": "Planning date at which this projected on-hand balance applies.",
+      "type": "date",
+      "longName": "PlanningDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PQOH",
+      "description": "Projected on-hand stock balance for the item and warehouse at the planning date.",
+      "type": "number",
+      "longName": "ProjectedOnHandBalance",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    }
+  ]
+}

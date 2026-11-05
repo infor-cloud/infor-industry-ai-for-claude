@@ -1,0 +1,33 @@
+{
+  "name": "M3_CRS420MI_Complete",
+  "program": "CRS420MI",
+  "transaction": "Complete",
+  "version": "2026-05-08T10:10:09.09Z",
+  "type": "get",
+  "description": "Change the status of an existing application message to **Completed** (status 50) and record when the action was finished. The operation updates the message’s completed date; if no completed date is supplied, the current date is stored. Use this to mark that the action requested in the message has been handled, so follow-up lists and integrations can distinguish completed messages from those still requiring attention.",
+  "inputParameters": [
+    {
+      "name": "MLID",
+      "description": "Unique mail ID of the application message to mark as completed.",
+      "type": "integer",
+      "longName": "MailId",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CDAT",
+      "description": "Completion date to set for the application message; if left blank, the current date is used.",
+      "type": "date",
+      "longName": "CompletedDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": []
+}

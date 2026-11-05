@@ -1,0 +1,353 @@
+{
+  "name": "M3_MMS080MI_LstMtPlByItmWhs",
+  "program": "MMS080MI",
+  "transaction": "LstMtPlByItmWhs",
+  "version": "2026-05-08T02:02:36.36Z",
+  "type": "list",
+  "description": "List material plan records for a specific item and warehouse. The operation returns multiple lines, each representing one planned or actual movement that affects the item’s stock, such as forecasts, customer orders, purchase receipts, and manufacturing orders. For each planning date you see movement quantity, reserved and allocated quantities, projected on‑hand balance, and available‑to‑promise values, together with order category and order identifiers. Planning dates, times, and alternate planning dates show when supply or demand impacts inventory, enabling external planning tools and integrations to reconstruct the full time‑phased material plan for the item and warehouse.",
+  "inputParameters": [
+    {
+      "name": "WHLO",
+      "description": "Warehouse for which the material plan is listed.",
+      "type": "string",
+      "longName": "Warehouse",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ITNO",
+      "description": "Item number for which the material plan is listed.",
+      "type": "string",
+      "longName": "ItemNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ATPD",
+      "description": "Option controlling how available-to-promise quantities are displayed in the returned material plan.",
+      "type": "integer",
+      "longName": "AtpDisplayOption",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "SLID",
+      "description": "Selection option controlling which reorder point–planned items are included in the material plan listing.",
+      "type": "integer",
+      "longName": "ReorderPointSelectionOption",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "SLIM",
+      "description": "Selection option controlling which MRP-planned items are included in the material plan listing.",
+      "type": "integer",
+      "longName": "MrpItemSelectionOption",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "ORCA",
+      "description": "Order category used to filter the types of material plan transactions returned.",
+      "type": "enum",
+      "longName": "OrderCategory",
+      "required": false,
+      "enumConstants": "DemandOrder,PlannedMo,ManufacturingOrder,PlannedMo2,ManufacturingOrder2,PlannedPo,PurchaseOrder,PlannedCo,CustomerOrder,Eqm,RequisitionOrder,RequisitionOrderIssue,PlannedDo,DistributionOrder,PlannedDo2,DistributionOrder2,PlannedWo,WorkOrder,PlannedWo2,WorkOrder2,ServiceOrder,RentalOrder,MaintCo,ProjectOrder,ClaimOrder,PlannedRejection,PlannedApproval",
+      "enumValues": "030,100,101,110,111,250,251,310,311,315,401,411,500,501,510,511,600,601,610,611,711,731,771,811,911,960,961",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "PLDT",
+      "description": "Planning date used to limit which material plan transactions are included.",
+      "type": "date",
+      "longName": "PlanningDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "STAT",
+      "description": "Status code used to filter material plan transactions by their processing status.",
+      "type": "enum",
+      "longName": "Status",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "WHTZ",
+      "description": "Indicates whether planning dates and times should be interpreted in the warehouse time zone.",
+      "type": "integer",
+      "longName": "UseWarehouseTimeZone",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TIZO",
+      "description": "Time zone to apply when interpreting and returning planning dates and times.",
+      "type": "string",
+      "longName": "TimeZone",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "IFOR",
+      "description": "Indicates whether forecast demand is included when generating the material plan.",
+      "type": "integer",
+      "longName": "IncludeForecast",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "IATP",
+      "description": "Indicates whether available-to-promise calculations are included in the material plan output.",
+      "type": "integer",
+      "longName": "IncludeAtp",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "PLDT",
+      "description": "Planning date when this transaction affects the material plan.",
+      "type": "date",
+      "longName": "PlanningDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TRQT",
+      "description": "Transaction quantity for the material plan record in the basic unit of measure.",
+      "type": "number",
+      "longName": "TransactionQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PQOH",
+      "description": "Projected on-hand stock balance after this transaction.",
+      "type": "number",
+      "longName": "ProjectedOnHandBalance",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "AVTP",
+      "description": "Cumulative available-to-promise quantity at this planning date.",
+      "type": "number",
+      "longName": "CumulativeAtpQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "NATP",
+      "description": "Noncumulative available-to-promise quantity for this planning period.",
+      "type": "number",
+      "longName": "NonCumulativeAtpQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "ORCA",
+      "description": "Order category identifying the type of order behind the material plan transaction.",
+      "type": "enum",
+      "longName": "OrderCategory",
+      "enumConstants": "DemandOrder,PlannedMo,ManufacturingOrder,PlannedMo2,ManufacturingOrder2,PlannedPo,PurchaseOrder,PlannedCo,CustomerOrder,Eqm,RequisitionOrder,RequisitionOrderIssue,PlannedDo,DistributionOrder,PlannedDo2,DistributionOrder2,PlannedWo,WorkOrder,PlannedWo2,WorkOrder2,ServiceOrder,RentalOrder,MaintCo,ProjectOrder,ClaimOrder,MoveLocation,PlannedRejection,PlannedApproval",
+      "enumValues": "030,100,101,110,111,250,251,310,311,315,401,411,500,501,510,511,600,601,610,611,711,731,771,811,911,921,960,961",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "STAT",
+      "description": "Status of the material plan transaction, such as preliminary or definite.",
+      "type": "number",
+      "longName": "Status",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ACTP",
+      "description": "Action message indicating the planning action proposed for this material plan transaction.",
+      "type": "enum",
+      "longName": "ActionMessage",
+      "enumConstants": ",Rel-ReschedIn,ReleaseOrder,FirmUpOrder,RelDoReturn,IncrPeriodQty,RescheduleIn,RescheduleIn2,RescheduleOut,RescheduleOut2,IncrPeriodQty2,ProjOhb>Max,DeleteOrder,IncrPlanQty,Delayed,WillBeDelayed,Delay-OiChain",
+      "enumValues": " ,A1,A2,A3,A4,A5,B1,B2,B3,B4,B5,B6,B7,B8,C1,C2,C3",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RIDN",
+      "description": "Source order number associated with this material plan transaction.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RIDL",
+      "description": "Source order line number associated with this material plan transaction.",
+      "type": "integer",
+      "longName": "OrderLineNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RIDX",
+      "description": "Source order line suffix or sequence number for this material plan transaction.",
+      "type": "integer",
+      "longName": "LineSuffix",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RIDI",
+      "description": "Delivery number associated with this material plan transaction.",
+      "type": "integer",
+      "longName": "DeliveryNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TIHM",
+      "description": "Time of day when this transaction is planned to affect the material plan.",
+      "type": "integer",
+      "longName": "TransactionTime",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PQTT",
+      "description": "Quantity that has been preallocated to specific demands for this transaction.",
+      "type": "number",
+      "longName": "PreallocatedQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "ALQT",
+      "description": "Quantity of stock already allocated, in the basic unit of measure.",
+      "type": "number",
+      "longName": "AllocatedQuantityBasicUom",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "REQT",
+      "description": "Reserved quantity associated with this item and transaction from the current date onward.",
+      "type": "number",
+      "longName": "ReservedQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RFTX",
+      "description": "Reference text providing additional information about the material plan transaction.",
+      "type": "string",
+      "longName": "ReferenceText",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "NNDT",
+      "description": "Alternate planning date proposed by the system for this transaction.",
+      "type": "date",
+      "longName": "AlternatePlanningDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "LTMK",
+      "description": "Level mark indicating the planning level or grouping for this material plan record.",
+      "type": "string",
+      "longName": "LevelMark",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

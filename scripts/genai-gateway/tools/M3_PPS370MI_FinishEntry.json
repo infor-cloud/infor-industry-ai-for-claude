@@ -1,0 +1,22 @@
+{
+  "name": "M3_PPS370MI_FinishEntry",
+  "program": "PPS370MI",
+  "transaction": "FinishEntry",
+  "version": "2026-05-08T07:07:01.01Z",
+  "type": "get",
+  "description": "Process a complete purchase order batch identified by a message number, updating its overall status and starting processing of the batch information. The message number groups all related batch records for one purchase order: header, lines, addresses, charges, accounting strings, and texts. When this operation runs, M3 uses the batch origin configuration in PPS090 (and, if applicable, per supplier in PPS091) to determine how the batch is validated and whether it creates new purchase orders or updates existing ones.",
+  "inputParameters": [
+    {
+      "name": "MSGN",
+      "description": "Message number identifying the purchase order batch entry to be processed and finalized.",
+      "type": "string",
+      "longName": "MessageNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": []
+}

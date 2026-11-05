@@ -1,0 +1,166 @@
+{
+  "name": "M3_PPS100MI_LstAgrHeadBySup",
+  "program": "PPS100MI",
+  "transaction": "LstAgrHeadBySup",
+  "version": "2026-08-18T11:11:33.33Z",
+  "type": "list",
+  "description": "List purchase agreement headers by supplier. Returns header-level information for purchase agreements linked to a supplier.",
+  "inputParameters": [
+    {
+      "name": "SUNO",
+      "description": "Supplier number for the agreement.",
+      "type": "string",
+      "longName": "SupplierNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "VAGN",
+      "description": "Supplier's own agreement number referencing this purchase agreement.",
+      "type": "string",
+      "longName": "SupplierAgreementNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "FVDT",
+      "description": "Date from which the agreement is valid.",
+      "type": "date",
+      "longName": "ValidFromDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number for which supplier agreement headers are listed.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "SUNO",
+      "description": "Supplier number for the agreement.",
+      "type": "string",
+      "longName": "SupplierNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "VAGN",
+      "description": "Supplier's own agreement number referencing this purchase agreement.",
+      "type": "string",
+      "longName": "SupplierAgreementNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FVDT",
+      "description": "Date from which the agreement is valid.",
+      "type": "date",
+      "longName": "ValidFromDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "UVDT",
+      "description": "Date until which the agreement is valid.",
+      "type": "date",
+      "longName": "ValidToDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "AGNB",
+      "description": "Agreement number identifying the purchase agreement.",
+      "type": "string",
+      "longName": "AgreementNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "AGTP",
+      "description": "Agreement type defining the category and behavior of the purchase agreement.",
+      "type": "string",
+      "longName": "AgreementType",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PAST",
+      "description": "Current status of the supplier agreement, such as preliminary, valid, completed, or cancelled.",
+      "type": "enum",
+      "longName": "AgreementStatus",
+      "enumConstants": "Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Preliminary,Completed,Distributed,Valid,Fulfilled,Cancelled",
+      "enumValues": "01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,30,40,80,90",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TX30",
+      "description": "Short description or comment for the agreement header.",
+      "type": "string",
+      "longName": "Description",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FACI",
+      "description": "Facility responsible for or associated with the purchase agreement.",
+      "type": "string",
+      "longName": "Facility",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ACGR",
+      "description": "Object access group used to control which users may access this agreement.",
+      "type": "string",
+      "longName": "ObjectAccessGroup",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "name": "M3_PDS010MI_AddShiftPatAdj",
+  "program": "PDS010MI",
+  "transaction": "AddShiftPatAdj",
+  "version": "2026-05-08T06:06:35.35Z",
+  "type": "get",
+  "description": "Create shift pattern adjustments for a work center to define which shift pattern applies during a specific date interval. An adjustment links a facility, a work center, a validity period (from date and to date), and a specific shift pattern. This lets you reflect changes such as seasonal patterns or temporary calendar changes without changing the main work center definition. Each adjustment is stored as a separate record and can later be retrieved, updated, or deleted using the related operations.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility where the work center shift pattern adjustment is created.",
+      "type": "string",
+      "longName": "Facility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLGR",
+      "description": "Work center for which the shift pattern adjustment is defined.",
+      "type": "string",
+      "longName": "WorkCenter",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FRDT",
+      "description": "Start date from which this shift pattern adjustment is valid.",
+      "type": "date",
+      "longName": "FromDate",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TODT",
+      "description": "End date up to which this shift pattern adjustment is valid.",
+      "type": "date",
+      "longName": "ToDate",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "SHPA",
+      "description": "Shift pattern to be applied for the work center during the adjustment period.",
+      "type": "string",
+      "longName": "ShiftPattern",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company to which the facility and work center for this shift pattern adjustment belong.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "CHNO",
+      "description": "Change number used to track the current version of the shift pattern adjustment record.",
+      "type": "integer",
+      "longName": "ChangeNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

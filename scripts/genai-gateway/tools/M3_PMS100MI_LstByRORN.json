@@ -1,0 +1,155 @@
+{
+  "name": "M3_PMS100MI_LstByRORN",
+  "program": "PMS100MI",
+  "transaction": "LstByRORN",
+  "version": "2026-05-08T06:06:27.27Z",
+  "type": "list",
+  "description": "Retrieve manufacturing orders linked to a specific reference order. This operation searches for manufacturing orders using a combination of reference order category, reference order number, reference order line, and optionally line suffix. The reference order can be, for example, a manufacturing, purchase, customer, distribution, work, service, or project order, depending on the reference order category. The result lists one or more matching manufacturing orders together with their product number and facility, while also echoing the reference order identifiers. Use this to navigate from an originating order line to the manufacturing order(s) that fulfill it.",
+  "inputParameters": [
+    {
+      "name": "RORC",
+      "description": "Reference order category indicating the type of reference order used to select manufacturing orders, such as customer or purchase order.",
+      "type": "enum",
+      "longName": "ReferenceOrderCategory",
+      "required": true,
+      "enumConstants": "UseVaries,ManufactOrder,PurchaseOrder,CustomerOrder,RequisitionOrd,DistribOrd,WorkOrder,ServiceOrder,ProjectOrder,PickLst&Rep",
+      "enumValues": "0,1,2,3,4,5,6,7,8,9",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RORN",
+      "description": "Reference order number used to select manufacturing orders linked to that order.",
+      "type": "string",
+      "longName": "ReferenceOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RORL",
+      "description": "Reference order line number used to narrow the selection of manufacturing orders.",
+      "type": "integer",
+      "longName": "ReferenceOrderLine",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number used to restrict the search to manufacturing orders in a specific company.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "RORX",
+      "description": "Reference order line suffix used to further specify the sub-line when selecting manufacturing orders.",
+      "type": "integer",
+      "longName": "ReferenceOrderLineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number where the manufacturing order is registered.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RORC",
+      "description": "Reference order category linked to the manufacturing order, indicating the type of reference order such as customer or purchase order.",
+      "type": "enum",
+      "longName": "ReferenceOrderCategory",
+      "enumConstants": "UseVaries,ManufactOrder,PurchaseOrder,CustomerOrder,RequisitionOrd,DistribOrd,WorkOrder,ServiceOrder,ProjectOrder,PickLst&Rep",
+      "enumValues": "0,1,2,3,4,5,6,7,8,9",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RORN",
+      "description": "Reference order number linked to the manufacturing order.",
+      "type": "string",
+      "longName": "ReferenceOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RORL",
+      "description": "Reference order line number linked to the manufacturing order.",
+      "type": "integer",
+      "longName": "ReferenceOrderLine",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RORX",
+      "description": "Suffix distinguishing sub-lines on the reference order line linked to the manufacturing order.",
+      "type": "integer",
+      "longName": "ReferenceOrderLineSuffix",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PRNO",
+      "description": "Product number for the manufactured item on the order.",
+      "type": "string",
+      "longName": "ProductNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "MFNO",
+      "description": "Manufacturing order number.",
+      "type": "string",
+      "longName": "ManufacturingOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FACI",
+      "description": "Facility where the manufacturing order is registered.",
+      "type": "string",
+      "longName": "Facility",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

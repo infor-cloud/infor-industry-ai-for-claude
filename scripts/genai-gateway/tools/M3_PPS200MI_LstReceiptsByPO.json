@@ -1,0 +1,243 @@
+{
+  "name": "M3_PPS200MI_LstReceiptsByPO",
+  "program": "PPS200MI",
+  "transaction": "LstReceiptsByPO",
+  "version": "2026-05-08T07:07:00.00Z",
+  "type": "list",
+  "description": "List goods receipt transactions for a purchase order and display the main receipt details per purchase order line. Each record represents one reported goods receipt for a specific purchase order line and subline. The output includes purchase order identification and status, receiving number, warehouse and ship‑to warehouse, stock location, lot and container, transaction date and time, reported quantities in basic and alternate units, supplier, agreement number, and the responsible user. Use this read‑only operation to review how and where a purchase order has been physically received into stock.",
+  "inputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number identifying which order’s goods receipt transactions to list.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PNLI",
+      "description": "Purchase order line number used to filter receipts for a specific line.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "PNLS",
+      "description": "Purchase order line suffix used to filter receipts for a specific split of the line.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PNLI",
+      "description": "Purchase order line number.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PNLS",
+      "description": "Purchase order line suffix.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineSuffix",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PNLX",
+      "description": "Additional line suffix identifying the specific goods receipt transaction line.",
+      "type": "integer",
+      "longName": "ReceiptLineSuffix",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PUOS",
+      "description": "Status of the purchase order transaction corresponding to this goods receipt.",
+      "type": "enum",
+      "longName": "PurchaseOrderTransactionStatus",
+      "enumConstants": "Confirmed,Advised,Notified,GoodsReceived,Pa-ButNotQi,QiPartlyDone,RejAfterQi,QiCompleted,RejAfterQi-Claim,PartlyPa,PaComplete",
+      "enumValues": "35,40,45,50,51,60,64,65,69,70,75",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "REPN",
+      "description": "Receiving number uniquely identifying the goods receipt transaction.",
+      "type": "integer",
+      "longName": "ReceivingNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "WHLO",
+      "description": "Warehouse where the goods were received.",
+      "type": "string",
+      "longName": "Warehouse",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "STWH",
+      "description": "Ship-to warehouse that ultimately receives the goods from this purchase order.",
+      "type": "string",
+      "longName": "ShipToWarehouse",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "WHSL",
+      "description": "Warehouse location where the goods were received.",
+      "type": "string",
+      "longName": "Location",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "BANO",
+      "description": "Lot number of the received goods.",
+      "type": "string",
+      "longName": "BatchNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CAMU",
+      "description": "Container on which the goods were received.",
+      "type": "string",
+      "longName": "ContainerNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TRDT",
+      "description": "Date when the goods receipt transaction was reported.",
+      "type": "date",
+      "longName": "TransactionDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TIHM",
+      "description": "Time of day when the goods receipt transaction was reported.",
+      "type": "integer",
+      "longName": "TransactionTime",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RPQT",
+      "description": "Reported quantity for this goods receipt transaction in the transaction unit of measure.",
+      "type": "number",
+      "longName": "ReportedQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RPQA",
+      "description": "Reported quantity for the receipt in an alternate unit of measure.",
+      "type": "number",
+      "longName": "ReportedQuantityAltUom",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "SUNO",
+      "description": "Supplier number for the purchase order.",
+      "type": "string",
+      "longName": "SupplierNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RESP",
+      "description": "User responsible for this goods receipt transaction.",
+      "type": "string",
+      "longName": "ResponsibleUser",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "AGNB",
+      "description": "Agreement number under which this purchase transaction is placed, if applicable.",
+      "type": "string",
+      "longName": "AgreementNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

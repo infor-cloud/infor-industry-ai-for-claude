@@ -1,0 +1,342 @@
+{
+  "name": "M3_PDS010MI_Get",
+  "program": "PDS010MI",
+  "transaction": "Get",
+  "version": "2026-05-08T06:06:17.17Z",
+  "type": "get",
+  "description": "Retrieve detailed information for a single work center within a specific facility. The call returns the full master data for that work center, including identity and description, capacity and planning parameters, scheduling and load settings, quality and reporting options, and warehouse/location defaults. Use it to read how a work center is configured before performing capacity calculations, planning, or updates elsewhere in M3.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility where the work center to be displayed is defined.",
+      "type": "string",
+      "longName": "Facility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLGR",
+      "description": "Work center to be displayed within the specified facility.",
+      "type": "string",
+      "longName": "WorkCenter",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility where the retrieved work center is defined.",
+      "type": "string",
+      "longName": "Facility",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLGR",
+      "description": "Identifier of the retrieved work center.",
+      "type": "string",
+      "longName": "WorkCenter",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLNM",
+      "description": "Name of the work center as shown in lists and inquiries.",
+      "type": "string",
+      "longName": "WorkCenterName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLGT",
+      "description": "Work center type used to group this work center and drive facility-specific selection in maintenance processes.",
+      "type": "string",
+      "longName": "WorkCenterType",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLTP",
+      "description": "Resource type of this work center, such as standard work center, subcontractor, rough-cut resource, SWB resource, or maintenance.",
+      "type": "enum",
+      "longName": "ResourceType",
+      "enumConstants": "Operation,Subcontract,Rough-cutW/c,Rough-cutW/c2,W/cResource,MaintenanceW/c",
+      "enumValues": "1,2,4,5,6,9",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OPDS",
+      "description": "Default operation description proposed when creating operations for this work center.",
+      "type": "string",
+      "longName": "OperationDescription",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PITI",
+      "description": "Standard run time used for operations in this work center when calculating load and lead time.",
+      "type": "number",
+      "longName": "RunTime",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SETI",
+      "description": "Standard setup time used for operations in this work center when calculating load and lead time.",
+      "type": "number",
+      "longName": "SetupTime",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FXTI",
+      "description": "Indicates whether the entered run time applies as a fixed total time regardless of produced quantity at this work center.",
+      "type": "integer",
+      "longName": "FixedTimeFlag",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PRNP",
+      "description": "Planned number of workers normally used during run time for operations in this work center.",
+      "type": "number",
+      "longName": "PlannedRunWorkers",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "IIWC",
+      "description": "Superior work center that this work center belongs to for rough-cut capacity planning and reporting.",
+      "type": "string",
+      "longName": "SuperiorWorkCenter",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "DEPT",
+      "description": "Department to which this work center belongs for capacity reporting and accounting.",
+      "type": "string",
+      "longName": "Department",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "REAR",
+      "description": "Planning area that groups this work center for planning and load total calculations.",
+      "type": "string",
+      "longName": "PlanningArea",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PCAP",
+      "description": "Indicates whether the work center’s capacity is planned in machine hours or man-hours.",
+      "type": "enum",
+      "longName": "CapacityType",
+      "enumConstants": "MachineHours,ManHours",
+      "enumValues": "1,2",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "WCRE",
+      "description": "User responsible for maintaining information and planning for this work center.",
+      "type": "string",
+      "longName": "WorkCenterResponsible",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "AVEF",
+      "description": "Utilization rate used to adjust the work center’s rated capacity to expected net capacity.",
+      "type": "number",
+      "longName": "UtilizationRate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "WCNP",
+      "description": "Number of persons normally working in this work center used to calculate man-hour capacity.",
+      "type": "number",
+      "longName": "NumberOfPersons",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "WCNM",
+      "description": "Number of machines normally available in this work center used to calculate machine capacity.",
+      "type": "number",
+      "longName": "NumberOfMachines",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PTUN",
+      "description": "Time unit of measure used when entering setup, run, and other times for this work center.",
+      "type": "enum",
+      "longName": "TimeUnitOfMeasure",
+      "enumConstants": "Hours2Dec,Min2Dec,Seconds2Dec",
+      "enumValues": "1,2,3",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PIDW",
+      "description": "Default panel identity used for the work order work center schedule for this work center.",
+      "type": "string",
+      "longName": "WoWorkCenterSchedulePanelId",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "WHLO",
+      "description": "Default warehouse associated with this work center for material issues and receipts.",
+      "type": "string",
+      "longName": "Warehouse",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "WHSL",
+      "description": "Default warehouse location associated with this work center for material issues and receipts.",
+      "type": "string",
+      "longName": "Location",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TWSL",
+      "description": "Default destination location used for stock movements to or from this work center.",
+      "type": "string",
+      "longName": "ToLocation",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "AUIN",
+      "description": "Indicates whether receipt transactions are created automatically when the last operation is reported at this work center.",
+      "type": "integer",
+      "longName": "AutomaticReceipt",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CRTR",
+      "description": "Indicates whether operations at this work center are treated as critical and require special attention in planning.",
+      "type": "enum",
+      "longName": "CriticalResource",
+      "enumConstants": "NormalResource,Critical,NonControlling",
+      "enumValues": "0,1,2",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "COCE",
+      "description": "Cost center to which costs and revenues for this work center are posted.",
+      "type": "string",
+      "longName": "CostCenter",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "APLC",
+      "description": "Work zone used to group this work center with other resources in the same geographical area.",
+      "type": "string",
+      "longName": "WorkZone",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "MAHD",
+      "description": "Maximum number of working hours per day planned for this work center.",
+      "type": "number",
+      "longName": "MaxHoursPerDay",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

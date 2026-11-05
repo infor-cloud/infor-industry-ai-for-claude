@@ -1,0 +1,44 @@
+{
+  "name": "M3_DPS170MI_DelPlannedDO",
+  "program": "DPS170MI",
+  "transaction": "DelPlannedDO",
+  "version": "2026-05-08T12:12:35.35Z",
+  "type": "delete",
+  "description": "Delete planned distribution orders by planned order number. This operation removes a planned distribution order (distribution order proposal) in M3 when it is no longer needed. The order is identified by its internal planned order number and optionally by its sub-number and company. The call does not return any business data; the response only indicates whether the delete succeeded or failed.",
+  "inputParameters": [
+    {
+      "name": "PLPN",
+      "description": "Internal number of the planned distribution order to delete.",
+      "type": "integer",
+      "longName": "PlannedOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number in which the planned distribution order is deleted.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "PLPS",
+      "description": "Subnumber of the planned distribution order to delete when applicable.",
+      "type": "integer",
+      "longName": "PlannedOrderSubnumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": []
+}

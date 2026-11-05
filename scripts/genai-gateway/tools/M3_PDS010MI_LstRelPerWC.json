@@ -1,0 +1,210 @@
+{
+  "name": "M3_PDS010MI_LstRelPerWC",
+  "program": "PDS010MI",
+  "transaction": "LstRelPerWC",
+  "version": "2026-05-08T06:06:10.10Z",
+  "type": "list",
+  "description": "List resource relationships for work centers within a facility. The operation returns, for each work center and work center resource pair, the planning attributes that guide advanced planning and scheduling: description, scheduling priority, efficiency factor, forced and preferred resource indicators, norm resource, line control, and full audit information. Use it to review or export how resources are connected to work centers and how they will be considered by automatic scheduling in an APP/Scheduling Workbench environment. The data is read-only and reflects the current configuration.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility for which work center–resource relations are listed.",
+      "type": "string",
+      "longName": "Facility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLG1",
+      "description": "APP work center used as a filter when listing resource relations within the facility.",
+      "type": "string",
+      "longName": "AppWorkCenter",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility to which this work center–resource relationship belongs.",
+      "type": "string",
+      "longName": "Facility",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLG1",
+      "description": "APP work center that this resource relationship belongs to.",
+      "type": "string",
+      "longName": "AppWorkCenter",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLG6",
+      "description": "Work center resource linked to the APP work center in this relationship.",
+      "type": "string",
+      "longName": "WorkCenterResource",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "DSCR",
+      "description": "Text description of the work center–resource relationship.",
+      "type": "string",
+      "longName": "Description",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PRIR",
+      "description": "Priority value used by automatic scheduling when choosing between this resource and alternative resources.",
+      "type": "string",
+      "longName": "ResourcePriority",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLGF",
+      "description": "Indicates that this resource must be used for operations when this relationship applies.",
+      "type": "string",
+      "longName": "ForcedResource",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLGN",
+      "description": "Reference norm resource used for reporting and analyzing utilization in this relationship.",
+      "type": "string",
+      "longName": "NormResource",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "EFFA",
+      "description": "Efficiency factor for this relationship used to adjust run time when calculating load and lead time.",
+      "type": "number",
+      "longName": "EfficiencyFactor",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RPLF",
+      "description": "Indicates whether line control restricts subsequent operations to resources on the same line as this resource.",
+      "type": "integer",
+      "longName": "LineControl",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "SECR",
+      "description": "Marks the resource as preferred so it is selected first by the automatic scheduler for this relationship.",
+      "type": "integer",
+      "longName": "PreferredResource",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RGDT",
+      "description": "Date when this work center–resource relationship record was created.",
+      "type": "date",
+      "longName": "EntryDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RGTM",
+      "description": "Time when this work center–resource relationship record was created.",
+      "type": "time",
+      "longName": "EntryTime",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "LMDT",
+      "description": "Date when this work center–resource relationship record was last changed.",
+      "type": "date",
+      "longName": "LastModifiedDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CHNO",
+      "description": "Change number identifying the current version of this work center–resource relationship record.",
+      "type": "integer",
+      "longName": "ChangeNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CHID",
+      "description": "User who last changed this work center–resource relationship record.",
+      "type": "string",
+      "longName": "LastModifiedBy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "LMTS",
+      "description": "System timestamp for the last update of this work center–resource relationship record.",
+      "type": "integer",
+      "longName": "LastModifiedTimestamp",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

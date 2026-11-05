@@ -1,0 +1,45 @@
+{
+  "name": "M3_PMS100MI_TriggerJob",
+  "program": "PMS100MI",
+  "transaction": "TriggerJob",
+  "version": "2026-05-08T06:06:41.41Z",
+  "type": "get",
+  "description": "Trigger automatic background jobs based on a transaction name and batch job number. This operation starts an “autojob” that processes pre-created job records linked to a specific batch job. The transaction name field selects which job definition to run; the batch job number field selects which job records to process. Currently, the only supported transaction name is **SplitMO**, which triggers the manufacturing order split process (MO Split in PMS056) for all records tied to the given batch job number.",
+  "inputParameters": [
+    {
+      "name": "TRXN",
+      "description": "Name of the PMS100MI transaction whose autojob should be triggered (currently SplitMO).",
+      "type": "string",
+      "longName": "TransactionName",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "BJNO",
+      "description": "Batch job number identifying which autojob records to process for the specified transaction.",
+      "type": "string",
+      "longName": "JobNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}
