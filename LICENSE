@@ -1,0 +1,79 @@
+Infor Industry AI Plugin for Claude
+Copyright (c) 2026 Infor. All rights reserved.
+
+1. Ownership
+
+This repository, including its skills, prompts, agent definitions, workflows,
+reference material, scripts and documentation (the "Plugin"), is proprietary to
+Infor and its affiliates ("Infor"). The Plugin is licensed, not sold.
+
+2. Who may use the Plugin
+
+You may use the Plugin only if you, or the organization you act for, have a
+valid agreement with Infor for the Infor products and services the Plugin works
+with (the "Agreement"). Without such an Agreement, this license grants you no
+rights.
+
+3. What you may do
+
+Subject to this license and the Agreement, Infor grants you a limited,
+non-exclusive, non-transferable, non-sublicensable, revocable license to
+install, run, copy and modify the Plugin for your internal business use, solely
+in connection with the Infor products and services covered by the Agreement.
+
+A contractor or service provider you engage may exercise these rights only on
+your behalf and only for your internal use. You are responsible for their
+compliance with this license.
+
+4. What you may not do
+
+Except as the Agreement expressly permits, you may not:
+
+(a) distribute, publish, sublicense, sell, rent, lease or otherwise make the
+    Plugin, or any modified version or part of it, available to any third
+    party;
+
+(b) offer the Plugin, or any product or service built on or derived from it,
+    to third parties, whether sold, hosted, managed or bundled with other
+    products or services, other than a service provider acting on your behalf
+    under section 3;
+
+(c) use the Plugin, or any part of it, to develop or improve any product,
+    service or AI model that competes with Infor products or services;
+
+(d) remove, alter or obscure this notice or any copyright, trademark or
+    attribution notice in the Plugin; or
+
+(e) present the Plugin, or a modified version of it, as your own product, or
+    present a modified version as provided or endorsed by Infor.
+
+5. Third-party material
+
+Some files in the Plugin contain third-party material or carry their own
+license notice. Those notices apply to those files in place of this license.
+
+6. Trademarks
+
+This license grants no rights to use Infor's names, logos or trademarks.
+
+7. Termination
+
+This license ends automatically when your Agreement ends or if you breach this
+license. You must then stop using the Plugin and delete all copies, including
+modified versions.
+
+8. Relationship to the Agreement
+
+This notice sets the scope of your license to the Plugin. The Agreement governs
+everything else about your use of Infor products and services, and prevails if
+the two conflict.
+
+9. No warranty and no liability
+
+EXCEPT AS EXPRESSLY PROVIDED IN THE AGREEMENT, AND TO THE MAXIMUM EXTENT
+PERMITTED BY LAW, THE PLUGIN IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE OR NON-INFRINGEMENT. INFOR WILL HAVE NO LIABILITY FOR ANY
+CLAIM, DAMAGES OR OTHER LOSS ARISING FROM THE PLUGIN OR ITS USE, INCLUDING ANY
+ACTION AN AI ASSISTANT TAKES IN INFOR PRODUCTS WHILE USING THE PLUGIN. YOU ARE
+RESPONSIBLE FOR REVIEWING AND APPROVING SUCH ACTIONS.
