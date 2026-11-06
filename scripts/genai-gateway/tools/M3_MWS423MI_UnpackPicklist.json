@@ -1,0 +1,56 @@
+{
+  "name": "M3_MWS423MI_UnpackPicklist",
+  "program": "MWS423MI",
+  "transaction": "UnpackPicklist",
+  "version": "2026-05-08T04:04:43.43Z",
+  "type": "get",
+  "description": "Unpack an entire picking list for a delivery. The operation reverses previous pack reporting at pick-list level so that all lines on the specified picking list are set back to an unpacked state and can be repacked or otherwise adjusted.",
+  "inputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number for which the pick list is unpacked.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DLIX",
+      "description": "Delivery number identifying the pick list to unpack.",
+      "type": "integer",
+      "longName": "DeliveryNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLSX",
+      "description": "Picking list suffix identifying the specific picking list instance to unpack for the delivery.",
+      "type": "integer",
+      "longName": "PickingListSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

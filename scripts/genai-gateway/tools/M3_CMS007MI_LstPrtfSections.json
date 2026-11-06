@@ -1,0 +1,287 @@
+{
+  "name": "M3_CMS007MI_LstPrtfSections",
+  "program": "CMS007MI",
+  "transaction": "LstPrtfSections",
+  "version": "2026-08-18T06:06:03.03Z",
+  "type": "list",
+  "description": "This tool can list XML Sections used in M3 printer files. Printer files are used do define documents in M3 output management.",
+  "inputParameters": [
+    {
+      "name": "PRTF",
+      "description": "Printer file that the XML section belongs to.",
+      "type": "string",
+      "longName": "PrinterFile",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RPLY",
+      "description": "XML structure that the section is defined within.",
+      "type": "string",
+      "longName": "XmlStructure",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "PRTF",
+      "description": "Printer file that the XML section belongs to.",
+      "type": "string",
+      "longName": "PrinterFile",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RPLY",
+      "description": "XML structure that the section is defined within.",
+      "type": "string",
+      "longName": "XmlStructure",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RPBK",
+      "description": "Identifier of the XML section",
+      "type": "integer",
+      "longName": "XmlSectionNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "XMBS",
+      "description": "Status of the section indicating whether it is active for XML, CSV, or other output formats.",
+      "type": "enum",
+      "longName": "SectionStatus",
+      "enumConstants": "Not Active (10),Active For XML (20),Active For CSV (30),Active For Flat file (40),Active (80)",
+      "enumValues": "10,20,30,40,80",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ELNM",
+      "description": "Element name that defines the XML tag used for the section.",
+      "type": "string",
+      "longName": "ElementName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "STYE",
+      "description": "Type of section, such as metadata, header, row, or total, which determines how it is treated in the XML output.",
+      "type": "string",
+      "longName": "SectionType",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SNNO",
+      "description": "Sequence number that controls the order in which this section is processed or printed within its level.",
+      "type": "integer",
+      "longName": "SequenceNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "BLLE",
+      "description": "Level in the XML structure that determines where this section is positioned and printed.",
+      "type": "enum",
+      "longName": "SectionLevel",
+      "enumConstants": "Level 1 (1),Level 2 (2),Level 3 (3),Level 4 (4),Level 5 (5),Level 6 (6),Level 7 (7),Level 8 (8),Level 9 (9),Level 10 (10)",
+      "enumValues": "1,2,3,4,5,6,7,8,9,10",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "EMEL",
+      "description": "Indicates whether elements with no content should still be included in the XML output for this section.",
+      "type": "boolean",
+      "longName": "IncludeEmptyElements",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "SATR",
+      "description": "Option specifying which attribute values are automatically added to the XML section element in the output.",
+      "type": "enum",
+      "longName": "SectionAttributeOption",
+      "enumConstants": "No Section Attribute (1),Section Label (2),Section Label And Section Type Name (3),Section Type Name (4)",
+      "enumValues": "1,2,3,4",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "GRBY",
+      "description": "Element whose value is used to group this section together with consecutive sections in the XML output.",
+      "type": "string",
+      "longName": "GroupByElementName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FGBY",
+      "description": "Element whose value is used for an additional subgrouping within an already grouped section.",
+      "type": "string",
+      "longName": "SubgroupByElementName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TBLN",
+      "description": "Table name used to match CSV data from this section to the corresponding table in the Excel template.",
+      "type": "string",
+      "longName": "TableName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SHTN",
+      "description": "Sheet name used to match CSV data from this section to the correct sheet in the Excel template.",
+      "type": "string",
+      "longName": "SheetName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "LAIC",
+      "description": "Option defining which label, if any, is included for this section in the XML file.",
+      "type": "enum",
+      "longName": "LabelOption",
+      "enumConstants": "No Label (1),Standard Message Id (2),Overriding Msg (3),Overriding Name (4),Field Value (5)",
+      "enumValues": "1,2,3,4,5",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "OVM7",
+      "description": "Overriding message ID used instead of the standard message when resolving the label for this section.",
+      "type": "string",
+      "longName": "OverridingMessageId",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "MSGF",
+      "description": "Message file that contains the standard or overriding message IDs used as labels for this section.",
+      "type": "string",
+      "longName": "MessageFile",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OVNM",
+      "description": "Overriding name text used as the label for this section when no overriding message ID is specified.",
+      "type": "string",
+      "longName": "OverridingName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OBLA",
+      "description": "Field whose value controls when this section is disabled or hidden in the output.",
+      "type": "string",
+      "longName": "DisableConditionField",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FSMG",
+      "description": "Indicates whether the standard message is used as a fallback label when no translation is defined.",
+      "type": "boolean",
+      "longName": "FallbackToStandardMessage",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "EXSE",
+      "description": "Indicates whether an Xtend M3 script is executed before the contents of this section are output.",
+      "type": "boolean",
+      "longName": "XtendScriptEnabled",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "GRBS",
+      "description": "Identifier of the grouping section to which this section belongs.",
+      "type": "integer",
+      "longName": "GroupingSection",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RPBA",
+      "description": "Base XML section that acts as the parent section for this section.",
+      "type": "integer",
+      "longName": "BaseXmlSection",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    }
+  ]
+}

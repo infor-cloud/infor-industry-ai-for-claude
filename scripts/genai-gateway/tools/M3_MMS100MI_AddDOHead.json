@@ -1,0 +1,177 @@
+{
+  "name": "M3_MMS100MI_AddDOHead",
+  "program": "MMS100MI",
+  "transaction": "AddDOHead",
+  "version": "2026-05-08T02:02:58.58Z",
+  "type": "get",
+  "description": "Create a new requisition, replenishment, or distribution order header. This operation stores the header information only and does not create any order line. Use it to register core details such as the responsible person, order type, warehouse, optional destination data, dates, priority, remarks, and reference links. M3 returns the order number after creation. The exact information needed depends on the selected order type, so the required business data can vary between requisition, replenishment, and distribution flows. If you need to create both header and line in one step, use the separate interface that supports combined creation.",
+  "inputParameters": [
+    {
+      "name": "RESP",
+      "description": "User ID of the person responsible for the new requisition or distribution order.",
+      "type": "string",
+      "longName": "ResponsibleUser",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TRTP",
+      "description": "Order type that determines which kind of requisition, replenishment, or distribution order is created and which rules apply.",
+      "type": "string",
+      "longName": "TransactionOrderType",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "WHLO",
+      "description": "Sending warehouse from which the order will issue or transfer stock.",
+      "type": "string",
+      "longName": "Warehouse",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TWLO",
+      "description": "Receiving warehouse for replenishment or distribution orders.",
+      "type": "string",
+      "longName": "ToWarehouse",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TWSL",
+      "description": "Default destination location in the receiving warehouse for the order.",
+      "type": "string",
+      "longName": "ToLocation",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "PRIO",
+      "description": "Priority that indicates the urgency of the order for planning and execution.",
+      "type": "enum",
+      "longName": "OrderPriority",
+      "required": false,
+      "enumConstants": "HighPriority,HighPriority2,HighPriority3,HighPriority4,HighPriority5,NormPriority,LowPriority,LowPriority2,LowPriority3,LowPriority4",
+      "enumValues": "0,1,2,3,4,5,6,7,8,9",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "REMK",
+      "description": "Free-text remark or comment entered on the order header.",
+      "type": "string",
+      "longName": "Remark",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "RORC",
+      "description": "Category identifying the type of source or related order that this order references.",
+      "type": "enum",
+      "longName": "ReferenceOrderCategory",
+      "required": false,
+      "enumConstants": "UseVaries,ManufactOrder,PurchaseOrder,CustomerOrder,RequisitionOrd,DistribOrd,WorkOrder,ServiceOrder,ProjectOrder,PickLst&Rep",
+      "enumValues": "0,1,2,3,4,5,6,7,8,9",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "RORN",
+      "description": "Number of the source or related order that this order references.",
+      "type": "string",
+      "longName": "ReferenceOrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "RORL",
+      "description": "Line number on the referenced order linked to this order.",
+      "type": "integer",
+      "longName": "ReferenceOrderLine",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TRDT",
+      "description": "Planned transaction date for the order, used to schedule when the stock movement should occur.",
+      "type": "date",
+      "longName": "TransactionDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TRTM",
+      "description": "Planned transaction time for the order.",
+      "type": "time",
+      "longName": "TransactionTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "AURE",
+      "description": "User ID of the person who authorizes the order.",
+      "type": "string",
+      "longName": "AuthorizedUser",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TERE",
+      "description": "User ID of the person with technical responsibility for the order, primarily for requisitions.",
+      "type": "string",
+      "longName": "TechnicalSupervisor",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "TRNR",
+      "description": "Order number assigned to the new requisition, replenishment, or distribution order.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

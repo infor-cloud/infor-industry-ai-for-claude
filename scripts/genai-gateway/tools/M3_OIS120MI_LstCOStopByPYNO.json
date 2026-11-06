@@ -1,0 +1,188 @@
+{
+  "name": "M3_OIS120MI_LstCOStopByPYNO",
+  "program": "OIS120MI",
+  "transaction": "LstCOStopByPYNO",
+  "version": "2026-05-08T05:05:58.58Z",
+  "type": "list",
+  "description": "List customer order stop information for all orders connected to a specific payer or payer group. Selection is based on the payer, that is, the invoice recipient that carries the credit responsibility, rather than the ordering customer. Use this operation to retrieve the stop code, order status, and related data for orders that are controlled by credit checking in customer order credit control. Each record in the result represents one customer order header with its current stop information. The result includes basic order identification (facility, order number, order type, order date), payer identification, customer name, salesperson, and credit group. This enables credit controllers to review which orders are currently held due to credit reasons or other stop codes at payer level, instead of per individual customer number.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility used to filter the list to orders belonging to a specific facility.",
+      "type": "string",
+      "longName": "Facility",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PYNO",
+      "description": "Number identifying the payer for whom to list stopped customer orders.",
+      "type": "string",
+      "longName": "PayerNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OBLC",
+      "description": "Stop code used to filter the list to customer orders blocked for a specific reason.",
+      "type": "integer",
+      "longName": "CustomerOrderStopCode",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ORDT",
+      "description": "Order date used to filter the list to orders registered on a specific date.",
+      "type": "date",
+      "longName": "OrderDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ORNO",
+      "description": "Customer order number used to restrict the list to a specific order.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "NFTR",
+      "description": "Number of key fields that are applied as filters when retrieving the list.",
+      "type": "integer",
+      "longName": "NumberOfFilters",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility responsible for the customer order.",
+      "type": "string",
+      "longName": "Facility",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PYNO",
+      "description": "Number identifying the payer responsible for the invoices on the order.",
+      "type": "string",
+      "longName": "PayerNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OBLC",
+      "description": "Stop code on the customer order header indicating whether the order is blocked due to credit or other reasons.",
+      "type": "integer",
+      "longName": "CustomerOrderStopCode",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "ORDT",
+      "description": "Date when the customer order was registered.",
+      "type": "date",
+      "longName": "OrderDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "ORNO",
+      "description": "Customer order number identifying the order in the list.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORSL",
+      "description": "Lowest line status among all lines on the customer order.",
+      "type": "enum",
+      "longName": "LowestOrderStatus",
+      "enumConstants": "Quotation,Preliminary,Registered,Reserved,Reserved/allocated,Reserved/pickingList,Reserved/delivered,Reserved/invoiced,Reserved/completed,Allocated,Allocated/pickingList,Allocated/delivered,Allocated/invoiced,Allocated/completed,PickingList,PickingList/delivered,PickingList/invoiced,PickingList/completed,Delivered,Delivered/invoiced,Delivered/completed,Invoiced,Invoiced/completed,Deleted,FlaggedAsComp",
+      "enumValues": "05,10,20,22,23,24,26,27,29,33,34,36,37,39,44,46,47,49,66,67,69,77,79,90,99",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORTP",
+      "description": "Customer order type that controls number series and processing rules for the order.",
+      "type": "string",
+      "longName": "CustomerOrderType",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CUNM",
+      "description": "Name of the customer placing the order.",
+      "type": "string",
+      "longName": "CustomerName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SMCD",
+      "description": "Salesperson responsible for the customer order.",
+      "type": "string",
+      "longName": "Salesperson",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PYGR",
+      "description": "Credit group used for joint credit checking and credit limits across associated payers.",
+      "type": "string",
+      "longName": "CreditGroup",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

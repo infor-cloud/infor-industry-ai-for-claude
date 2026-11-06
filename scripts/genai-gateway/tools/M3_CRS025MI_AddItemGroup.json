@@ -1,0 +1,100 @@
+{
+  "name": "M3_CRS025MI_AddItemGroup",
+  "program": "CRS025MI",
+  "transaction": "AddItemGroup",
+  "version": "2026-05-08T10:10:50.50Z",
+  "type": "get",
+  "description": "Create item groups that classify items and control default forecasting and catch weight behavior. An item group acts as a common identity to group items, for example for selection, sorting, and forecast adjustments. You can store a description and an optional short name, link the group to a seasonal curve and a trend curve, and define tolerances for catch weight deviations. Seasonal and trend curves describe how quantities are distributed over the periods of a calendar year and how trends evolve, and catch weight tolerances control allowed variance when reporting catch weight items.",
+  "inputParameters": [
+    {
+      "name": "ITGR",
+      "description": "Identifier of the item group to create.",
+      "type": "string",
+      "longName": "ItemGroup",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TX40",
+      "description": "Full description of the item group.",
+      "type": "string",
+      "longName": "Description",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TX15",
+      "description": "Short name of the item group, typically used in lists and overviews.",
+      "type": "string",
+      "longName": "Name",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "SECU",
+      "description": "Seasonal curve that defines how demand for items in this group is distributed over the year.",
+      "type": "integer",
+      "longName": "SeasonalCurve",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TECU",
+      "description": "Trend curve that defines how demand for items in this group changes over time.",
+      "type": "integer",
+      "longName": "TrendCurve",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TCWP",
+      "description": "Maximum allowed deviation from expected weight for catch weight items in this group, expressed as a percentage.",
+      "type": "number",
+      "longName": "CatchWeightTolerancePercent",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TCWQ",
+      "description": "Maximum allowed deviation from expected average weight for catch weight items in this group, expressed in weight units.",
+      "type": "number",
+      "longName": "CatchWeightToleranceWeight",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

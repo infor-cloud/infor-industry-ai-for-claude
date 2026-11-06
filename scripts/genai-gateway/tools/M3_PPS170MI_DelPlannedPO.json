@@ -1,0 +1,67 @@
+{
+  "name": "M3_PPS170MI_DelPlannedPO",
+  "program": "PPS170MI",
+  "transaction": "DelPlannedPO",
+  "version": "2026-05-08T07:07:57.57Z",
+  "type": "delete",
+  "description": "Delete a planned purchase order that is no longer needed in the purchasing or planning process. This operation removes the selected planned order from the planning data, based on its internal planned order number. It is intended for planned purchase orders that are not yet converted to firm purchase orders and that have no active dependencies, such as connected customer orders or other reference orders.",
+  "inputParameters": [
+    {
+      "name": "PLPN",
+      "description": "Internal number identifying the planned purchase order to delete.",
+      "type": "integer",
+      "longName": "PlannedOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number for which the planned purchase order is deleted.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "PLPS",
+      "description": "Subnumber identifying the specific part of the planned purchase order to delete.",
+      "type": "integer",
+      "longName": "PlannedOrderSubnumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "PLP2",
+      "description": "Secondary subnumber used to further identify the planned purchase order instance to delete.",
+      "type": "integer",
+      "longName": "PlannedOrderSubnumber2",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

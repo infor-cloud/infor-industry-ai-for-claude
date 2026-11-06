@@ -1,0 +1,67 @@
+{
+  "name": "M3_DPS170MI_GetUserJobSts",
+  "program": "DPS170MI",
+  "transaction": "GetUserJobSts",
+  "version": "2026-05-08T12:12:01.01Z",
+  "type": "get",
+  "description": "Retrieve the current batch update status for a user’s distribution order inbox. The status flag indicates whether the background job that transfers records from the inbox into live distribution order files is currently running or not. Just before an update starts, the status is set to `01` (busy). When the update job finishes, it resets the status to `00` (ready). Use this status check to control when a new update is started so that overlapping jobs for the same user are avoided.",
+  "inputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number for which the user's update job status is checked.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "STA2",
+      "description": "Update job status code for the user, normally returned by the transaction, with typical values '00' = ready and '01' = busy.",
+      "type": "enum",
+      "longName": "Status",
+      "required": false,
+      "enumConstants": ",Deactivated,Activated,ActivatedYop,RecSourRules,ImplOrdersYop,ManChgSoRule,DisaggrPerf,Implemented",
+      "enumValues": " ,10,20,30,40,41,50,70,90",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number for which this update job status record is returned.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "USID",
+      "description": "User ID for which the update job status is stored.",
+      "type": "string",
+      "longName": "User",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "STA2",
+      "description": "Current update job status code for the user, typically '00' = ready and '01' = busy.",
+      "type": "enum",
+      "longName": "Status",
+      "enumConstants": ",Deactivated,Activated,ActivatedYop,RecSourRules,ImplOrdersYop,ManChgSoRule,DisaggrPerf,Implemented",
+      "enumValues": " ,10,20,30,40,41,50,70,90",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

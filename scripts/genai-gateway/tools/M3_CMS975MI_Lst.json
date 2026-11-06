@@ -1,0 +1,221 @@
+{
+  "name": "M3_CMS975MI_Lst",
+  "program": "CMS975MI",
+  "transaction": "Lst",
+  "version": "2026-08-19T02:02:00.00Z",
+  "type": "list",
+  "description": "This tool lists the feature details for all features available. A feature is a new functionality in for example M3. The output is description of the feature, type, dates and if the feature is active or not in the tenant.",
+  "inputParameters": [
+    {
+      "name": "NCRN",
+      "description": "NCR number. Feature ID (KB ID) of the feature.",
+      "type": "integer",
+      "longName": "FeatureId",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "NCRN",
+      "description": "NCR number. Feature ID (KB ID) of the feature.",
+      "type": "integer",
+      "longName": "FeatureId",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PDCT",
+      "description": "Product. Identifier of the M3 product that the feature belongs to.",
+      "type": "enum",
+      "longName": "ProductId",
+      "enumConstants": "M3BusinessEngine,M3UiAdapter,InforSalesHub,M3BodProcessor,M3BeBods",
+      "enumValues": "1,2,3,4,5",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PARF",
+      "description": "Product version. Installed product version in which this feature is delivered.",
+      "type": "string",
+      "longName": "ProductVersion",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FEDS",
+      "description": "Feature description. Text description of the feature.",
+      "type": "string",
+      "longName": "FeatureDescription",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FEMO",
+      "description": "Module. Abbreviated code of the M3 module in which the feature is implemented.",
+      "type": "enum",
+      "longName": "ModuleCode",
+      "enumConstants": "NotUsed,Abs-AutomaticRecordingBankStatement,Ahr-AdHocReporting,Api-ApplicationProgrammingInterface,Apl-AccountsPayable,Arl-AccountsReceivable,Atc-AttributeControl,Boa-BulkOrderAgreements,Bud-Budgeting,Cac-CostAccounting,Cam-CapabilityManagement,Cds-CustomerDeliverySchedules,Cfm-CashFlowManagement,Cob-BonusAndCommissions,Com-CoreManagement,Cop-CustomerOrderProcessing,Coq-SalesQuotations,Cos-PricingAndConditions,Crp-CapacityRequirementsPlanning,Crs-CrossApplicationServices,Csh-CashDeskSales,Ctp-GlobalCapableToPromise,Cur-CurrentAssets,Dim-DiagnosticsManagement,Dop-DistributionOrderProcessing,Drp-DistributionRequirementPlanning,Ecm-EngineeringChangeManagement,Eqm-EquipmentQuotationManagement,Etm-EnvironmentalTaxesManagement,Faa-FinancialAuditAndAccounting,Fac-FinancialAgreementControlling,Fas-FixedAssets,Fcm-FreightCostManagement,Fop-FieldOrderProcessing,For-Forecasting,Gcm-GrowerContractManagement,Gco-GroupConsolidation,Glr-GeneralLedger,Icc-EquipmentAndComponentControl,Iti-ItemManagementInterface,Lic-LaboratoryAndInspectionControl,Rtm-RentalManagement,Map-MaterialPlanning,Mcm-MaintPerformanceAndCosting,Mco-MaintenanceCustomerOrderProcess,Mjs-JobScheduler,Mna-MaintenanceAgreements,Mnq-MaintenanceQuotations,Mop-ManufacturingOrderProcessing,Mpc-MaintenanceSchedulingBoard,Mps-MasterProductionSchedule,Muc-MultipleUnitCoordination,Out-OutputManagement,Pcc-ProjectControlBoard,Pco-ProductCosting,Pcr-ProductConfigurator,Pda-ProductData,Pds-PurchaseDeliverySchedules,Pjp-ProjectProcessing,Pjq-ProjectQuotations,Pop-PurchaseOrderProcessing,Poq-RequestForQuotations,Pos-PointOfSalesIntegration,Prm-PreventiveMaintenance,Pss-SupplierEvaluationAndStatistics,Pst-ProductionStatistics,Qms-QualityManagementSystem,Rcp-Rough-cutCapacityPlanning,Rgr-ReportGenerator,Rgt-RentalEquipmentPlanningBoard,Ris-RiskManagement,Rtm-RentalAgreements,Sag-ServiceAgreements,Sco-SupplyChainOrders,Sec-SecurityManagement,Sep-ServiceOrderProcessing,Spb-ServicePlanningBoard,Sst-SalesStatisticsAndPerformance,Rtm-RentalAgreements2,Tac-TimeAccounting,Tag-TradeAgreements,Tam-TransactionArchivingManagement,Tax-TaxManagement,Tdo-TechnicalDocumentManagement,Tim-TimeAndAttendance,Tmi-TransportationMgmtInterfaces,Tpl-TransportationManagement,Vom-VehicleOperationsManagement,Wam-WarrantyManagement,Whi-WarehouseManagementInterfaces,Whm-WarehouseManagement,Wis-InventoryStatistics,Wla-LotAndAllocationControl,Wop-WorkOrderProcessing",
+      "enumValues": " ,ABS,AHR,API,APL,ARL,ATC,BOA,BUD,CAC,CAM,CDS,CFM,COB,COM,COP,COQ,COS,CRP,CRS,CSH,CTP,CUR,DIM,DOP,DRP,ECM,EQM,ETM,FAA,FAC,FAS,FCM,FOP,FOR,GCM,GCO,GLR,ICC,ITI,LIC,LTR,MAP,MCM,MCO,MJS,MNA,MNQ,MOP,MPC,MPS,MUC,OUT,PCC,PCO,PCR,PDA,PDS,PJP,PJQ,POP,POQ,POS,PRM,PSS,PST,QMS,RCP,RGR,RGT,RIS,RTM,SAG,SCO,SEC,SEP,SPB,SST,STR,TAC,TAG,TAM,TAX,TDO,TIM,TMI,TPL,VOM,WAM,WHI,WHM,WIS,WLA,WOP",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "COCO",
+      "description": "Configuration component. Configuration or country component associated with the feature, for example MSE (Sweden) or MIT (Italy).",
+      "type": "string",
+      "longName": "ConfigurationComponent",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CSVN",
+      "description": "Country version. Country-specific version whose functionality the feature relates to.",
+      "type": "enum",
+      "longName": "CountryVersion",
+      "enumConstants": "NotUsed,UnitedArabEmirates,Argentina,Austria,Australia,Belgium,Bulgaria,Bolivia,Brazil,Bahamas,Botswana,Canada,Switzerland,Chile,China,Colombia,CzechRepublic,Germany,Denmark,Algeria,Estonia,Egypt,Spain,Finland,France,UnitedKingdom,Guatemala,HongKong,Honduras,,Hungary,Indonesia,Ireland,Israel,India,Italy,Japan,Kenya,SouthKorea,CaymanIslands,Lithuania,Luxembourg,Latvia,Morocco,Mexico,Malaysia,Namibia,Nigeria,Netherlands,Norway,NewZealand,Panama,Philippines,Poland,PuertoRico,Portugal,Qatar,Romania,RussianFederation,SaudiArabia,Sweden,Singapore,Slovenia,Slovakia,Thailand,Turkey,Taiwan,Tanzania,Usa,Uruguay,Vietnam,SouthAfrica,Zambia,Zimbabwe",
+      "enumValues": " ,AE,AR,AT,AU,BE,BG,BO,BR,BS,BW,CA,CH,CL,CN,CO,CZ,DE,DK,DZ,EE,EG,ES,FI,FR,GB,GT,HK,HN,HR,HU,ID,IE,IL,IN,IT,JP,KE,KR,KY,LT,LU,LV,MA,MX,MY,NA,NG,NL,NO,NZ,PA,PH,PL,PR,PT,QA,RO,RU,SA,SE,SG,SI,SK,TH,TR,TW,TZ,US,UY,VN,ZA,ZM,ZW",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FETP",
+      "description": "Feature type or Feature toggle. Category of the feature indicating whether it is a zero-impact enhancement, functional setting, feature toggle, or immediate change.",
+      "type": "enum",
+      "longName": "FeatureType",
+      "enumConstants": "ZeroImpact,FunctionalSetting,FeatureToggle,FeatureToggle-ProcessChange,Immediate-FeatureVersion,Immediate-AnyVersion",
+      "enumValues": "1,2,3,4,5,6",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "FEAT",
+      "description": "Feature active. Indicates whether the feature is currently active.",
+      "type": "boolean",
+      "longName": "FeatureActive",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "FEAD",
+      "description": "Feature activation date. Date Format is YYYYMMDD. Date when the feature was activated.",
+      "type": "date",
+      "longName": "FeatureActivationDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TRAP",
+      "description": "Transition period end. Date Format is YYYYMMDD. Date when an update forced the feature to be permanently active so it can no longer be deactivated.",
+      "type": "date",
+      "longName": "TransitionPeriodEndDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "FECD",
+      "description": "Feature completion date. Date Format is YYYYMMDD. Date when development of the feature was completed.",
+      "type": "date",
+      "longName": "FeatureCompletionDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "SOLI",
+      "description": "Solution ID. Knowledge Base article ID (solution ID) linked to the feature in the Infor Customer Portal.",
+      "type": "integer",
+      "longName": "KnowledgeBaseId",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RESP",
+      "description": "Responsible. User ID of the person responsible for the feature.",
+      "type": "string",
+      "longName": "ResponsibleUser",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FEST",
+      "description": "Feature status or Feature toggle status. Status of the feature in the review and validation process.",
+      "type": "integer",
+      "longName": "FeatureStatus",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "FERC",
+      "description": "Review progress. Indicator showing whether the feature is under review or review is completed.",
+      "type": "enum",
+      "longName": "ReviewProgress",
+      "enumConstants": "UnderReview,ReviewCompleted",
+      "enumValues": "1,2",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "UPSC",
+      "description": "Update schedule or Toggle expiration. Date Format is YYYYMM. Product version in which the feature will be automatically activated according to the update schedule.",
+      "type": "enum",
+      "longName": "UpdateSchedule",
+      "enumConstants": "September-2019,March-2020,September-2020,April-2021,October-2021,April-2022,October-2022,April-2023,October-2023,April-2024,October-2024,April-2025,October-2025,April-2026,October-2026,April-2027,October-2027,April-2028",
+      "enumValues": "201909,202003,202009,202104,202110,202204,202210,202304,202310,202404,202410,202504,202510,202604,202610,202704,202710,202804",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "IDAE",
+      "description": "Deployment date. Date Format is YYYYMMDD. Date when the package containing the feature was installed.",
+      "type": "date",
+      "longName": "DeploymentDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    }
+  ]
+}

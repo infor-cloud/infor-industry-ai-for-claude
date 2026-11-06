@@ -2,8 +2,8 @@
 """List, check and set up M3 GenAI Gateway tools for the Infor Industry AI skills.
 
   gg.py list     the tools in a tenant: standard, customized and which one is in effect
-  gg.py check    whether a tenant has every tool the skills use, as they expect it
-  gg.py apply    create or update the customized tools the skills use (dry run unless --apply)
+  gg.py check    whether a tenant has the customized tools in tools/ and the tools the skills use
+  gg.py apply    create or update the customized tools in tools/ (dry run unless --apply)
   gg.py export   save customized tool definitions from a tenant as JSON files
 
 Signs in with a Backend Service .ionapi file from ION API. Python 3.9 or later, standard library only.
@@ -27,6 +27,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parent.parent
 DEFAULT_TOOLS = HERE / "tools"
+DEFAULT_EXCLUDE = HERE / "exclude.txt"
 DEFAULT_SKILLS = REPO / "plugins" / "infor-industry-ai" / "skills"
 
 # Claude accepts a tool only when its name and every property name match these.
@@ -166,6 +167,15 @@ def load_definitions(tools_dir, only=None):
             raise GatewayError(f"no definition in {tools_dir} for {', '.join(unknown)}")
         defs = {n: defs[n] for n in only}
     return defs
+
+
+def load_excluded(path):
+    """Tool names in exclude.txt, without the comments."""
+    path = Path(path)
+    if not path.is_file():
+        return set()
+    names = (line.split("#", 1)[0].strip() for line in path.read_text(encoding="utf-8").splitlines())
+    return {n for n in names if n}
 
 
 def needed_tools(skills_dir):
@@ -323,13 +333,18 @@ def cmd_list(gw, args):
 
 
 def cmd_check(gw, args):
-    needed = needed_tools(args.skills)
+    skills_note = None
+    if Path(args.skills).exists() or args.skills != str(DEFAULT_SKILLS):
+        needed = needed_tools(args.skills)
+    else:
+        needed = {}
+        skills_note = f"No skills in {args.skills}, so only tools/ was checked. Pass --skills to check the skills too."
     defs = load_definitions(args.tools)
     standard = {t["name"] for t in gw.list("standard")}
     custom = {t["name"]: t for t in gw.list("custom")}
     on = {n for n, t in custom.items() if t.get("enabled")}
 
-    names = set(needed) | ((standard | set(custom)) if args.all else set())
+    names = set(needed) | set(defs) | ((standard | set(custom)) if args.all else set())
     print(f"Reading {len(names)} tools in {gw.tenant} ...", file=sys.stderr)
     full_custom = gw.get_many(sorted(n for n in names if n in on or (n in needed and n in custom)), "custom")
     full_standard = gw.get_many(sorted(n for n in names if n in standard and (n in needed or n not in on)), "standard")
@@ -342,7 +357,7 @@ def cmd_check(gw, args):
             problems = lint(active)
             if problems:
                 naming[n] = problems
-        if n not in needed:
+        if n not in needed and n not in defs:
             continue
         if n in custom and n not in on and (n in defs or active is None):
             buckets["off"].append((n, []))
@@ -360,7 +375,11 @@ def cmd_check(gw, args):
             buckets["ok"].append((n, []))
 
     skills = sorted({s for v in needed.values() for s in v})
-    print(f"\n{gw.tenant}: {len(needed)} tools used by the skills ({', '.join(skills)})")
+    checked = len(set(needed) | set(defs))
+    print(f"\n{gw.tenant}: {checked} tools checked: the {len(defs)} customized tools in tools/"
+          + (f" and the {len(needed)} tools the skills use ({', '.join(skills)})" if needed else ""))
+    if skills_note:
+        print(f"  {skills_note}")
     labels = (
         ("ok", "In place"),
         ("missing", "Missing. apply creates them"),
@@ -379,17 +398,23 @@ def cmd_check(gw, args):
         if key == "ok":
             continue
         for n, changes in items:
-            print(f"         {n}  ({', '.join(needed[n])})")
+            print(f"         {n}" + (f"  (used by {', '.join(needed[n])})" if n in needed else ""))
             _print_changes(changes, args.verbose, 13, 5)
+    extra = sorted(set(custom) - set(defs))
+    if extra:
+        excluded = load_excluded(args.exclude)
+        print(f"\n  Customized in {gw.tenant} but not in tools/ (not counted as a problem):")
+        for n in extra:
+            print(f"         {n}" + ("  (left out on purpose, see exclude.txt)" if n in excluded else ""))
     if naming:
-        print(f"\nNaming problems in {'the tools in effect' if args.all else 'the tools the skills use'}. "
+        print(f"\nNaming problems in {'the tools in effect' if args.all else 'the tools checked'}. "
               "Claude does not accept a tool with these. Fix them in GenAI Gateway:")
         for n, problems in sorted(naming.items()):
             print(f"  {n}")
             for problem in problems:
                 print(f"      {problem}")
     bad = any(buckets[k] for k in buckets if k != "ok") or bool(naming)
-    print("\nResult: " + ("changes needed" if bad else "everything the skills use is in place"))
+    print("\nResult: " + ("changes needed" if bad else "everything checked is in place"))
     return 1 if bad else 0
 
 
@@ -445,13 +470,14 @@ def cmd_apply(gw, args):
 
 
 def cmd_export(gw, args):
-    if args.needed:
-        names = sorted(needed_tools(args.skills))
+    custom = {t["name"] for t in gw.list("custom")}
+    excluded = load_excluded(args.exclude)
+    if args.all:
+        names = sorted(custom - excluded)
     else:
         names = sorted(args.names)
     if not names:
-        raise GatewayError("name the tools to export, or pass --needed")
-    custom = {t["name"] for t in gw.list("custom")}
+        raise GatewayError("name the tools to export, or pass --all")
     skipped = [n for n in names if n not in custom]
     names = [n for n in names if n in custom]
     out = Path(args.out)
@@ -465,6 +491,15 @@ def cmd_export(gw, args):
         (out / f"{n}.json").write_text(json.dumps(d, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         written += 1
     print(f"Wrote {written} definition{'' if written == 1 else 's'} from {gw.tenant} to {out}")
+    if args.all:
+        stale = sorted(p for p in out.glob("*.json") if p.stem not in names)
+        for p in stale:
+            p.unlink()
+        if stale:
+            print(f"Removed {len(stale)} no longer customized in {gw.tenant} or now excluded: "
+                  + ", ".join(p.stem for p in stale))
+        if excluded & custom:
+            print(f"Left out, as listed in {args.exclude}: {', '.join(sorted(excluded & custom))}")
     if skipped:
         print(f"Not customized in {gw.tenant}, not exported: {', '.join(sorted(skipped))}")
     return 0
@@ -486,14 +521,15 @@ def main(argv=None):
     s.add_argument("--out", help="write to this file instead of the screen")
     s.set_defaults(run=cmd_list)
 
-    s = sub.add_parser("check", help="check the tenant against the tools the skills use (read only)")
+    s = sub.add_parser("check", help="check the tenant against tools/ and the skills (read only)")
     s.add_argument("--skills", default=str(DEFAULT_SKILLS), help="the plugin's skills folder")
     s.add_argument("--tools", default=str(DEFAULT_TOOLS), help="folder of tool definitions")
+    s.add_argument("--exclude", default=str(DEFAULT_EXCLUDE), help="file of tools left out on purpose")
     s.add_argument("--all", action="store_true", help="also check naming on every tool in effect")
     s.add_argument("--verbose", action="store_true", help="show every difference")
     s.set_defaults(run=cmd_check)
 
-    s = sub.add_parser("apply", help="create or update the customized tools (dry run unless --apply)")
+    s = sub.add_parser("apply", help="create or update the customized tools in tools/ (dry run unless --apply)")
     s.add_argument("--tools", default=str(DEFAULT_TOOLS), help="folder of tool definitions")
     s.add_argument("--only", nargs="+", metavar="TOOL", help="only these tools")
     s.add_argument("--apply", action="store_true", help="make the changes")
@@ -503,8 +539,9 @@ def main(argv=None):
 
     s = sub.add_parser("export", help="save customized tool definitions as JSON files")
     s.add_argument("names", nargs="*", metavar="TOOL")
-    s.add_argument("--needed", action="store_true", help="every customized tool the skills use")
-    s.add_argument("--skills", default=str(DEFAULT_SKILLS), help="the plugin's skills folder")
+    s.add_argument("--all", action="store_true",
+                   help="every customized tool except those in exclude.txt, and remove files for the rest")
+    s.add_argument("--exclude", default=str(DEFAULT_EXCLUDE), help="file of tools to leave out")
     s.add_argument("--out", default=str(DEFAULT_TOOLS), help="folder to write to")
     s.set_defaults(run=cmd_export)
 

@@ -1,0 +1,45 @@
+{
+  "name": "M3_PMS100MI_DltMO",
+  "program": "PMS100MI",
+  "transaction": "DltMO",
+  "version": "2026-05-08T06:06:25.25Z",
+  "type": "get",
+  "description": "Delete manufacturing orders that are still in a preliminary state. The operation removes the manufacturing order record identified by its manufacturing order number. It is used for orders created in error or that must be removed before any execution or stock movement occurs. Manufacturing orders that have been started or that have reported stock or outputs cannot be removed; in those cases the order should be closed or otherwise completed instead of deleted. Deletion is permanent and does not keep any history for the removed order.",
+  "inputParameters": [
+    {
+      "name": "MFNO",
+      "description": "Manufacturing order number identifying the order to be deleted.",
+      "type": "string",
+      "longName": "ManufacturingOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number where the manufacturing order to be deleted is registered.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

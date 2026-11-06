@@ -1,0 +1,122 @@
+{
+  "name": "M3_CMS004MI_LstPrtfVariants",
+  "program": "CMS004MI",
+  "transaction": "LstPrtfVariants",
+  "version": "2026-08-18T05:05:51.51Z",
+  "type": "list",
+  "description": "This tool can list Printer files Variants for M3. Printer files are used do define documents in M3 output management.",
+  "inputParameters": [
+    {
+      "name": "PRTF",
+      "description": "Printer file for which the XML variants are listed.",
+      "type": "string",
+      "longName": "PrinterFile",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "XMLT",
+      "description": "XML variant identifier for the printer file.",
+      "type": "integer",
+      "longName": "XmlVariant",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "XMLD",
+      "description": "Text description of the XML variant for the printer file.",
+      "type": "string",
+      "longName": "XmlVariantDescription",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "LAIC",
+      "description": "Option indicating which label source the XML variant uses in the generated XML file.",
+      "type": "enum",
+      "longName": "LabelOption",
+      "enumConstants": "No Label (1),Standard Message Id (2),Overriding Msg (3),Overriding Name (4)",
+      "enumValues": "1,2,3,4",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "MSID",
+      "description": "Standard message ID used as the default label for the XML variant.",
+      "type": "string",
+      "longName": "MessageId",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "MSGF",
+      "description": "Message file containing the standard message ID used as the default label for the XML variant.",
+      "type": "string",
+      "longName": "MessageFile",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OVM7",
+      "description": "Overriding message ID used as an alternative label for the XML variant.",
+      "type": "string",
+      "longName": "OverridingMessageId",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OVMF",
+      "description": "Message file containing the overriding message ID used as an alternative label for the XML variant.",
+      "type": "string",
+      "longName": "OverridingMessageFile",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OVNM",
+      "description": "Overriding name used as a custom label for the XML variant when no overriding message ID is defined.",
+      "type": "string",
+      "longName": "OverridingName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FSMG",
+      "description": "Indicator whether to fall back to the standard message text as label when no translation exists for the XML variant.",
+      "type": "boolean",
+      "longName": "FallbackToStandardMessage",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    }
+  ]
+}

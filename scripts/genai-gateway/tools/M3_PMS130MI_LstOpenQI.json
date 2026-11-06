@@ -1,0 +1,122 @@
+{
+  "name": "M3_PMS130MI_LstOpenQI",
+  "program": "PMS130MI",
+  "transaction": "LstOpenQI",
+  "version": "2026-05-08T06:06:01.01Z",
+  "type": "list",
+  "description": "List open quality inspection balance identities for a specific item and lot that are still under inspection. The operation belongs to receipt inspection for manufacturing orders and returns, for each matching balance identity, the item and lot together with warehouse, location, container, and key quality inspection references. These references include the LI specification number, sequence number, and the quality inspection request ID, which together show which quantities of a lot remain in inspection and how they are controlled.",
+  "inputParameters": [
+    {
+      "name": "ITNO",
+      "description": "Item number identifying which item's lot to list open quality inspections for.",
+      "type": "string",
+      "longName": "ItemNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "BANO",
+      "description": "Lot number identifying the specific lot whose open quality inspections should be listed.",
+      "type": "string",
+      "longName": "BatchNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "ITNO",
+      "description": "Item number for the lot with open quality inspections.",
+      "type": "string",
+      "longName": "ItemNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "BANO",
+      "description": "Lot number for the lot with open quality inspections.",
+      "type": "string",
+      "longName": "BatchNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "WHLO",
+      "description": "Warehouse where the inspected lot's balance ID is stored.",
+      "type": "string",
+      "longName": "Warehouse",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "WHSL",
+      "description": "Location within the warehouse where the inspected lot's balance ID is stored.",
+      "type": "string",
+      "longName": "Location",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CAMU",
+      "description": "Container number that forms part of the balance ID for the inspected lot.",
+      "type": "string",
+      "longName": "ContainerNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ANNO",
+      "description": "LI specification number used for the analysis specification applied to the inspected lot.",
+      "type": "integer",
+      "longName": "LiSpecificationNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "SEMO",
+      "description": "Sequence number distinguishing different inspection reports for the same item, lot, and LI specification.",
+      "type": "integer",
+      "longName": "LiSequenceNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "QRID",
+      "description": "Unique identifier of the quality inspection (QI) request for the balance ID.",
+      "type": "string",
+      "longName": "QiRequestId",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

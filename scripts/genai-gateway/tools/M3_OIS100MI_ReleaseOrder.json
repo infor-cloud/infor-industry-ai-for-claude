@@ -1,0 +1,45 @@
+{
+  "name": "M3_OIS100MI_ReleaseOrder",
+  "program": "OIS100MI",
+  "transaction": "ReleaseOrder",
+  "version": "2026-10-16T11:11:10.10Z",
+  "type": "get",
+  "description": "Release the lock on a customer order previously locked with the LockOrder operation in Sales Desk. LockOrder sets an order-header lock code to 9 so integrations can safely add or change lines without interference from other users or jobs. When updates are finished, use ReleaseOrder to set the lock code to 1 and run release processing so normal processing can continue.",
+  "inputParameters": [
+    {
+      "name": "ORNO",
+      "description": "Customer order number to be released from the LockOrder lock.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company in which the customer order to be released is registered.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

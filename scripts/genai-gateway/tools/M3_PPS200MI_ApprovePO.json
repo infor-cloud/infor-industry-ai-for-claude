@@ -1,0 +1,67 @@
+{
+  "name": "M3_PPS200MI_ApprovePO",
+  "program": "PPS200MI",
+  "transaction": "ApprovePO",
+  "version": "2026-05-08T07:07:59.59Z",
+  "type": "get",
+  "description": "Approve purchase orders that are waiting for authorization. The operation updates an existing purchase order whose highest status is 12 (order stopped, authorization required). When approval succeeds, the highest status is raised to 15 (ready for printout). The response returns the purchase order number together with the updated lowest and highest status values so that you can verify that the authorization step is completed.",
+  "inputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number of the purchase order to approve.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "AUTD",
+      "description": "Authorization code (signature) used to approve the purchase order.",
+      "type": "string",
+      "longName": "AuthorizationCode",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number of the approved purchase order.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PUSL",
+      "description": "Lowest line status currently present on the purchase order.",
+      "type": "string",
+      "longName": "LowestPurchaseOrderStatus",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PUST",
+      "description": "Highest line status currently present on the purchase order.",
+      "type": "string",
+      "longName": "HighestPurchaseOrderStatus",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

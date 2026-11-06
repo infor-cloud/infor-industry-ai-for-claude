@@ -1,0 +1,309 @@
+{
+  "name": "M3_MWS121MI_LstAcqByDmdOrd",
+  "program": "MWS121MI",
+  "transaction": "LstAcqByDmdOrd",
+  "version": "2026-05-08T04:04:46.46Z",
+  "type": "list",
+  "description": "List acquisition preallocations linked to a specific demand order line and see which supply orders cover that demand. The operation returns all preallocated acquisition order lines connected to the entered demand order category, order number, and line (optionally line suffix). The response includes company, warehouse, item, demand and acquisition order identities, several quantity fields related to the preallocation, planning date, pre‑allocatable net quantity, expiration date, and schedule number, enabling analysis and integration with production or packing processes. It only reads existing preallocations and does not change any data.",
+  "inputParameters": [
+    {
+      "name": "DOCA",
+      "description": "Demand order category identifying the type of demand order whose preallocated acquisition orders are listed.",
+      "type": "enum",
+      "longName": "DemandOrderCategory",
+      "required": true,
+      "enumConstants": "DemandOrder,PlannedMo,ManufacturingOrder,CustomerOrder,RequisitionOrder,PlannedDo,DistributionOrder,PlannedWo,WorkOrder,MoveLocationOrder",
+      "enumValues": "030,110,111,311,411,510,511,610,611,921",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DRDN",
+      "description": "Demand order number specifying the demand order whose preallocated acquisition orders to list.",
+      "type": "string",
+      "longName": "DemandOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DRDL",
+      "description": "Demand order line number specifying the line on the demand order whose preallocated acquisition orders to list.",
+      "type": "integer",
+      "longName": "DemandOrderLineNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DRDX",
+      "description": "Optional line suffix identifying a specific sequence within the demand order line to use as a filter.",
+      "type": "integer",
+      "longName": "DemandOrderLineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "AOCA",
+      "description": "Acquisition order category used to restrict the list to preallocations from a specific type of acquisition order, such as purchase or manufacturing.",
+      "type": "enum",
+      "longName": "AcquisitionOrderCategory",
+      "required": false,
+      "enumConstants": "ManufacturingOrder,ManufacturingOrder2,Mo-Co-product,Mo-Co-product2,Mo-By-product,Mo-By-product2,PurchaseOrder,PurchaseOrder2,DistributionOrder,DistributionOrder2,MaintCustOrder,MaintCustOrder2",
+      "enumValues": "100,101,120,121,130,131,250,251,500,501,600,601",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "ARDN",
+      "description": "Acquisition order number used to restrict the list to preallocations from a specific acquisition order.",
+      "type": "string",
+      "longName": "AcquisitionOrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "ARDL",
+      "description": "Acquisition order line number used to restrict the list to preallocations from a specific line on the acquisition order.",
+      "type": "integer",
+      "longName": "AcquisitionOrderLineNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "ARDX",
+      "description": "Acquisition order line suffix used to restrict the list to a specific sequence within the acquisition order line.",
+      "type": "integer",
+      "longName": "AcquisitionOrderLineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "NFTR",
+      "description": "Number of leading key fields from the input that are used as filters when selecting records.",
+      "type": "integer",
+      "longName": "NumberOfFilters",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number for the preallocation record linking the demand and acquisition orders.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "WHLO",
+      "description": "Warehouse where the preallocated acquisition order line is held or planned.",
+      "type": "string",
+      "longName": "Warehouse",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "DOCA",
+      "description": "Demand order category of the demand order in the preallocation.",
+      "type": "enum",
+      "longName": "DemandOrderCategory",
+      "enumConstants": "DemandOrder,PlannedMo,ManufacturingOrder,CustomerOrder,RequisitionOrder,PlannedDo,DistributionOrder,PlannedWo,WorkOrder,MoveLocationOrder",
+      "enumValues": "030,110,111,311,411,510,511,610,611,921",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "DRDN",
+      "description": "Demand order number for the preallocated demand order.",
+      "type": "string",
+      "longName": "DemandOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "DRDL",
+      "description": "Demand order line number for the preallocated demand line.",
+      "type": "integer",
+      "longName": "DemandOrderLineNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "DRDX",
+      "description": "Line suffix identifying the specific sequence within the demand order line.",
+      "type": "integer",
+      "longName": "DemandOrderLineSuffix",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "ITNO",
+      "description": "Item number on the preallocated acquisition and demand order lines.",
+      "type": "string",
+      "longName": "ItemNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "AOCA",
+      "description": "Acquisition order category of the supplying order in the preallocation.",
+      "type": "enum",
+      "longName": "AcquisitionOrderCategory",
+      "enumConstants": "ManufacturingOrder,ManufacturingOrder2,Mo-Co-product,Mo-Co-product2,Mo-By-product,Mo-By-product2,PurchaseOrder,PurchaseOrder2,DistributionOrder,DistributionOrder2,MaintCustOrder,MaintCustOrder2",
+      "enumValues": "100,101,120,121,130,131,250,251,500,501,600,601",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ARDN",
+      "description": "Acquisition order number of the supplying order linked to the demand.",
+      "type": "string",
+      "longName": "AcquisitionOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ARDL",
+      "description": "Acquisition order line number for the supplying order line linked to the demand.",
+      "type": "integer",
+      "longName": "AcquisitionOrderLineNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "ARDX",
+      "description": "Line suffix identifying the specific sequence within the acquisition order line.",
+      "type": "integer",
+      "longName": "AcquisitionOrderLineSuffix",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TRQT",
+      "description": "Transaction quantity on the acquisition order line in the item's basic unit of measure.",
+      "type": "number",
+      "longName": "TransactionQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PQTT",
+      "description": "Total quantity already preallocated on the acquisition order line across all demand lines.",
+      "type": "number",
+      "longName": "TotalPreallocatedQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PLDT",
+      "description": "Planning date when this preallocation affects the material plan.",
+      "type": "date",
+      "longName": "PlanningDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PANQ",
+      "description": "Net quantity on the acquisition order line that is still available for preallocation.",
+      "type": "number",
+      "longName": "PreAllocatableNetQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PQTY",
+      "description": "Preallocated quantity promised from the acquisition order line to this demand order line.",
+      "type": "number",
+      "longName": "PreAllocatedQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "EXPI",
+      "description": "Expiration date after which the item lot can no longer be used.",
+      "type": "date",
+      "longName": "ExpirationDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "SCHN",
+      "description": "Schedule number associated with the preallocated acquisition order for production planning.",
+      "type": "integer",
+      "longName": "ScheduleNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "name": "M3_OIS120MI_LstCOStopByCUOR",
+  "program": "OIS120MI",
+  "transaction": "LstCOStopByCUOR",
+  "version": "2026-08-26T05:05:08.08Z",
+  "type": "list",
+  "description": "List customer order stop information for one or more orders using the customer's own order number as the main key. Per matching order the result includes the facility, customer order reference, internal customer order number, customer number and name, order date, lowest order status, salesperson, and the stop code on the order header indicating whether the order is blocked and why. Use this to review stopped orders when you primarily know the customer's own order reference.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility responsible for the customer order.",
+      "type": "string",
+      "longName": "Facility",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CUOR",
+      "description": "Customer's own order reference for the customer order.",
+      "type": "string",
+      "longName": "CustomersOrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CUNO",
+      "description": "Customer number for the customer order.",
+      "type": "string",
+      "longName": "CustomerNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ORNO",
+      "description": "Unique customer order number.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "NFTR",
+      "description": "Number of key fields that are applied as filters when retrieving the list.",
+      "type": "integer",
+      "longName": "NumberOfFilters",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility responsible for the customer order.",
+      "type": "string",
+      "longName": "Facility",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CUOR",
+      "description": "Customer's own order reference for the customer order.",
+      "type": "string",
+      "longName": "CustomersOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CUNO",
+      "description": "Customer number for the customer order.",
+      "type": "string",
+      "longName": "CustomerNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORNO",
+      "description": "Unique customer order number.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OBLC",
+      "description": "Stop code on the customer order indicating why the order is blocked in the flow.",
+      "type": "enum",
+      "longName": "CustomerOrderStopCode",
+      "enumConstants": "No stop - picking list can be printed,Credit limit 1 (overdue),Credit limit 2 (total outstanding),Credit limit 3 (outstanding + order stock),Credit limit 4 (number of days overdue),Connected to letter of credit via (RMS100),Time fenced credit limit issue,Manually set stop for optional use,Manually set stop for optional use,Manually released order",
+      "enumValues": "0,1,2,3,4,5,6,7,8,9",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "ORSL",
+      "description": "Lowest status among the customer order lines.",
+      "type": "enum",
+      "longName": "LowestOrderStatus",
+      "enumConstants": "Quotation,Preliminary,Registered,Reserved,Reserved/allocated,Reserved/pickingList,Reserved/delivered,Reserved/invoiced,Reserved/completed,Allocated,Allocated/pickingList,Allocated/delivered,Allocated/invoiced,Allocated/completed,PickingList,PickingList/delivered,PickingList/invoiced,PickingList/completed,Delivered,Delivered/invoiced,Delivered/completed,Invoiced,Invoiced/completed,Deleted,FlaggedAsComp",
+      "enumValues": "05,10,20,22,23,24,26,27,29,33,34,36,37,39,44,46,47,49,66,67,69,77,79,90,99",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORDT",
+      "description": "Date the customer order was registered.",
+      "type": "date",
+      "longName": "OrderDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "CUNM",
+      "description": "Name of the customer placing the order.",
+      "type": "string",
+      "longName": "CustomerName",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SMCD",
+      "description": "Salesperson responsible for the customer.",
+      "type": "string",
+      "longName": "Salesperson",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

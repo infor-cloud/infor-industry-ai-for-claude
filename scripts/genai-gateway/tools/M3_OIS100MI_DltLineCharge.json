@@ -1,0 +1,55 @@
+{
+  "name": "M3_OIS100MI_DltLineCharge",
+  "program": "OIS100MI",
+  "transaction": "DltLineCharge",
+  "version": "2026-05-08T05:05:28.28Z",
+  "type": "get",
+  "description": "Delete order line charges for a specific customer order line. This operation removes a single charge identified by the order number, order line, and charge identity, so that the charge is no longer considered in order value and future invoicing.",
+  "inputParameters": [
+    {
+      "name": "ORNO",
+      "description": "Customer order number identifying the order that contains the line charge to be deleted.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PONR",
+      "description": "Order line number identifying the line from which the charge will be deleted.",
+      "type": "integer",
+      "longName": "LineNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CRID",
+      "description": "Charge ID specifying which charge on the order line will be deleted.",
+      "type": "string",
+      "longName": "ChargeId",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "POSX",
+      "description": "Line suffix identifying the specific subline from which the charge will be deleted.",
+      "type": "integer",
+      "longName": "LineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": []
+}

@@ -1,0 +1,34 @@
+{
+  "name": "M3_PPS200MI_LstDupOrders",
+  "program": "PPS200MI",
+  "transaction": "LstDupOrders",
+  "version": "2026-05-08T07:07:05.05Z",
+  "type": "list",
+  "description": "List duplicate purchase order lines and display the related purchase order numbers. This read-only operation helps identify purchase orders that contain lines marked as duplicates in M3, for example after using the purchase order duplication function. The response only returns purchase order numbers, not full line details.",
+  "inputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number used to filter which duplicate lines are listed.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number for the duplicate purchase order line.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

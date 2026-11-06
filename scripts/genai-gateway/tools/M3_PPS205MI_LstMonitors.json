@@ -1,0 +1,243 @@
+{
+  "name": "M3_PPS205MI_LstMonitors",
+  "program": "PPS205MI",
+  "transaction": "LstMonitors",
+  "version": "2026-05-08T07:07:11.11Z",
+  "type": "list",
+  "description": "List purchase monitoring records for one or more purchase orders and display the full monitoring setup and status for each record. Each result includes identifiers (purchase order number, purchase order line, purchase order line subnumber, monitoring date), logistics context (facility, warehouse, supplier), and monitoring parameters such as monitoring activity list, status, date code, monitoring lead time, and whether the monitoring activity is active or already performed. Remarks, responsible user and text identity are also returned so external tools can present comments and related text together with the monitoring information.",
+  "inputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number used to limit the list to monitoring records for a specific purchase order.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PNLI",
+      "description": "Purchase order line number used to limit the list to monitoring records for a specific purchase order line.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PNLS",
+      "description": "Purchase order line subnumber used to limit the list to monitoring records for a specific purchase order subline.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FUDX",
+      "description": "Monitoring date used to limit the list to a specific scheduled monitoring activity date.",
+      "type": "date",
+      "longName": "MonitoringDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "NFTR",
+      "description": "Number of leading key fields to treat as filters so only records matching the entered key values are listed.",
+      "type": "integer",
+      "longName": "NumberOfFilters",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number for the monitoring record.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PNLI",
+      "description": "Purchase order line number for the monitoring record.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PNLS",
+      "description": "Purchase order line subnumber for the monitoring record.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineSuffix",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "FUDX",
+      "description": "Monitoring date for which the purchase monitoring activity is scheduled.",
+      "type": "date",
+      "longName": "MonitoringDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "FACI",
+      "description": "Facility responsible for the monitored purchase order.",
+      "type": "string",
+      "longName": "Facility",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "WHLO",
+      "description": "Warehouse where the monitored purchase order is handled.",
+      "type": "string",
+      "longName": "Warehouse",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SUNO",
+      "description": "Supplier number for the monitored purchase order.",
+      "type": "string",
+      "longName": "SupplierNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FUSC",
+      "description": "Code identifying the predefined list of monitoring activities for this purchase order.",
+      "type": "string",
+      "longName": "MonitoringActivityList",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "STAT",
+      "description": "Status of the monitoring record, for example preliminary, definite, or blocked.",
+      "type": "enum",
+      "longName": "Status",
+      "enumConstants": "Definite,Completed",
+      "enumValues": "10,90",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "DTCD",
+      "description": "Code specifying which base date is used when calculating the monitoring date.",
+      "type": "integer",
+      "longName": "DateCode",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "EALI",
+      "description": "Indicates whether the monitoring activity is currently active for this record.",
+      "type": "integer",
+      "longName": "MonitoringActivityActive",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "FDAY",
+      "description": "Number of days before or after the base date used to calculate the monitoring date.",
+      "type": "integer",
+      "longName": "MonitoringLeadTime",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "REMK",
+      "description": "Free-text remark or comment for the monitoring record.",
+      "type": "string",
+      "longName": "Remark",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RESP",
+      "description": "User ID of the person responsible for this purchase monitoring activity.",
+      "type": "string",
+      "longName": "ResponsibleUser",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FUPF",
+      "description": "Indicates whether the monitoring activity has already been performed.",
+      "type": "integer",
+      "longName": "MonitoringPerformed",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TXID",
+      "description": "Identifier of the detailed text or comments associated with the monitoring record.",
+      "type": "integer",
+      "longName": "TextIdentity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    }
+  ]
+}

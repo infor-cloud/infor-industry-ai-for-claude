@@ -1,0 +1,56 @@
+{
+  "name": "M3_OIS120MI_UpdCOStop",
+  "program": "OIS120MI",
+  "transaction": "UpdCOStop",
+  "version": "2026-05-08T05:05:00.00Z",
+  "type": "update",
+  "description": "Update the stop code on a customer order header to control whether the order is held or allowed to continue in the order flow. The stop code on the order header is normally set automatically during credit checks and determines if order entry and printing of picking lists are blocked for that specific order. This operation lets you change that code manually for an existing customer order, for example to enforce a stop or to release an order. The order is identified by customer order number and optionally facility, and no data is returned on success.",
+  "inputParameters": [
+    {
+      "name": "ORNO",
+      "description": "Customer order number identifying which order’s stop code is to be updated.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FACI",
+      "description": "Facility to which the customer order belongs, used for selection and validation when updating the stop code.",
+      "type": "string",
+      "longName": "Facility",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OBLC",
+      "description": "Stop code to set on the customer order header, indicating whether and why the order is blocked or released.",
+      "type": "integer",
+      "longName": "CustomerOrderStopCode",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter. Ignore this.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

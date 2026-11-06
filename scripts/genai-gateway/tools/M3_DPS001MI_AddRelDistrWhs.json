@@ -1,0 +1,232 @@
+{
+  "name": "M3_DPS001MI_AddRelDistrWhs",
+  "program": "DPS001MI",
+  "transaction": "AddRelDistrWhs",
+  "version": "2026-10-20T01:01:05.05Z",
+  "type": "get",
+  "description": "Creates a distribution relationship between a source and destination warehouse, defining how goods are supplied between them. Configuration options include transport time, delivery method, validity dates, document rules, capacities, and costing factors. Supports general warehouse-to-warehouse relations and relations controlled by distribution group or multiple-supply setup. Used by M3 in the supply chain network for warehouse distribution, delivery-date calculations, lead-time planning, and distribution costing.",
+  "inputParameters": [
+    {
+      "name": "RLTY",
+      "description": "Relation type defining whether the warehouse relationship is maintained directly between warehouses, by distribution group, or by item and warehouse.",
+      "type": "enum",
+      "longName": "RelationType",
+      "required": true,
+      "enumConstants": "Distr-TwoWhs,PerDistrGrp,Exception",
+      "enumValues": "1,2,3",
+      "enabled": true,
+      "showValues": true
+    },
+    {
+      "name": "FWLO",
+      "description": "Warehouse from which goods are distributed in this relation.",
+      "type": "string",
+      "longName": "FromWarehouse",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TWLO",
+      "description": "Warehouse to which goods are distributed in this relation.",
+      "type": "string",
+      "longName": "ToWarehouse",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DIKY",
+      "description": "Distribution key identifying the group or item grouping used by the selected relation type.",
+      "type": "string",
+      "longName": "GroupIdentity",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "STDT",
+      "description": "Date from which this warehouse distribution relation is valid.",
+      "type": "date",
+      "longName": "StartDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TRDY",
+      "description": "Number of workdays needed to transport goods between the warehouses.",
+      "type": "integer",
+      "longName": "TransportationDays",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TRTE",
+      "description": "Estimated transportation time in hours between the warehouses.",
+      "type": "number",
+      "longName": "TransportationHours",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TRDC",
+      "description": "Distance between the warehouses used in distribution cost calculations.",
+      "type": "number",
+      "longName": "TransportationDistance",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "DORC",
+      "description": "Document requirement indicating whether transport documents are not needed, created manually, or required in full.",
+      "type": "integer",
+      "longName": "DocumentRequirement",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "FWNO",
+      "description": "Forwarding agent used for transport between the warehouses.",
+      "type": "string",
+      "longName": "ForwardingAgent",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "MODL",
+      "description": "Delivery method used for transportation between the warehouses.",
+      "type": "string",
+      "longName": "DeliveryMethod",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TEDL",
+      "description": "Delivery terms defining when responsibility for the delivery transfers between the parties.",
+      "type": "string",
+      "longName": "DeliveryTerms",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "DCMU",
+      "description": "Multiplier used to calculate transport-related distribution costs for goods moved between the warehouses.",
+      "type": "number",
+      "longName": "DistributionCostMultiplier",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "COWC",
+      "description": "Average daily weight capacity available for distribution between the warehouses.",
+      "type": "number",
+      "longName": "WeightCapacity",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "COVC",
+      "description": "Average daily volume capacity available for distribution between the warehouses.",
+      "type": "number",
+      "longName": "VolumeCapacity",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "COCA",
+      "description": "Average daily number of containers that can be sent between the warehouses.",
+      "type": "number",
+      "longName": "ContainerCapacity",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "ADDY",
+      "description": "Indicates whether delivery is normally permitted on the specified weekday for this relation.",
+      "type": "string",
+      "longName": "PermittedDeliveryDay",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TODT",
+      "description": "Date until which this warehouse distribution relation is valid.",
+      "type": "date",
+      "longName": "ToDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "RLSH",
+      "description": "Relative share of the requested quantity planned to be supplied through this warehouse relation.",
+      "type": "integer",
+      "longName": "RelativeShare",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

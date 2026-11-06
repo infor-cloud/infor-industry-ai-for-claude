@@ -1,0 +1,100 @@
+{
+  "name": "M3_CRS025MI_LstItemGroup",
+  "program": "CRS025MI",
+  "transaction": "LstItemGroup",
+  "version": "2026-05-08T10:10:16.16Z",
+  "type": "list",
+  "description": "List item groups with their basic descriptions, demand pattern curves, and catch weight tolerance settings. Each returned item group includes:\n\n- Identity and description information (item group, description, and short name).\n- Seasonal and trend curves that indicate how quantities are distributed over periods of a calendar year, using curve identities.\n- Catch weight tolerance percent and absolute tolerance that define the allowed variance from expected average weight when reporting stock for catch weight items.",
+  "inputParameters": [
+    {
+      "name": "ITGR",
+      "description": "Item group used to filter which item groups are listed.",
+      "type": "string",
+      "longName": "ItemGroup",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "ITGR",
+      "description": "Identifier of the item group.",
+      "type": "string",
+      "longName": "ItemGroup",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TX40",
+      "description": "Full description of the item group.",
+      "type": "string",
+      "longName": "Description",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "TX15",
+      "description": "Short name of the item group, typically used in lists and overviews.",
+      "type": "string",
+      "longName": "Name",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "SECU",
+      "description": "Seasonal curve that defines how demand for items in this group is distributed over the year.",
+      "type": "integer",
+      "longName": "SeasonalCurve",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TECU",
+      "description": "Trend curve that defines how demand for items in this group changes over time.",
+      "type": "integer",
+      "longName": "TrendCurve",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TCWP",
+      "description": "Maximum allowed deviation from expected weight for catch weight items in this group, expressed as a percentage.",
+      "type": "number",
+      "longName": "CatchWeightTolerancePercent",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TCWQ",
+      "description": "Maximum allowed deviation from expected average weight for catch weight items in this group, expressed in weight units.",
+      "type": "number",
+      "longName": "CatchWeightToleranceWeight",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    }
+  ]
+}

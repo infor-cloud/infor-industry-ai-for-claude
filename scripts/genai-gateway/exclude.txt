@@ -1,0 +1,5 @@
+# Customized tools in the source tenant that tools/ leaves out on purpose.
+# One tool name per line; text after # is the reason. export --all skips these.
+
+M3_OIS014MI_Get_test        # a copy of M3_OIS014MI_Get under the sub-name "test"
+M3_OIS100MI_UpdUserDefCOH   # four long names contain spaces, so Claude rejects the tool

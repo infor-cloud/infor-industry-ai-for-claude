@@ -1,0 +1,265 @@
+{
+  "name": "M3_MMS200MI_UpdItmPrice",
+  "program": "MMS200MI",
+  "transaction": "UpdItmPrice",
+  "version": "2026-05-08T02:02:33.33Z",
+  "type": "update",
+  "description": "Update price-related information for an existing item in the item master. This operation maintains both purchase-side and sales-side values for the interface item, including unit prices, applicable quantities, currencies and several control attributes. It works on the item’s central record, not at facility or warehouse level. Use it to keep purchase price, sales price and related discount, bonus, commission and statistics controls aligned with commercial agreements, without changing technical, measurement or warehouse-specific data.",
+  "inputParameters": [
+    {
+      "name": "ITNO",
+      "description": "Item number whose price data will be updated.",
+      "type": "string",
+      "longName": "ItemNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company in which the item's price data is updated.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ECCC",
+      "description": "Consumption code used for trade statistics for this item.",
+      "type": "string",
+      "longName": "TradeStatisticsConsumptionCode",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "SUNO",
+      "description": "Main supplier number associated with the item's purchase price.",
+      "type": "string",
+      "longName": "SupplierNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PUPR",
+      "description": "Purchase price for the item for the stated quantity and currency.",
+      "type": "number",
+      "longName": "PurchasePrice",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PUCD",
+      "description": "Quantity to which the purchase price applies.",
+      "type": "integer",
+      "longName": "PurchasePriceQuantity",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CUCD",
+      "description": "Currency of the purchase price.",
+      "type": "string",
+      "longName": "Currency",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "SAPR",
+      "description": "Sales price for the item for the stated quantity and currency.",
+      "type": "number",
+      "longName": "SalesPrice",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "SACD",
+      "description": "Quantity to which the sales price applies.",
+      "type": "integer",
+      "longName": "SalesPriceQuantity",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CUCS",
+      "description": "Currency of the sales price.",
+      "type": "string",
+      "longName": "SalesPriceCurrency",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DIGI",
+      "description": "Item discount group used when calculating customer order line discounts.",
+      "type": "string",
+      "longName": "ItemDiscountGroup",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "BGRP",
+      "description": "Bonus group used when defining bonus item and customer agreements.",
+      "type": "string",
+      "longName": "BonusGroup",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PRVG",
+      "description": "Commission group used when defining commission and bonus agreements for the item.",
+      "type": "string",
+      "longName": "CommissionGroup",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FRE3",
+      "description": "Statistics identity 3 used for accumulating item sales statistics.",
+      "type": "string",
+      "longName": "StatisticsIdentity3",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FRE4",
+      "description": "Statistics identity 4 used for accumulating item sales statistics.",
+      "type": "string",
+      "longName": "StatisticsIdentity4",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OTDI",
+      "description": "Indicates whether the item value is included in the basis for total order discounts.",
+      "type": "boolean",
+      "longName": "OrderTotalDiscountGenerating",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "BOGR",
+      "description": "Indicates whether the item line generates or pays bonus according to bonus agreements.",
+      "type": "integer",
+      "longName": "BonusGenerating",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PRGR",
+      "description": "Indicates whether the item line generates or pays commission according to commission agreements.",
+      "type": "integer",
+      "longName": "CommissionGenerating",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ACHK",
+      "description": "Indicates whether the item is included in assortment authorization checks.",
+      "type": "enum",
+      "longName": "AssortmentCheck",
+      "required": false,
+      "enumConstants": "No,Yes",
+      "enumValues": "0,1",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "BPEY",
+      "description": "Indicates whether transactions for this item update the customer's buying pattern.",
+      "type": "integer",
+      "longName": "UpdateBuyingPattern",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "SPUC",
+      "description": "Indicates whether the sales price unit of measure is fixed or dynamically determined.",
+      "type": "enum",
+      "longName": "SalesPriceUomControl",
+      "required": false,
+      "enumConstants": "NotSalesItem,FixedU/m,DynamicU/m",
+      "enumValues": "0,1,2",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CHNO",
+      "description": "Change number identifying the latest change sequence for the item master, used for concurrency control during update.",
+      "type": "integer",
+      "longName": "ChangeNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "name": "M3_PPS170MI_SelErrPOP",
+  "program": "PPS170MI",
+  "transaction": "SelErrPOP",
+  "version": "2026-05-08T07:07:23.23Z",
+  "type": "get",
+  "description": "List planned purchase order records in the inbox that contain errors after a batch update from Multi Site Planner (MSP). The inbox is a temporary storage area where MSP sends planned purchase orders before they are updated into normal M3 files. After the update job has processed the inbox, this operation returns all records that could not be updated correctly, including key identifiers (company, facility, warehouse, item, planned order and purchase order references), dates, quantities, and an error code describing the problem. When the batch update job itself has failed, the error code can indicate that job-level failure with a specific value (07).",
+  "inputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number for which to list inbox records with errors.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number for the planned purchase order record with error.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FACI",
+      "description": "Facility responsible for the warehouse and planned purchase order for this inbox record.",
+      "type": "string",
+      "longName": "Facility",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "WHLO",
+      "description": "Warehouse for which the planned purchase order proposal in the inbox is created.",
+      "type": "string",
+      "longName": "Warehouse",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ITNO",
+      "description": "Item number for the item on the planned purchase order proposal in the inbox.",
+      "type": "string",
+      "longName": "ItemNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLPN",
+      "description": "Internal number identifying the planned purchase order proposal for this inbox record.",
+      "type": "integer",
+      "longName": "PlannedOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLPS",
+      "description": "Subnumber of the planned purchase order proposal for this inbox record.",
+      "type": "integer",
+      "longName": "PlannedOrderSubnumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLP2",
+      "description": "Secondary subnumber used to further identify the planned purchase order proposal for this inbox record.",
+      "type": "integer",
+      "longName": "PlannedOrderSubnumber2",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLDT",
+      "description": "Planning date when this inbox record affects material planning.",
+      "type": "date",
+      "longName": "PlanningDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PPQT",
+      "description": "Planned quantity for the item on the planned purchase order proposal in the inbox.",
+      "type": "number",
+      "longName": "PlannedQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OPT2",
+      "description": "Processing option used by the inbox update job for this planned purchase order record.",
+      "type": "string",
+      "longName": "ProcessingOption",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ERRF",
+      "description": "Error code identifying the type of error that occurred when processing this inbox record. The code indicates which field or validation failed during the batch update.",
+      "type": "integer",
+      "longName": "ErrorCode",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PUNO",
+      "description": "Purchase order number associated with the planned purchase order record, if a purchase order has been created.",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PNLI",
+      "description": "Line number on the related purchase order, if created.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PNLS",
+      "description": "Subline number on the related purchase order line, if created.",
+      "type": "integer",
+      "longName": "PurchaseOrderLineSuffix",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CODT",
+      "description": "Confirmed delivery date for the item on the purchase order.",
+      "type": "date",
+      "longName": "ConfirmedDeliveryDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "CFQA",
+      "description": "Confirmed quantity for the item in the purchase unit of measure on the purchase order.",
+      "type": "number",
+      "longName": "ConfirmedQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORCA",
+      "description": "Order category code indicating the type of order and whether it is planned or released.",
+      "type": "enum",
+      "longName": "OrderCategory",
+      "enumConstants": "DemandOrder,PlannedMo,ManufacturingOrder,PlannedMo2,ManufacturingOrder2,PlannedPo,PurchaseOrder,PlannedCo,CustomerOrder,Eqm,RequisitionOrder,RequisitionOrderIssue,PlannedDo,DistributionOrder,PlannedDo2,DistributionOrder2,PlannedWo,WorkOrder,PlannedWo2,WorkOrder2,ServiceOrder,RentalOrder,MaintCo,ProjectOrder,ClaimOrder,PlannedRejection,PlannedApproval",
+      "enumValues": "030,100,101,110,111,250,251,310,311,315,401,411,500,501,510,511,600,601,610,611,711,731,771,811,911,960,961",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

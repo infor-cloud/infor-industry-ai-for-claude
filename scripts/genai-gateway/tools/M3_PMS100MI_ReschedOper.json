@@ -1,0 +1,188 @@
+{
+  "name": "M3_PMS100MI_ReschedOper",
+  "program": "PMS100MI",
+  "transaction": "ReschedOper",
+  "version": "2026-05-08T06:06:24.24Z",
+  "type": "get",
+  "description": "Reschedule individual operations within a manufacturing order by adjusting planned dates, times and related planning options. This API targets one specific operation identified by facility, manufacturing order number and operation number, and can also update the order priority and certain planning attributes. Optionally, you can extend the reschedule to linked operations before or after the selected one, and to lower‑level orders created from the bill of material. The call focuses on changing timing, not on altering the order structure or quantities, and respects existing capacity and planning settings such as forward scheduling, shift planning and bottleneck planning.",
+  "inputParameters": [
+    {
+      "name": "FACI",
+      "description": "Facility where the manufacturing order and operation are registered.",
+      "type": "string",
+      "longName": "Facility",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "MFNO",
+      "description": "Manufacturing order number containing the operation to be rescheduled.",
+      "type": "string",
+      "longName": "ManufacturingOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OPNO",
+      "description": "Operation number within the manufacturing order that will be rescheduled.",
+      "type": "integer",
+      "longName": "OperationNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PRNO",
+      "description": "Product number for the manufacturing order, used as an additional identifier when rescheduling the operation.",
+      "type": "string",
+      "longName": "ProductNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "ORQA",
+      "description": "Ordered quantity in the alternate unit of measure for the operation; can only be changed when the entire manufacturing order is replanned.",
+      "type": "number",
+      "longName": "OrderedQuantityAltUom",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "PRIO",
+      "description": "Priority of the manufacturing order after rescheduling the operation.",
+      "type": "enum",
+      "longName": "OrderPriority",
+      "required": false,
+      "enumConstants": "HighPriority,HighPriority2,HighPriority3,HighPriority4,HighPriority5,NormPriority,LowPriority,LowPriority2,LowPriority3,LowPriority4",
+      "enumValues": "0,1,2,3,4,5,6,7,8,9",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TPSD",
+      "description": "Defines whether the entered start date applies to the full order quantity or only the remaining quantity when rescheduling.",
+      "type": "integer",
+      "longName": "StartDateType",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "STDT",
+      "description": "New planned start date for the operation when rescheduling; either this or the finish date should be entered, not both.",
+      "type": "date",
+      "longName": "StartDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "MSTI",
+      "description": "New planned start time for the operation when rescheduling.",
+      "type": "integer",
+      "longName": "PlannedStartTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "FIDT",
+      "description": "New planned finish date for the operation when rescheduling.",
+      "type": "date",
+      "longName": "PlannedFinishDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "MFTI",
+      "description": "New planned finish time for the operation when rescheduling.",
+      "type": "integer",
+      "longName": "PlannedFinishTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "MEXP",
+      "description": "Manual expiration date for the manufactured item's lot on the order, if used when rescheduling.",
+      "type": "date",
+      "longName": "ManualExpirationDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "RPLL",
+      "description": "Indicates whether lower-level orders created from the manufacturing order should also be rescheduled.",
+      "type": "integer",
+      "longName": "RescheduleLowerLevels",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "RPOE",
+      "description": "Indicates whether upstream operations in the routing should also be rescheduled.",
+      "type": "integer",
+      "longName": "RescheduleUpstreamOperations",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "RPOA",
+      "description": "Indicates whether downstream operations in the routing should also be rescheduled.",
+      "type": "integer",
+      "longName": "RescheduleDownstreamOperations",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

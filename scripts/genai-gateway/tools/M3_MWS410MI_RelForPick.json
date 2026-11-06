@@ -1,0 +1,44 @@
+{
+  "name": "M3_MWS410MI_RelForPick",
+  "program": "MWS410MI",
+  "transaction": "RelForPick",
+  "version": "2026-05-08T04:04:05.05Z",
+  "type": "get",
+  "description": "Release an existing delivery for warehouse picking by changing its status so picking lists can be created. This operation works on a single delivery number and is normally used after allocation has been completed. It does not return any data; instead it performs a status update in M3 and then any follow‑up actions defined in the dispatch policy, such as automatic creation of picking lists. Whether picking lists are printed is controlled entirely by parameter 100 in the dispatch policy (Delivery Dispatch Policy), not by this operation.",
+  "inputParameters": [
+    {
+      "name": "DLIX",
+      "description": "Delivery number to be released for picking.",
+      "type": "integer",
+      "longName": "DeliveryNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OLUP",
+      "description": "Flag indicating whether the release for picking is executed as an online update.",
+      "type": "integer",
+      "longName": "OnlineUpdate",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company in which the delivery release for picking is performed.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": []
+}

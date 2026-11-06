@@ -1,0 +1,67 @@
+{
+  "name": "M3_CRS111MI_Get",
+  "program": "CRS111MI",
+  "transaction": "Get",
+  "version": "2026-05-08T10:10:45.45Z",
+  "type": "get",
+  "description": "Retrieve a specific e‑mail address from the central e‑mail address repository based on an e‑mail type and an e‑mail key value. The call returns three values: the e‑mail type, the e‑mail key value that uniquely identifies the related object, and the actual e‑mail address. Common configuration uses type values such as 1 = Customer, 2 = Supplier, 3 = Employee, 4 = User, with additional types for roles like payer or invoice recipient so different business roles can have separate addresses.",
+  "inputParameters": [
+    {
+      "name": "EMTP",
+      "description": "E-mail type indicating for which object (customer, supplier, employee, user, etc.) the e-mail address is to be retrieved.",
+      "type": "enum",
+      "longName": "EmailType",
+      "required": true,
+      "enumConstants": "Customers,Suppliers,Employees,User,Payer(customer),InvoiceRecipient(customer),CreditDepartmentReference,Payee(supplier),SelfBillingRecipient(supplier),DebitNoteRecipient(supplier),AdHocReportSender",
+      "enumValues": "01,02,03,04,11,12,13,14,17,18,19",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "EMKY",
+      "description": "Key value identifying the specific customer, supplier, employee or user whose e-mail address is to be retrieved, depending on the e-mail type.",
+      "type": "string",
+      "longName": "EmailKeyValue",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "EMTP",
+      "description": "E-mail type for which the e-mail address is registered (customer, supplier, employee, user, etc.).",
+      "type": "enum",
+      "longName": "EmailType",
+      "enumConstants": "Customers,Suppliers,Employees,User,Payer(customer),InvoiceRecipient(customer),CreditDepartmentReference,Payee(supplier),SelfBillingRecipient(supplier),DebitNoteRecipient(supplier),AdHocReportSender",
+      "enumValues": "01,02,03,04,11,12,13,14,17,18,19",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "EMKY",
+      "description": "Key value identifying the customer, supplier, employee or user the e-mail address is registered for.",
+      "type": "string",
+      "longName": "EmailKeyValue",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "EMAL",
+      "description": "E-mail address registered for the specified key and e-mail type.",
+      "type": "string",
+      "longName": "EmailAddress",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

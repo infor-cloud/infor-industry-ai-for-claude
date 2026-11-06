@@ -1,0 +1,45 @@
+{
+  "name": "M3_MWS420MI_Confirm",
+  "program": "MWS420MI",
+  "transaction": "Confirm",
+  "version": "2026-05-08T04:04:36.36Z",
+  "type": "get",
+  "description": "Confirm all issues on a picking list for a specific delivery and picking list suffix. This operation performs header-level confirmation, updating all eligible lines on the picking list in one step. Use it after picking (and, when applicable, packing, moving to dock, and loading) is completed for the delivery. The combination of delivery number and picking list suffix identifies the picking list to confirm and drives the resulting picking status and issue confirmation in M3. It is not intended for detailed line- or allocation-level reporting.",
+  "inputParameters": [
+    {
+      "name": "DLIX",
+      "description": "Delivery number identifying the delivery whose issues are to be confirmed.",
+      "type": "integer",
+      "longName": "DeliveryNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLSX",
+      "description": "Picking list suffix identifying the specific picking list for the delivery to confirm.",
+      "type": "integer",
+      "longName": "PickingListSuffix",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

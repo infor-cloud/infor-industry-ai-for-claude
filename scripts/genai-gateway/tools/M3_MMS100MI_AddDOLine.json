@@ -1,0 +1,254 @@
+{
+  "name": "M3_MMS100MI_AddDOLine",
+  "program": "MMS100MI",
+  "transaction": "AddDOLine",
+  "version": "2026-05-08T02:02:04.04Z",
+  "type": "get",
+  "description": "Create a new line on an existing distribution order by providing the order number, item number, and quantity in the item’s basic unit of measure. The line can include optional warehouse, location, lot, container, catch weight, reason code, remark, and project information so that stock and planning are correctly identified. After a successful call, M3 returns the order number together with the created line number and line suffix, which can be used to retrieve or update the line in later operations.",
+  "inputParameters": [
+    {
+      "name": "TRNR",
+      "description": "Distribution order number to which the new line will be added.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ITNO",
+      "description": "Item number for the product on the new distribution order line.",
+      "type": "string",
+      "longName": "ItemNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TRQT",
+      "description": "Ordered quantity in basic unit of measure for the new distribution order line.",
+      "type": "number",
+      "longName": "TransactionQuantity",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "WHLO",
+      "description": "Warehouse for this distribution order line.",
+      "type": "string",
+      "longName": "Warehouse",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "ALUN",
+      "description": "Alternate unit of measure in which the transaction quantity is expressed on this line.",
+      "type": "string",
+      "longName": "AlternateUnitOfMeasure",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TRDT",
+      "description": "Planned issue date for this distribution order line.",
+      "type": "date",
+      "longName": "TransactionDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TIHM",
+      "description": "Planned issue time for this distribution order line.",
+      "type": "integer",
+      "longName": "TransactionTime",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "WHSL",
+      "description": "Stock location in the warehouse from which the goods will be issued.",
+      "type": "string",
+      "longName": "Location",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TWSL",
+      "description": "Destination location in the receiving warehouse for this line.",
+      "type": "string",
+      "longName": "ToLocation",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "RSCD",
+      "description": "Reason code explaining why this distribution order line is created or changed.",
+      "type": "string",
+      "longName": "TransactionReasonCode",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "BANO",
+      "description": "Lot number identifying the specific batch for this line.",
+      "type": "string",
+      "longName": "BatchNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "CAMU",
+      "description": "Container identifier on which the goods for this line are handled.",
+      "type": "string",
+      "longName": "ContainerNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "CAWE",
+      "description": "Catch weight associated with the lot or container for this line.",
+      "type": "number",
+      "longName": "CatchWeight",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "BREM",
+      "description": "Free-text remark for this distribution order line or its balance identity.",
+      "type": "string",
+      "longName": "Remark",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "REFE",
+      "description": "User-defined reference linked to this distribution order line.",
+      "type": "string",
+      "longName": "Reference",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "BREF",
+      "description": "First additional lot reference associated with the lot on this line.",
+      "type": "string",
+      "longName": "LotReference1",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "BRE2",
+      "description": "Second additional lot reference associated with the lot on this line.",
+      "type": "string",
+      "longName": "LotReference2",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "PROJ",
+      "description": "Project number to which this distribution order line is linked.",
+      "type": "string",
+      "longName": "ProjectNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "ELNO",
+      "description": "Project element within the project that this distribution order line relates to.",
+      "type": "string",
+      "longName": "ProjectElement",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "TRNR",
+      "description": "Distribution order number for which the line was created.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PONR",
+      "description": "Line number assigned to the new distribution order line.",
+      "type": "integer",
+      "longName": "LineNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "POSX",
+      "description": "Line suffix identifying any sub-line created under the main line number.",
+      "type": "integer",
+      "longName": "LineSuffix",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

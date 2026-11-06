@@ -1,0 +1,56 @@
+{
+  "name": "M3_APS450MI_CheckLineTol",
+  "program": "APS450MI",
+  "transaction": "CheckLineTol",
+  "version": "2026-05-08T07:07:20.20Z",
+  "type": "get",
+  "description": "Check line-level quantity and price variances between a supplier invoice line and its purchase order goods receipt. The operation compares invoiced quantity and price with received quantity and price for item lines and line charge lines, using the permitted variance limits defined in APS900. Based on the result, the Variances field on the invoice line is updated:\n\n- 1 – Within tolerances  \n- 2 – Exceeds tolerance  \n\nThe update only flags the line and does not change amounts, matching, or postings. You can view the variance status when listing invoice batch lines. The logic applies to supplier invoice batches (type 20) and recode batches (type 25) while the invoice is still at status Approved or lower and the line is linked to a goods receipt.",
+  "inputParameters": [
+    {
+      "name": "INBN",
+      "description": "Invoice batch number identifying the supplier invoice batch whose line variance tolerances are to be checked.",
+      "type": "integer",
+      "longName": "InvoiceBatchNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TRNO",
+      "description": "Transaction number identifying the specific invoice batch line for which variance tolerances are evaluated.",
+      "type": "integer",
+      "longName": "TransactionNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DIVI",
+      "description": "Division where the supplier invoice batch is registered, used to distinguish invoice batches with the same number across divisions.",
+      "type": "string",
+      "longName": "Division",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "M3_DPS170MI_GetJobNumber",
+  "program": "DPS170MI",
+  "transaction": "GetJobNumber",
+  "version": "2026-05-08T12:12:55.55Z",
+  "type": "get",
+  "description": "Generate a unique batch job number for the current session that processes distribution order proposals (DOP). This number identifies a specific batch update and is returned as the job number output field. M3 uses it to distinguish between different batch jobs when sending records to the DOP inbox and when starting or clearing the corresponding batch update.",
+  "inputParameters": [],
+  "outputParameters": [
+    {
+      "name": "BJNO",
+      "description": "Batch job number generated for the current session and used to identify related DOP batch processing transactions.",
+      "type": "string",
+      "longName": "JobNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

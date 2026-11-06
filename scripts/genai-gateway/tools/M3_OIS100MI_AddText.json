@@ -1,0 +1,133 @@
+{
+  "name": "M3_OIS100MI_AddText",
+  "program": "OIS100MI",
+  "transaction": "AddText",
+  "version": "2026-05-08T04:04:43.43Z",
+  "type": "get",
+  "description": "Create free-text notes for a customer order and store them in the common text repository. This operation attaches text to a specific customer order context using the table name, key, field number, and an optional text block identifier. It supports multiple languages and distinguishes between internal notes and text intended for external documents. When the call completes, M3 returns a generated text identity that uniquely identifies the created text and can be used when retrieving or linking the text from other customer‑order‑related operations.",
+  "inputParameters": [
+    {
+      "name": "FLDN",
+      "description": "Field number in the specified file to which the text is connected.",
+      "type": "integer",
+      "longName": "FieldNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TXVR",
+      "description": "Text block ID grouping related text entries for the same object and field.",
+      "type": "string",
+      "longName": "TextBlockId",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "LNCD",
+      "description": "Language code of the text to add or update.",
+      "type": "string",
+      "longName": "LanguageCode",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TX40",
+      "description": "Short description or heading for the text.",
+      "type": "string",
+      "longName": "Description",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TXCC",
+      "description": "Text control code defining how the text is handled in documents and processes.",
+      "type": "string",
+      "longName": "TextControlCode",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TXEI",
+      "description": "Indicator whether the text is internal, external, or both.",
+      "type": "integer",
+      "longName": "TextVisibility",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FILE",
+      "description": "Table name identifying the file that contains the field the text is attached to.",
+      "type": "string",
+      "longName": "TableName",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "KFLD",
+      "description": "Key identifying the specific record in the file that the text belongs to.",
+      "type": "string",
+      "longName": "FileKey",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "REPL",
+      "description": "Indicator whether any existing text for the same object and block should be replaced.",
+      "type": "integer",
+      "longName": "ReplaceExistingText",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TEXT",
+      "description": "Text content to store for the specified object.",
+      "type": "string",
+      "longName": "TextLines",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "TXID",
+      "description": "Text identity assigned to the created or updated text block.",
+      "type": "integer",
+      "longName": "TextIdentity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

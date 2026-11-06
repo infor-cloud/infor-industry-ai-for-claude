@@ -1,0 +1,243 @@
+{
+  "name": "M3_PPS100MI_LstStgPrice",
+  "program": "PPS100MI",
+  "transaction": "LstStgPrice",
+  "version": "2026-08-18T10:10:51.51Z",
+  "type": "list",
+  "description": "List staggered purchase prices for a specific purchase agreement line, identified by supplier and agreement number. Staggered prices form a price ladder where different prices apply from different purchased quantities. Use this operation to review the complete staggered price structure currently valid for an agreement line.",
+  "inputParameters": [
+    {
+      "name": "SUNO",
+      "description": "Supplier number identifying the supplier whose staggered prices are listed.",
+      "type": "string",
+      "longName": "SupplierNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "AGNB",
+      "description": "Agreement number identifying the purchase agreement whose staggered prices are listed.",
+      "type": "string",
+      "longName": "AgreementNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "GRPI",
+      "description": "Group identity that defines the key combination used to locate the agreement line whose staggered prices are listed.",
+      "type": "integer",
+      "longName": "GroupIdentity",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "OBV1",
+      "description": "Primary start value in the group identity that, together with the group identity, identifies the agreement line whose staggered prices are listed.",
+      "type": "string",
+      "longName": "StartValue1",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "FVDT",
+      "description": "Valid-from date of the agreement line whose staggered prices are listed.",
+      "type": "date",
+      "longName": "ValidFromDate",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number for which staggered prices on the agreement are listed.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "OBV2",
+      "description": "Second start value in the group identity that further specifies the agreement line to list when used.",
+      "type": "string",
+      "longName": "StartValue2",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "OBV3",
+      "description": "Third start value in the group identity that further specifies the agreement line to list when used.",
+      "type": "string",
+      "longName": "StartValue3",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "OBV4",
+      "description": "Fourth start value in the group identity that further specifies the agreement line to list when used.",
+      "type": "string",
+      "longName": "StartValue4",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "SUNO",
+      "description": "Supplier number identifying the supplier whose staggered prices are listed.",
+      "type": "string",
+      "longName": "SupplierNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "AGNB",
+      "description": "Agreement number identifying the purchase agreement whose staggered prices are listed.",
+      "type": "string",
+      "longName": "AgreementNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "GRPI",
+      "description": "Group identity that defines the key combination used to locate the agreement line whose staggered prices are listed.",
+      "type": "integer",
+      "longName": "GroupIdentity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "OBV1",
+      "description": "Primary start value in the group identity that, together with the group identity, identifies the agreement line whose staggered prices are listed.",
+      "type": "string",
+      "longName": "StartValue1",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OBV2",
+      "description": "Second start value in the group identity that further specifies the agreement line to list when used.",
+      "type": "string",
+      "longName": "StartValue2",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OBV3",
+      "description": "Third start value in the group identity that further specifies the agreement line to list when used.",
+      "type": "string",
+      "longName": "StartValue3",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OBV4",
+      "description": "Fourth start value in the group identity that further specifies the agreement line to list when used.",
+      "type": "string",
+      "longName": "StartValue4",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FVDT",
+      "description": "Valid-from date of the agreement line whose staggered prices are listed.",
+      "type": "date",
+      "longName": "ValidFromDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FRQT",
+      "description": "Minimum quantity from which this staggered price applies, up to the next defined quantity break.",
+      "type": "number",
+      "longName": "FromQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PUPR",
+      "description": "Purchase price that applies at this quantity break on the agreement line.",
+      "type": "number",
+      "longName": "PurchasePrice",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "DIP3",
+      "description": "Third discount applied when calculating the net purchase price for this staggered price line.",
+      "type": "number",
+      "longName": "Discount3",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "MAPR",
+      "description": "Normal reference purchase price for the item used for comparison against this staggered price.",
+      "type": "integer",
+      "longName": "NormalPrice",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    }
+  ]
+}

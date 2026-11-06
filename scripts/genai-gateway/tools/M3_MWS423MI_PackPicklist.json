@@ -1,0 +1,56 @@
+{
+  "name": "M3_MWS423MI_PackPicklist",
+  "program": "MWS423MI",
+  "transaction": "PackPicklist",
+  "version": "2026-05-08T04:04:53.53Z",
+  "type": "get",
+  "description": "Register pack reporting for a complete picking list on an outbound delivery. Instead of packing each pick list line individually, this operation updates packing for all allocations belonging to the specified delivery and picking list suffix in a single step. Use it when the physical packing of all lines on the pick list is finished and no further line-level packing changes are needed.",
+  "inputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number for which the pick list packing is reported.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DLIX",
+      "description": "Delivery number whose picking list is to be fully packed.",
+      "type": "integer",
+      "longName": "DeliveryNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PLSX",
+      "description": "Picking list suffix identifying the specific picking list on the delivery to pack.",
+      "type": "integer",
+      "longName": "PickingListSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

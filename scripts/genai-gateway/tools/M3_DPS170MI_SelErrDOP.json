@@ -1,0 +1,221 @@
+{
+  "name": "M3_DPS170MI_SelErrDOP",
+  "program": "DPS170MI",
+  "transaction": "SelErrDOP",
+  "version": "2026-05-08T12:12:47.47Z",
+  "type": "get",
+  "description": "Check batch update results for distribution order proposals and list any proposals that were not updated correctly. The operation inspects the batch update job that transfers data from the inbox to the live files. If that job is still running, M3 returns an error indicating that a previous update job is in progress (originally signaled with error code “07”) and no result list is provided. When the job has finished, the operation returns all proposals that could not be updated, including basic identification, reference order information, quantities, dates, and an error code/field describing the failure.",
+  "inputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number used to select DOP records with update errors.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "CONO",
+      "description": "Company number of the DOP record that failed to update correctly.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "WHLO",
+      "description": "Receiving warehouse for the DOP record that failed to update.",
+      "type": "string",
+      "longName": "Warehouse",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ITNO",
+      "description": "Item number for the product on the DOP record that failed to update.",
+      "type": "string",
+      "longName": "ItemNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLDT",
+      "description": "Planning date when the failed DOP record affects material planning.",
+      "type": "date",
+      "longName": "PlanningDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PPQT",
+      "description": "Planned quantity on the DOP record that failed to update.",
+      "type": "number",
+      "longName": "PlannedQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "OPT2",
+      "description": "Processing option originally used for this DOP record, for example to create, change, or delete it.",
+      "type": "string",
+      "longName": "ProcessingOption",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLPN",
+      "description": "Internal planned distribution order number for the record that failed to update.",
+      "type": "integer",
+      "longName": "PlannedOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLPS",
+      "description": "Subnumber of the planned distribution order for the record that failed to update.",
+      "type": "integer",
+      "longName": "PlannedOrderSubnumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PSTS",
+      "description": "Planned order status of the DOP record that failed to update.",
+      "type": "enum",
+      "longName": "PlannedOrderStatus",
+      "enumConstants": "AutoError,AutoWarning,PlanOrdMan,PlanOrdAuto,Pur/planMan,ForcFromCo,DeferredOrder,ManualStatus,Authorized,Released,WoInProgress,Cancelled,EstimateNeeded,EstimateDone,EstimateConf,QuotePrinted,QuoteRejected,QuotePartAcc,QuoteAccepted",
+      "enumValues": "00,05,10,15,20,25,30,40,55,60,65,90,Q0,Q1,Q2,Q3,Q4,Q5,Q6",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "FWHL",
+      "description": "Supplying warehouse from which the goods on the failed DOP record are to be shipped.",
+      "type": "string",
+      "longName": "FromWarehouse",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORTY",
+      "description": "Order type that controls how the distribution order proposal on this record is processed.",
+      "type": "string",
+      "longName": "OrderType",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RORC",
+      "description": "Category of the reference order linked to this DOP record.",
+      "type": "enum",
+      "longName": "ReferenceOrderCategory",
+      "enumConstants": "UseVaries,ManufactOrder,PurchaseOrder,CustomerOrder,RequisitionOrd,DistribOrd,WorkOrder,ServiceOrder,ProjectOrder,PickLst&Rep",
+      "enumValues": "0,1,2,3,4,5,6,7,8,9",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RORN",
+      "description": "Reference order number linked to this DOP record, such as the triggering customer or manufacturing order.",
+      "type": "string",
+      "longName": "ReferenceOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RORL",
+      "description": "Reference order line number linked to this DOP record.",
+      "type": "integer",
+      "longName": "ReferenceOrderLine",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RORX",
+      "description": "Reference order line suffix linked to this DOP record.",
+      "type": "integer",
+      "longName": "ReferenceOrderLineSuffix",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PLHM",
+      "description": "Planning time within the planning date when this DOP record affects the material plan.",
+      "type": "integer",
+      "longName": "PlanningTime",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ORQA",
+      "description": "Ordered quantity for this DOP record expressed in an alternate unit of measure.",
+      "type": "number",
+      "longName": "OrderedQuantityAltUom",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "ERRF",
+      "description": "Error code indicating why this DOP record could not be updated correctly.",
+      "type": "integer",
+      "longName": "ErrorCode",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

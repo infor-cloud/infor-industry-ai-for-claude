@@ -1,0 +1,100 @@
+{
+  "name": "M3_OIS010MI_Cpy",
+  "program": "OIS010MI",
+  "transaction": "Cpy",
+  "version": "2026-05-08T04:04:16.16Z",
+  "type": "get",
+  "description": "Copy an existing customer order type to a new customer order type with the same settings. The copy operation creates a new order type based on a specified source order type and a new target identity. Core control parameters are duplicated, and you can also include related documents, charges, default settings, and user-defined text depending on the options you send. The operation does not return any field data; it only performs the copy.",
+  "inputParameters": [
+    {
+      "name": "ORTP",
+      "description": "Existing customer order type to copy from.",
+      "type": "string",
+      "longName": "CustomerOrderType",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CORT",
+      "description": "New customer order type to create by copying the existing type.",
+      "type": "string",
+      "longName": "CopyToOrderType",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ICTR",
+      "description": "Indicates whether the new order type should be flagged for internal sales.",
+      "type": "enum",
+      "longName": "InternalSalesIndicator",
+      "required": false,
+      "enumConstants": "No,Yes",
+      "enumValues": "0,1",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "DOCP",
+      "description": "Indicates whether connected order documents should be copied to the new order type.",
+      "type": "integer",
+      "longName": "CopyOrderDocuments",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "OCCP",
+      "description": "Indicates whether connected order type charges should be copied to the new order type.",
+      "type": "integer",
+      "longName": "CopyOrderCharges",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "DFCP",
+      "description": "Indicates whether order type field selection and default settings should be copied to the new order type.",
+      "type": "integer",
+      "longName": "CopyOrderDefaults",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    },
+    {
+      "name": "TXCP",
+      "description": "Indicates whether user-defined texts attached to the order type should be copied to the new order type.",
+      "type": "integer",
+      "longName": "CopyText",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": false,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

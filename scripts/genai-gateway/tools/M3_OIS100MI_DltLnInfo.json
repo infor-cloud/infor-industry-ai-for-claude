@@ -1,0 +1,44 @@
+{
+  "name": "M3_OIS100MI_DltLnInfo",
+  "program": "OIS100MI",
+  "transaction": "DltLnInfo",
+  "version": "2026-05-08T05:05:34.34Z",
+  "type": "get",
+  "description": "Delete additional information connected to a specific customer order line. The operation removes the additional information record that was created with the add operation for line information and can be retrieved with the corresponding get operation. The additional information typically contains supplier, agreement, and sequence details stored for that line.",
+  "inputParameters": [
+    {
+      "name": "ORNO",
+      "description": "Customer order number identifying the order line whose additional information will be deleted.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PONR",
+      "description": "Order line number on which additional information will be deleted.",
+      "type": "integer",
+      "longName": "LineNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "POSX",
+      "description": "Line suffix specifying the subline whose additional information will be deleted.",
+      "type": "integer",
+      "longName": "LineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": []
+}

@@ -1,0 +1,165 @@
+{
+  "name": "M3_MMS120MI_UpdDetAlloc",
+  "program": "MMS120MI",
+  "transaction": "UpdDetAlloc",
+  "version": "2026-05-08T02:02:03.03Z",
+  "type": "update",
+  "description": "Update detailed allocation quantities for an existing order line and its stock identity. This operation adjusts how much of a specific warehouse, location, and optionally lot and container is reserved against one or more orders once detailed allocation already exists, typically after picking has been released.\n\nIt works at material-plan level and follows the same rules as the interactive allocation functions. You can increase or reduce the reserved quantity for a line, and optionally move allocated quantity between an order you deallocate from and an order you allocate to. It supports different order categories such as distribution, manufacturing, and work orders, depending on the stock transaction type configuration.",
+  "inputParameters": [
+    {
+      "name": "WHLO",
+      "description": "Warehouse where the detailed allocation to be updated is registered.",
+      "type": "string",
+      "longName": "Warehouse",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ITNO",
+      "description": "Item number for the product whose detailed allocation is being updated.",
+      "type": "string",
+      "longName": "ItemNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "WHSL",
+      "description": "Stock location in the warehouse that holds the allocated balance to be updated.",
+      "type": "string",
+      "longName": "Location",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ALQT",
+      "description": "Quantity to be allocated or deallocated in the item's basic unit of measure.",
+      "type": "number",
+      "longName": "AllocatedQuantityBasicUom",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "BANO",
+      "description": "Lot number identifying the specific lot from which the allocated quantity is updated.",
+      "type": "string",
+      "longName": "BatchNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CAMU",
+      "description": "Container number identifying the container from which the allocated quantity is updated, when container-managed.",
+      "type": "string",
+      "longName": "ContainerNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TTYP",
+      "description": "Stock transaction type for the order line to which the allocation will be increased or moved.",
+      "type": "enum",
+      "longName": "StockTransactionType",
+      "required": false,
+      "enumConstants": "Forecast,InventoryBuildUp,ManufacturingOrderReceipt,ManufacturingOrderIssue,ManufacturingOrderReceiptOfCo-produc,ManufacturingOrderReceiptOfBy-produc,ManufacturingOrderReceiptQi,ManufacturingOrderReceiptOfCo-prdQi,ManufacturingOrderReceiptOfBy-prdQi,PurchaseOrderReceipt,PoReceiptInInventoryForInspection,PurchaseOrderRejectedDuringInspect,PurchaseOrderApprovedFromInspect,PurchaseOrderPut-away,PurchaseOrder-AgreementOrder,CustomerOrderReceipt,CustomerOrderIssue,RequisitionOrderReceipt,RequisitionOrderIssue,DistributionOrderReceipt,DistributionOrderIssue,DistributionOrderTransit,Do-ReceiptVariances,WorkOrderReceipt,WorkOrderIssue,WorkOrderScrap,WorkOrderRemoval,WorkOrderInstallation,WorkOrder-Scrapping,ServiceOrderReceipt,ServiceOrderIssue,PhysicalInventoryVariances,Scrapping,ReplenishmentMoveOrderIssue,ReplenishmentMoveOrderReceipt,ResetOn-handBalance,CatchWeightAdjustment,Reclassification-StockStatus,Reclassification-Lot,Reclassification-ItemNumber",
+      "enumValues": "1,2,10,11,12,13,17,18,19,20,21,22,23,25,28,30,31,40,41,50,51,52,53,60,61,64,66,67,69,70,71,90,91,92,93,94,95,96,97,98",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RIDN",
+      "description": "Order number for the order whose allocation will be increased or moved to.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RIDL",
+      "description": "Order line number on the order whose allocation will be increased or moved to.",
+      "type": "integer",
+      "longName": "OrderLineNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RIDX",
+      "description": "Line suffix identifying the subline or sequence on the order line whose allocation will be increased or moved to.",
+      "type": "integer",
+      "longName": "LineSuffix",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TTYD",
+      "description": "Stock transaction type for the order line from which the allocation will be reduced or removed.",
+      "type": "integer",
+      "longName": "StockTransactionTypeToDeallocate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RIDD",
+      "description": "Order number for the order whose allocation will be reduced or removed.",
+      "type": "string",
+      "longName": "OrderNumberToDeallocate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RILD",
+      "description": "Order line number on the order whose allocation will be reduced or removed.",
+      "type": "integer",
+      "longName": "OrderLineNumberToDeallocate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RIXD",
+      "description": "Line suffix identifying the subline or sequence on the order line whose allocation will be reduced or removed.",
+      "type": "integer",
+      "longName": "LineSuffixToDeallocate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": []
+}

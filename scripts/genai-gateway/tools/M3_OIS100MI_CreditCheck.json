@@ -1,0 +1,34 @@
+{
+  "name": "M3_OIS100MI_CreditCheck",
+  "program": "OIS100MI",
+  "transaction": "CreditCheck",
+  "version": "2026-05-08T05:05:50.50Z",
+  "type": "get",
+  "description": "Perform a credit check on a single customer order and update its credit stop status. The operation evaluates the customer’s credit exposure using the specified order as context. If any configured credit limit is exceeded, the customer order stop code in the order header is set to the value corresponding to the triggered limit and that updated stop code is returned in the response. If no limit is exceeded, the order stop code remains unchanged, and a value of 0 means the order is not credit‑blocked from a credit‑control perspective.",
+  "inputParameters": [
+    {
+      "name": "ORNO",
+      "description": "Customer order number to use as the basis for the credit check.",
+      "type": "string",
+      "longName": "OrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "OBLC",
+      "description": "Customer order stop code after the credit check, indicating if the order is blocked due to credit limits.",
+      "type": "integer",
+      "longName": "CustomerOrderStopCode",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

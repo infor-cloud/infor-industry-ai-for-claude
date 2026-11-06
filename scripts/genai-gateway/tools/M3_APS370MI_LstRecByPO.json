@@ -1,0 +1,221 @@
+{
+  "name": "M3_APS370MI_LstRecByPO",
+  "program": "APS370MI",
+  "transaction": "LstRecByPO",
+  "version": "2026-08-28T10:10:59.59Z",
+  "type": "list",
+  "description": "Lists goods received not invoiced transactions for purchase orders",
+  "inputParameters": [
+    {
+      "name": "PUNO",
+      "description": "Purchase order number",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "DIVI",
+      "description": "Division",
+      "type": "string",
+      "longName": "Division",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DIVI",
+      "description": "Division",
+      "type": "string",
+      "longName": "Division",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PUNO",
+      "description": "Purchase order number",
+      "type": "string",
+      "longName": "PurchaseOrderNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PNLI",
+      "description": "Purchase order line",
+      "type": "integer",
+      "longName": "PurchaseOrderLine",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "PNLS",
+      "description": "Purchase order line subnumber",
+      "type": "integer",
+      "longName": "PurchaseOrderLineSubnumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "REPN",
+      "description": "Receiving number",
+      "type": "integer",
+      "longName": "ReceivingNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "IMST",
+      "description": "Invoice matching status",
+      "type": "integer",
+      "longName": "InvoiceMatchingStatus",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "RCAC",
+      "description": "Received cost amount - local currency",
+      "type": "number",
+      "longName": "ReceivedCostAmountLocalCurrency",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "ICAC",
+      "description": "Invoiced cost amount - local currency",
+      "type": "number",
+      "longName": "InvoicedCostAmountLocalCurrency",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "DAMT",
+      "description": "Difference Amount",
+      "type": "number",
+      "longName": "DepositAmount",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "ITNO",
+      "description": "Item number",
+      "type": "string",
+      "longName": "ItemNumber",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "PUST",
+      "description": "Highest status - purchase order",
+      "type": "string",
+      "longName": "HighestStatusPurchaseOrder",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    },
+    {
+      "name": "RPQA",
+      "description": "Reported quantity",
+      "type": "number",
+      "longName": "ReportedQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "IVQA",
+      "description": "Invoiced quantity - alternate U/M",
+      "type": "number",
+      "longName": "InvoicedQuantityAlternateUM",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "DQTY",
+      "description": "Difference Quantity",
+      "type": "number",
+      "longName": "DefectiveQuantity",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "TRDT",
+      "description": "Transaction date",
+      "type": "date",
+      "longName": "TransactionDate",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "SCOC",
+      "description": "Received cost - pur price U/M, currency",
+      "type": "number",
+      "longName": "ReceivedCostPurPriceUMCurrency",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": true,
+      "showValues": false
+    },
+    {
+      "name": "CUCD",
+      "description": "Currency",
+      "type": "string",
+      "longName": "Currency",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "name": "M3_MMS310MI_Update",
+  "program": "MMS310MI",
+  "transaction": "Update",
+  "version": "2026-05-08T02:02:24.24Z",
+  "type": "update",
+  "description": "Update inventory balances for a specific warehouse, item, and location using a quick physical inventory interface. The operation works as both change and creation: it adjusts an existing balance identity if it already exists, or creates a new one when no balance is found for the given warehouse, item, location, and optional lot or container. It records the physically counted quantity and related information such as physical inventory status, priority date, catch weight, and remarks. Adjustments made here affect inventory quantities only; they do not create financial transactions or ledger postings in M3.",
+  "inputParameters": [
+    {
+      "name": "WHLO",
+      "description": "Warehouse where the item's inventory balance is updated.",
+      "type": "string",
+      "longName": "Warehouse",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "ITNO",
+      "description": "Item number whose inventory balance is created or updated.",
+      "type": "string",
+      "longName": "ItemNumber",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "WHSL",
+      "description": "Location within the warehouse where the inventory balance is created or updated.",
+      "type": "string",
+      "longName": "Location",
+      "required": true,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CONO",
+      "description": "Company number where this quick inventory update is performed.",
+      "type": "integer",
+      "longName": "CompanyNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "BANO",
+      "description": "Lot number identifying the specific lot of the item whose inventory is updated.",
+      "type": "string",
+      "longName": "BatchNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CAMU",
+      "description": "Container number identifying the handling unit or pallet for the inventory balance being updated.",
+      "type": "string",
+      "longName": "ContainerNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "REPN",
+      "description": "Receiving number referencing the original receipt for the stock being updated.",
+      "type": "integer",
+      "longName": "ReceivingNumber",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "STQI",
+      "description": "Physical inventory quantity counted for this balance in the basic unit of measure. In MMS310MI Update it must be entered together with the physical inventory date when reporting a count.",
+      "type": "number",
+      "longName": "PhysicalInventoryQuantity",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "STAG",
+      "description": "Physical inventory status for this balance after the quick inventory update, indicating how the counted difference has been approved.",
+      "type": "enum",
+      "longName": "PhysicalInventoryStatus",
+      "required": false,
+      "enumConstants": "NotReported,AutoApproved,ManualApproved,NotApproved",
+      "enumValues": "0,1,2,3",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "CAWI",
+      "description": "Weight recorded for this balance, mainly for catch-weight items, and used together with the physical inventory quantity.",
+      "type": "integer",
+      "longName": "Weight",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "STDI",
+      "description": "Physical inventory date reported for this quick inventory count. In MMS310MI Update it must be entered together with the physical inventory quantity when reporting a count.",
+      "type": "date",
+      "longName": "PhysicalInventoryDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TIHH",
+      "description": "Hour component of the time when the physical inventory count or inventory transaction is recorded.",
+      "type": "integer",
+      "longName": "TimeHours",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TIMM",
+      "description": "Minute component of the time when the physical inventory count or inventory transaction is recorded.",
+      "type": "integer",
+      "longName": "TimeMinutes",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TISS",
+      "description": "Second component of the time when the physical inventory count or inventory transaction is recorded.",
+      "type": "integer",
+      "longName": "TimeSeconds",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "PRDT",
+      "description": "Priority date used for expiration control and to determine the selection and FIFO order of this inventory balance.",
+      "type": "date",
+      "longName": "PriorityDate",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "TRPR",
+      "description": "Inventory accounting price applied to this inventory transaction if a specific valuation price should be used.",
+      "type": "number",
+      "longName": "InventoryAccountingPrice",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "BREF",
+      "description": "First lot reference for additional identification or tracing of the lot in this inventory balance.",
+      "type": "string",
+      "longName": "LotReference1",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "BRE2",
+      "description": "Second lot reference for additional identification or selection of the lot in this inventory balance.",
+      "type": "string",
+      "longName": "LotReference2",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "BREM",
+      "description": "Remark recorded for this balance identity as part of the quick inventory update.",
+      "type": "string",
+      "longName": "Remark",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    },
+    {
+      "name": "RSCD",
+      "description": "Reason code describing why this quick inventory update transaction is performed.",
+      "type": "string",
+      "longName": "TransactionReasonCode",
+      "required": false,
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "showValues": false
+    }
+  ],
+  "outputParameters": [
+    {
+      "name": "DUMMY",
+      "description": "Dummy output parameter.",
+      "type": "integer",
+      "longName": "Dummy",
+      "enumConstants": "",
+      "enumValues": "",
+      "enabled": true,
+      "filter": false,
+      "showValues": false
+    }
+  ]
+}
