@@ -1,0 +1,16 @@
+{
+  "name": "infor-claude-plugins",
+  "owner": {
+    "name": "Infor"
+  },
+  "plugins": [
+    {
+      "name": "infor-industry-ai",
+      "source": "./plugins/infor-industry-ai",
+      "description": "Infor Industry AI for Claude: M3 skills for buyers, production planners and customer service reps."
+    }
+  ],
+  "metadata": {
+    "description": "Infor's plugins for Claude. Infor Industry AI for Claude: skills for Infor M3 buyers, production planners and customer service reps."
+  }
+}

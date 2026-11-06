@@ -1,0 +1,70 @@
+/* M3 Production Planner - neutral planner theme.
+   Plain, accessible defaults chosen at the owner's request (UI is not the priority at
+   this stage). They are NOT Infor's official brand values. To brand the plugin,
+   replace the values below with ones from an Infor-supplied source. */
+:root {
+  --brand-primary: #1F4FD8;
+  --brand-on-primary: #FFFFFF;
+  --brand-surface: #FFFFFF;
+  --brand-surface-alt: #F2F4F8;
+  --brand-dark: #0F1B33;
+  --brand-on-dark: #F2F4F8;
+  --brand-accent: #FFB020;
+  --brand-ink: #0F1B33;
+  --brand-muted: #5B6577;
+  --brand-link: #1F4FD8;
+  --brand-border: #DDE2EA;
+  --brand-success: #1D7A4F;
+  --brand-warning: #9A6A12;
+  --brand-danger: #A33B2E;
+  --brand-info: #1F4FD8;
+  --brand-chart-1: var(--brand-primary);
+  --brand-chart-2: var(--brand-muted);
+  --brand-chart-3: var(--brand-border);
+  --brand-chart-focus: var(--brand-accent);
+  --brand-radius: 12px;
+  --brand-font: Inter, "Segoe UI", -apple-system, system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --brand-primary: #8FB0FF;
+    --brand-on-primary: #0F1B33;
+    --brand-surface: #0F1B33;
+    --brand-surface-alt: #18274A;
+    --brand-dark: #0A1326;
+    --brand-on-dark: #F2F4F8;
+    --brand-ink: #F2F4F8;
+    --brand-muted: #A7B1C4;
+    --brand-link: #8FB0FF;
+    --brand-border: #2A3A60;
+    --brand-success: #5FD39B;
+    --brand-warning: #F0C060;
+    --brand-danger: #F08A7C;
+    --brand-info: #8FB0FF;
+  }
+}
+
+:root[data-theme="dark"] {
+  --brand-primary: #8FB0FF;
+  --brand-on-primary: #0F1B33;
+  --brand-surface: #0F1B33;
+  --brand-surface-alt: #18274A;
+  --brand-dark: #0A1326;
+  --brand-on-dark: #F2F4F8;
+  --brand-ink: #F2F4F8;
+  --brand-muted: #A7B1C4;
+  --brand-link: #8FB0FF;
+  --brand-border: #2A3A60;
+  --brand-success: #5FD39B;
+  --brand-warning: #F0C060;
+  --brand-danger: #F08A7C;
+  --brand-info: #8FB0FF;
+}
+
+body {
+  margin: 0;
+  background: var(--brand-surface);
+  color: var(--brand-ink);
+  font-family: var(--brand-font);
+}

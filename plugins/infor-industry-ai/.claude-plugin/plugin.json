@@ -1,0 +1,17 @@
+{
+  "name": "infor-industry-ai",
+  "displayName": "Infor Industry AI for Claude",
+  "version": "0.3.0",
+  "description": "For buyers, production planners and customer service reps in Infor M3: the buyer's morning view and delayed-PO impact analysis, the planner's at-risk manufacturing orders with fixes, and the rep's rush orders, all on live M3 data with every change behind an explicit yes. Requires the M3 connector (M3 BE MCP).",
+  "author": {
+    "name": "Infor",
+    "url": "https://www.infor.com"
+  },
+  "homepage": "https://www.infor.com",
+  "repository": "https://github.com/infor-cloud/infor-industry-ai-for-claude",
+  "documentationUrl": "https://github.com/infor-cloud/infor-industry-ai-for-claude/blob/main/docs/setup.md",
+  "supportUrl": "https://www.infor.com/support",
+  "privacyPolicyUrl": "https://www.infor.com/about/privacy",
+  "icon": "./assets/icon.png",
+  "keywords": ["infor", "m3", "erp", "manufacturing", "purchasing", "production-planning", "customer-service"]
+}

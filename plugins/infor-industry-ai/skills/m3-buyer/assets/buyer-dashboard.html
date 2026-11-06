@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Act &amp; Track — Buyer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    color-scheme: light;
+    --bg: #f3f4f6; --card: #ffffff; --fg: #1f2933; --muted: #5b6672; --line: #dde1e6; --head: #eef0f3;
+    --input: #ffffff; --pick: #e9ecef; --pbg: #1f2933; --pfg: #ffffff; --focus: #1f2933;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { color-scheme: dark; --bg: #12161a; --card: #1b2127; --fg: #e8ecef; --muted: #a3aeb8; --line: #2d363e; --head: #222a31; --input: #12161a; --pick: #2a333b; --pbg: #e8ecef; --pfg: #12161a; --focus: #e8ecef; }
+  }
+  :root[data-theme="dark"] { color-scheme: dark; --bg: #12161a; --card: #1b2127; --fg: #e8ecef; --muted: #a3aeb8; --line: #2d363e; --head: #222a31; --input: #12161a; --pick: #2a333b; --pbg: #e8ecef; --pfg: #12161a; --focus: #e8ecef; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: 'Source Sans 3', 'Source Sans Pro', 'Segoe UI', Roboto, Arial, sans-serif; font-size: 15px; line-height: 1.45; }
+  .app { max-width: 72rem; margin: 0 auto; padding: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 1rem 1.15rem; }
+  .card h2 { margin: 0; font-size: 1.05rem; font-weight: 700; }
+  .card h3 { margin: 1rem 0 0; font-size: 0.95rem; font-weight: 700; }
+  .note { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.85rem; }
+  .ic { display: inline-flex; vertical-align: middle; flex: none; }
+  .ic svg { display: block; }
+
+  .head { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: space-between; }
+  .head h1 { margin: 0; font-size: 1.35rem; font-weight: 700; }
+  .head p { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.9rem; }
+  .toolbar-top { display: flex; align-items: center; gap: 0.9rem; }
+  .asof { color: var(--muted); font-size: 0.82rem; }
+
+  .banner { display: flex; gap: 0.5rem; align-items: flex-start; padding: 0.65rem 0.9rem; border-radius: 8px; font-size: 0.88rem; border-left: 4px solid #cd6200; background: #fef2e5; color: #a14100; }
+  .banner[hidden] { display: none; }
+  .banner.bad { border-left-color: #da1217; background: #fbe7e8; color: #a30d11; }
+
+  .gridhead { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: flex-end; justify-content: space-between; }
+  .search { position: relative; }
+  .search .ic { position: absolute; left: 0.55rem; top: 50%; transform: translateY(-50%); color: var(--muted); }
+  .search input[type="text"] { width: 16rem; max-width: 100%; font: inherit; padding: 0.4rem 0.6rem 0.4rem 2rem; border: 1px solid var(--line); border-radius: 6px; background: var(--input); color: var(--fg); }
+  .tablewrap { overflow-x: auto; margin-top: 0.75rem; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th { text-align: left; font-size: 0.8rem; font-weight: 600; color: var(--muted); padding: 0.3rem 0.6rem; background: var(--head); border-bottom: 1px solid var(--line); white-space: nowrap; }
+  td { padding: 0.35rem 0.6rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th.num, td.num { text-align: right; }
+  #table tbody tr { cursor: pointer; box-shadow: inset 3px 0 0 transparent; }
+  #table tbody tr:hover { background: var(--head); }
+  #table tbody tr.picked { background: var(--pick); box-shadow: inset 3px 0 0 var(--fg); }
+  #table tbody tr:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+  .empty { margin: 0.75rem 0 0; color: var(--muted); font-size: 0.88rem; }
+
+  .chip { display: inline-flex; gap: 0.3rem; align-items: center; padding: 0.08rem 0.55rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+  .chip.ok { background: #cbefdc; color: #1c6142; }
+  .chip.warn { background: #fddfbd; color: #a14100; }
+  .chip.bad { background: #f5c3c4; color: #a30d11; }
+  .chip.info { background: #bedcfa; color: #0054b1; }
+  .chip.muted { background: #e6e9ed; color: #3c4650; }
+
+  .detail { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; justify-content: space-between; align-items: flex-start; }
+  .detail h2 { font-size: 1.2rem; }
+  .detail .sub { margin: 0.1rem 0 0; color: var(--muted); font-size: 0.95rem; }
+  .facts { display: flex; flex-wrap: wrap; gap: 0.6rem 1.75rem; }
+  .fact { display: flex; flex-direction: column; gap: 0.15rem; }
+  .fact .k { color: var(--muted); font-size: 0.78rem; }
+  .fact .v { font-size: 0.92rem; font-weight: 600; }
+
+  .toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 1rem; padding-top: 0.85rem; border-top: 1px solid var(--line); }
+  .sep { width: 1px; align-self: stretch; background: var(--line); margin: 0 0.25rem; }
+  button { font: inherit; }
+  .btn { display: inline-flex; gap: 0.4rem; align-items: center; font-size: 0.88rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; padding: 0.4rem 0.8rem; cursor: pointer; background: var(--card); color: var(--fg); }
+  .btn:hover:not(:disabled) { background: var(--head); }
+  .btn.primary { background: var(--pbg); color: var(--pfg); border-color: var(--pbg); }
+  .btn.primary:hover:not(:disabled) { opacity: 0.9; background: var(--pbg); }
+  .btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  /* While M3 is being read, the buttons stay fully readable and show a spinner. */
+  #reset:disabled, #scopeFindBtn:disabled { opacity: 1; cursor: progress; }
+  .spin { display: inline-block; width: 0.9rem; height: 0.9rem; border: 2px solid var(--line); border-top-color: var(--fg); border-radius: 50%; animation: spin-rot 0.8s linear infinite; }
+  .spin[hidden] { display: none; }
+  @keyframes spin-rot { to { transform: rotate(360deg); } }
+  .loadbar { position: relative; height: 3px; margin-top: 0.6rem; border-radius: 2px; overflow: hidden; background: var(--line); }
+  .loadbar[hidden] { display: none; }
+  .loadbar::after { content: ""; position: absolute; top: 0; left: -40%; width: 40%; height: 100%; background: var(--pbg); animation: loadbar-slide 1.1s ease-in-out infinite; }
+  @keyframes loadbar-slide { to { left: 100%; } }
+  @media (prefers-reduced-motion: reduce) { .spin, .loadbar::after { animation-duration: 3s; } }
+  .what { display: grid; grid-template-columns: max-content 1fr; gap: 0.3rem 1rem; margin: 0.85rem 0 0; font-size: 0.85rem; }
+  .what dt { font-weight: 600; }
+  .what dd { margin: 0; color: var(--muted); }
+
+  #assess-out table { margin-top: 0.6rem; }
+  #assess-out td { white-space: normal; vertical-align: top; }
+  .reco { display: flex; gap: 0.5rem; align-items: flex-start; margin-top: 0.75rem; padding: 0.65rem 0.9rem; border-radius: 8px; font-size: 0.92rem; font-weight: 600; border-left: 4px solid #0066d4; background: #e6f1fd; color: #0054b1; }
+  .reco.ok { border-left-color: #1c7f49; background: #ebf9f1; color: #1c6142; }
+  .reco.bad { border-left-color: #da1217; background: #fbe7e8; color: #a30d11; }
+  .reco.warn { border-left-color: #cd6200; background: #fef2e5; color: #a14100; }
+
+  .log { list-style: none; margin: 0.75rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem; }
+  .log li { display: flex; gap: 0.5rem; align-items: center; padding: 0.35rem 0.6rem; border-radius: 6px; border: 1px solid var(--line); background: var(--card); }
+  .log .ok .mark { color: #1c7f49; }
+  .log .bad .mark { color: #da1217; }
+  .log .warn .mark { color: #cd6200; }
+  .log .info .mark { color: #0066d4; }
+  .log .time { color: var(--muted); font-size: 0.78rem; white-space: nowrap; }
+  .foot { color: var(--muted); font-size: 0.8rem; margin: 0; display: flex; flex-direction: column; gap: 0.3rem; }
+  .foot details.how { margin-top: 0; }
+  .foot details.how summary { color: var(--fg); }
+  #source { margin: 0.5rem 0 0; line-height: 1.5; }
+
+  dialog { background: var(--card); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 1.1rem 1.25rem; width: min(30rem, calc(100% - 2rem)); }
+  dialog::backdrop { background: rgba(18, 22, 26, 0.6); }
+  dialog > * + * { margin-top: 0.65rem; }
+  dialog h2 { margin: 0; font-size: 1.1rem; font-weight: 700; }
+  dialog ol { margin: 0; padding-left: 1.2rem; font-size: 0.88rem; }
+  dialog li + li { margin-top: 0.2rem; }
+  dialog [hidden] { display: none; }
+  label { display: block; font-size: 0.82rem; font-weight: 600; }
+  input[type="text"] { width: 100%; font: inherit; padding: 0.45rem 0.6rem; border: 1px solid var(--line); border-radius: 6px; background: var(--input); color: var(--fg); }
+  input[type="text"]:focus-visible, .search input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+  .count { display: block; text-align: right; font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .row { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem; }
+
+  /* ---- rep workspace additions ---- */
+  .note-line { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.85rem; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button { border: 0; background: var(--card); color: var(--fg); padding: 0.35rem 0.8rem; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+  .seg button + button { border-left: 1px solid var(--line); }
+  .seg button[aria-pressed="true"] { background: var(--pbg); color: var(--pfg); }
+  .seg button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+  .modebar { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 0.75rem; }
+  .tile { text-align: left; font: inherit; color: var(--fg); background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; cursor: pointer; display: flex; flex-direction: column; gap: 0.15rem; }
+  .tile:hover { background: var(--head); }
+  .tile[aria-pressed="true"] { border-color: var(--fg); box-shadow: inset 0 0 0 1px var(--fg); }
+  .tile:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .tile .v { font-size: 1.7rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; display: flex; align-items: center; gap: 0.4rem; }
+  .tile .l { color: var(--muted); font-size: 0.82rem; }
+  .st { display: inline-flex; gap: 0.3rem; align-items: center; font-weight: 700; }
+  .st.ok { color: #1c7f49; } .st.warn { color: #cd6200; } .st.bad { color: #da1217; } .st.info { color: #0066d4; } .st.muted { color: var(--muted); }
+  .callout { display: flex; gap: 0.5rem; align-items: flex-start; margin-top: 0.9rem; padding: 0.7rem 0.9rem; border-radius: 8px; border-left: 4px solid #0066d4; background: #e6f1fd; color: #0054b1; font-size: 0.92rem; }
+  .callout b { display: block; margin-bottom: 0.1rem; }
+  .callout.ok { border-left-color: #1c7f49; background: #ebf9f1; color: #1c6142; }
+  .callout.warn { border-left-color: #cd6200; background: #fef2e5; color: #a14100; }
+  .callout.bad { border-left-color: #da1217; background: #fbe7e8; color: #a30d11; }
+  .callout.muted { border-left-color: #747c85; background: #eef0f3; color: #3c4650; }
+  .why { margin: 0.75rem 0 0; font-size: 0.9rem; }
+  .btn.link { text-decoration: none; }
+  .btn .tag { font-size: 0.72rem; font-weight: 600; opacity: 0.8; }
+  .result { margin-top: 0.9rem; }
+  .drafts { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem; }
+  .draft { border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; background: var(--card); }
+  .draft.focus { box-shadow: 0 0 0 2px var(--fg); }
+  .draft .hd { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1rem; font-size: 0.9rem; font-weight: 600; }
+  .draft pre { margin: 0.5rem 0; white-space: pre-wrap; font: inherit; font-size: 0.9rem; background: var(--head); border-radius: 6px; padding: 0.6rem 0.75rem; }
+  .draft textarea { width: 100%; min-height: 9rem; margin: 0.5rem 0; font: inherit; font-size: 0.9rem; padding: 0.5rem 0.6rem; border: 1px solid var(--line); border-radius: 6px; background: var(--input); color: var(--fg); }
+  .draft .row2 { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 0.65rem; }
+  .fields .f label { margin-bottom: 0.15rem; }
+  .fields .f small { color: var(--muted); font-size: 0.75rem; }
+  .npform .sect { margin: 0 0 1.25rem; }
+  .npform h3 { margin: 0 0 0.5rem; font-size: 1rem; font-weight: 600; }
+  .npform .top { display: grid; grid-template-columns: minmax(16rem, 2fr) repeat(3, minmax(9rem, 1fr)); gap: 0.65rem; align-items: start; }
+  .npform .f label { display: block; font-weight: 600; margin-bottom: 0.15rem; }
+  .npform .f small { display: block; color: var(--muted); font-size: 0.75rem; margin-top: 0.15rem; }
+  .npform .lines { width: 100%; border-collapse: collapse; margin-bottom: 0.6rem; }
+  .npform .lines th { text-align: left; font-size: 0.8rem; color: var(--muted); font-weight: 600; padding: 0 0.5rem 0.25rem 0; }
+  .npform .lines td { padding: 0.25rem 0.5rem 0.25rem 0; vertical-align: top; }
+  .npform .lines td.ln { width: 1.75rem; color: var(--muted); padding-top: 0.65rem; }
+  .npform .lines td.qty { width: 9rem; }
+  .npform .lines td.x { width: 2.5rem; }
+  .lk { position: relative; }
+  .lk input.picked { font-weight: 600; }
+  .lk .lklist { position: absolute; z-index: 20; left: 0; right: 0; top: 100%; margin: 2px 0 0; padding: 0.25rem 0; list-style: none; background: var(--card); border: 1px solid var(--line); border-radius: 8px; max-height: 16rem; overflow: auto; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18); }
+  .lk .lklist li { padding: 0.4rem 0.7rem; cursor: pointer; font-size: 0.9rem; display: flex; justify-content: space-between; gap: 0.75rem; }
+  .lk .lklist li.on, .lk .lklist li:hover { background: var(--head); }
+  .lk .lklist li .sub { color: var(--muted); font-size: 0.8rem; text-align: right; }
+  .lk .lklist li.note { cursor: default; color: var(--muted); font-size: 0.8rem; }
+  .lk .lklist li.note:hover { background: transparent; }
+  @media (max-width: 40rem) { .npform .top { grid-template-columns: 1fr; } }
+  select { width: 100%; font: inherit; padding: 0.45rem 0.6rem; border: 1px solid var(--line); border-radius: 6px; background: var(--input); color: var(--fg); }
+  .dlgerr { color: #a30d11; background: #fbe7e8; border-left: 4px solid #da1217; padding: 0.5rem 0.7rem; border-radius: 6px; font-size: 0.85rem; }
+  dialog { width: min(36rem, calc(100% - 2rem)); }
+  .modechip { display: inline-flex; gap: 0.3rem; align-items: center; padding: 0.1rem 0.6rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+  .modechip.sim { background: #bedcfa; color: #0054b1; } .modechip.live { background: #fddfbd; color: #a14100; }
+  input[type="number"], input[type="date"] { width: 100%; font: inherit; padding: 0.45rem 0.6rem; border: 1px solid var(--line); border-radius: 6px; background: var(--input); color: var(--fg); }
+  input[type="number"]:focus-visible, input[type="date"]:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+
+  .creditbox { margin-top: 0.9rem; border: 1px solid var(--line); border-radius: 8px; padding: 0.75rem 0.9rem; background: var(--card); }
+  .creditbox h3 { margin: 0 0 0.5rem; font-size: 0.95rem; }
+  .creditbox .row2 { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem; }
+  .draft textarea, .fields textarea { width: 100%; font: inherit; padding: 0.45rem 0.6rem; border: 1px solid var(--line); border-radius: 6px; background: var(--input); color: var(--fg); min-height: 5rem; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+  .chipbtn { font: inherit; font-size: 0.85rem; font-weight: 600; color: var(--fg); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.75rem; cursor: pointer; display: inline-flex; gap: 0.35rem; align-items: center; }
+  .chipbtn:hover { background: var(--head); }
+  .chipbtn[aria-pressed="true"] { background: var(--pbg); color: var(--pfg); border-color: var(--pbg); }
+  .chipbtn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .chipbtn .n { font-variant-numeric: tabular-nums; opacity: 0.8; }
+  .tile .s { color: var(--muted); font-size: 0.78rem; }
+  .tile.na { cursor: default; background: var(--head); }
+  .tile.na .v { color: var(--muted); font-size: 1.1rem; }
+  details.how { margin-top: 0.75rem; font-size: 0.85rem; }
+  details.how summary { cursor: pointer; font-weight: 600; }
+  details.how + details.how { margin-top: 0.4rem; }
+  #activity-details > summary { cursor: pointer; }
+  #activity-details > summary h2 { display: inline; margin: 0; }
+  #custhost { padding: 0; border: 0; background: none; box-shadow: none; margin: 0; }
+  #custhost[hidden] { display: none; }
+  #custdetails > .note { margin: 0.5rem 0 0; }
+  #custdetails .drafts { margin-top: 0.6rem; }
+  details.how ul { margin: 0.5rem 0 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; color: var(--muted); }
+  details.how li b { color: var(--fg); }
+
+  .stack { display: flex; flex-direction: column; gap: 1rem; }
+  .stack[hidden] { display: none; }
+  .tabs { display: flex; gap: 0.25rem; border-bottom: 1px solid var(--line); }
+  .tabs button { font: inherit; font-weight: 600; background: none; border: 0; border-bottom: 3px solid transparent; padding: 0.55rem 0.9rem; cursor: pointer; color: var(--muted); }
+  .tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--fg); }
+  .tabs button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+  .cr-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
+  .cr-grid .f label { margin-bottom: 0.15rem; }
+  .cr-grid .f small { color: var(--muted); font-size: 0.75rem; display: block; margin-top: 0.15rem; }
+  .scopebar { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.4rem; }
+  .scopebar label { font-size: 0.85rem; color: var(--muted); }
+  .scopebar select { width: auto; min-width: 16rem; max-width: 100%; }
+  .scopebar select, .scopebar input[type="text"], .scopebar .btn { height: 2.35rem; box-sizing: border-box; font-size: 0.9rem; }
+  .scopebar input[type="text"] { width: 20rem; max-width: 100%; }
+  .scopebar .btn { padding-top: 0; padding-bottom: 0; }
+  .scopebar .note { font-size: 0.85rem; color: var(--muted); }
+  tr.linefix > td { background: var(--head); padding: 0.6rem 0.75rem 0.75rem; }
+  .results table th:last-child, .results table td:last-child, .lines-table > thead > tr > th:last-child, .lines-table > tbody > tr:not(.linefix) > td:last-child { text-align: right; white-space: nowrap; width: 1%; }
+  .results table td:last-child .btn, .lines-table > tbody > tr:not(.linefix) > td:last-child .btn { min-width: 6.5rem; justify-content: center; }
+  .fixmini { width: 100%; border-collapse: collapse; background: var(--card); }
+  .fixmini td { padding: 0.5rem 0.65rem; border-top: 1px solid var(--line); vertical-align: middle; font-size: 0.88rem; }
+  .fixmini tr.grouphead td { background: var(--head); color: var(--muted); font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; border-top: 0; }
+  .fixmini tr.fastest td { background: var(--fast-bg); }
+  .fixmini tr.fastest td:first-child { box-shadow: inset 4px 0 0 var(--fast-bar); font-weight: 600; }
+  .fixmini td.ac { white-space: nowrap; width: 9.5rem; }
+  .fixmini td.ac .btn { width: 100%; justify-content: center; }
+  .cr-grid .f small.ok { color: #1c6142; font-weight: 600; }
+  .cr-grid .f small.bad { color: #b3261e; font-weight: 600; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cr-grid .f small.ok { color: #7fd6a3; } :root:not([data-theme="light"]) .cr-grid .f small.bad { color: #ff9b91; } }
+  :root[data-theme="dark"] .cr-grid .f small.ok { color: #7fd6a3; }
+  :root[data-theme="dark"] .cr-grid .f small.bad { color: #ff9b91; }
+  .custpicked { margin-top: 0.75rem; padding: 0.6rem 0.8rem; border: 1px solid var(--line); border-radius: 8px; background: var(--head); display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; justify-content: space-between; }
+  .results { margin-top: 0.75rem; }
+  .results table td { white-space: normal; }
+  .lines-table input { width: 100%; min-width: 4rem; }
+  .lines-table td { vertical-align: top; white-space: normal; }
+  .avail { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+  .avail.warn { color: #a14100; font-weight: 600; }
+  .avail.ok { color: #1c6142; }
+  .resultbox { border-left: 4px solid #1c7f49; padding-left: 0.75rem; }
+  .resultbox.bad { border-left-color: #da1217; }
+  .row2 { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+
+
+  .issueline { font-weight: 600; margin: 0.25rem 0; }
+  .dlgtext { white-space: pre-wrap; background: var(--head); border: 1px solid var(--line); border-radius: 8px; padding: 0.75rem; font: inherit; margin: 0.5rem 0; max-height: 40vh; overflow: auto; }
+  #fixes td { white-space: normal; vertical-align: top; }
+
+  .callout[hidden], .why[hidden] { display: none; }
+  #fixes .chip { white-space: nowrap; }
+  #supplybox h3 { margin-top: 1rem; }
+  #supplybox > h3:first-child { margin-top: 0; }
+
+  .dtag { display: inline-grid; grid-template-columns: auto auto; align-items: center; column-gap: 0.3rem; white-space: nowrap; }
+  .dtag svg { width: 1em; height: 1em; flex: none; }
+  .dtag .dnote { grid-column: 1 / -1; font-size: 0.75rem; font-weight: 600; }
+  .dtag.late { color: #DA1217; font-weight: 600; }
+  .dtag.today, .dtag.after { color: #A14100; font-weight: 600; }
+  #table td { white-space: nowrap; }
+  #table td:nth-last-child(2) { white-space: normal; }
+  #table td:nth-last-child(2) { min-width: 13rem; }
+
+  .pendnote { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.75rem; font-weight: 600; color: #A14100; }
+  .pendnote svg { width: 1em; height: 1em; }
+  #backtable td { white-space: normal; }
+
+  .reslog { list-style: none; margin: 0.5rem 0 0; padding: 0; }
+  .reslog li { display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
+  .reslog li:last-child { border-bottom: 0; }
+  .reslog .rt { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .reslog .rb { display: flex; flex-direction: column; gap: 0.15rem; }
+  .reslog .rs { color: var(--muted); font-size: 0.875rem; }
+
+  .refline { display: block; font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+  #fixes th:last-child, #fixes td.ac { width: 9.5rem; }
+  #fixes td.ac { vertical-align: middle; }
+  #fixes td.ac .btn { width: 100%; justify-content: center; white-space: nowrap; box-sizing: border-box; }
+  #table td:nth-last-child(2) { white-space: nowrap; }
+  .app { max-width: 120rem; padding-inline: clamp(1rem, 2vw, 2.5rem); }
+  :root { --fast-bg: #eaf7ef; --fast-bar: #1f8f4d; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --fast-bg: #173324; --fast-bar: #3fb871; } }
+  :root[data-theme="dark"] { --fast-bg: #173324; --fast-bar: #3fb871; }
+  #fixes tr.grouphead td { background: var(--head); color: var(--muted); font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.55rem 0.75rem; vertical-align: middle; }
+  #fixes tr.fastest td { background: var(--fast-bg); }
+  #fixes tr.fastest td:first-child { box-shadow: inset 4px 0 0 var(--fast-bar); font-weight: 600; }
+  .badge.fast { display: inline-block; margin-top: 0.35rem; background: var(--fast-bar); color: #fff; font-weight: 700; font-size: 0.72rem; padding: 0.15rem 0.55rem; border-radius: 999px; white-space: nowrap; }
+  #fixes td.ac .acbtns { display: flex; flex-direction: column; gap: 0.4rem; }
+  .sortbtn { background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; font-weight: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem; white-space: nowrap; }
+  .sortbtn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .sortic { width: 0.55rem; height: 0.85rem; flex: none; }
+  .sortic path { fill: currentColor; opacity: 0.3; }
+  th[aria-sort="ascending"] .sortic .u, th[aria-sort="descending"] .sortic .d { opacity: 1; }
+  #supplybox h3.issuehead { font-size: 1.1rem; margin: 0 0 0.4rem; }
+  :root { --fast-fg: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --fast-fg: #08210f; } }
+  :root[data-theme="dark"] { --fast-fg: #08210f; }
+  .fastdate { display: inline-block; background: var(--fast-bar); color: var(--fast-fg); font-weight: 700; padding: 0.15rem 0.55rem; border-radius: 6px; }
+
+
+  /* buyer additions: small, built from the same tokens */
+  .optnote { color: var(--muted); font-size: 0.875rem; margin: 0.25rem 0 0; }
+  .roview { margin: 0.5rem 0 0; }
+  .msgs { list-style: none; margin: 0.5rem 0 0; padding: 0; }
+  .msgs li { display: grid; grid-template-columns: 6rem 1fr auto; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .msgs li:last-child { border-bottom: 0; }
+  .setgrid { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; margin: 0.5rem 0 0; }
+  .setgrid dt { color: var(--muted); }
+  .setgrid dd { margin: 0; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="card">
+    <div class="head">
+      <div>
+        <h1>Act &amp; Track: Buyer</h1>
+        <p>Your purchase orders and planned orders that need a decision. Select an item to see who owns the next action and what options you have.</p>
+      </div>
+      <div class="toolbar-top">
+        <span class="asof" id="asof">Loading…</span>
+        <button class="btn" id="reset" type="button"><span class="spin" id="resetSpin" hidden></span><span id="resetTxt">Refresh from M3</span></button>
+      </div>
+    </div>
+    <div class="modebar">
+      <span id="modenote">Connecting to M3…</span>
+    </div>
+    <div class="loadbar" id="loadbar" role="status" aria-label="Loading from M3" hidden></div>
+  </header>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <div class="tabs" role="tablist" aria-label="Sections">
+    <button type="button" role="tab" id="tabbtn-act" aria-selected="true" aria-controls="tab-orders">Needs Action</button>
+    <button type="button" role="tab" id="tabbtn-ok" aria-selected="false" aria-controls="tab-orders">On Track</button>
+    <button type="button" role="tab" id="tabbtn-new" aria-selected="false" aria-controls="tab-new">Create PO</button>
+    <button type="button" role="tab" id="tabbtn-msgs" aria-selected="false" aria-controls="tab-msgs">Messages</button>
+  </div>
+
+  <div id="tab-orders" role="tabpanel" class="stack">
+
+  <section class="card" id="kpis">
+    <h2>Key Measures</h2>
+    <div class="scopebar"><label for="scopeUser">Responsible user</label><select id="scopeUser" aria-label="Responsible user"></select><input id="scopeFind" type="text" autocomplete="off" placeholder="Find other buyers by name or user ID" aria-label="Find other buyers by name or user ID"><button class="btn" id="scopeFindBtn" type="button"><span class="spin" id="findSpin" hidden></span><span id="findTxt">Find</span></button><span class="note" id="scopeFindMsg" role="status"></span></div>
+    <p class="note" id="kpi-note"></p>
+    <div class="tiles" id="kpitiles"></div>
+    <details class="how"><summary>How these are counted</summary><ul id="kpihow"></ul></details>
+  </section>
+
+  <section class="card" id="orders">
+    <div class="gridhead">
+      <div>
+        <h2 id="list-title">Needs Action</h2>
+        <p class="note" id="orders-note"></p>
+      </div>
+      <div class="search">
+        <span class="ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></span>
+        <input type="text" id="q" placeholder="Search PO, supplier or item" aria-label="Search PO, supplier or item" autocomplete="off">
+      </div>
+    </div>
+    <div class="chips" id="tiles" role="group" aria-label="Filters"></div>
+    <p class="note" id="datelegend"></p>
+    <div class="tablewrap">
+      <table id="table">
+        <thead>
+          <tr><th>PO / line</th><th>Supplier</th><th>Item no</th><th class="num">Qty</th><th>Requested</th><th>Confirmed</th><th>Owner</th><th>Affects</th><th>Warehouse</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="empty" id="empty" hidden>Nothing matches these filters.</p>
+  </section>
+
+  <section class="card" id="panel" hidden>
+    <div class="detail">
+      <div>
+        <h2 id="panel-title">Order</h2>
+        <p class="sub" id="panel-sub"></p>
+      </div>
+      <div class="facts" id="facts"></div>
+    </div>
+    <p class="why" id="why"></p>
+    <div class="callout" id="callout"></div>
+    <p class="optnote roview" id="roview" hidden></p>
+    <div class="creditbox" id="supplybox" hidden>
+      <h3 class="issuehead">Recommended options</h3>
+      <div id="issues"></div>
+      <div id="fixes"></div>
+      <details class="how" id="impdetails"><summary>Orders that depend on it</summary>
+        <p class="note" id="impnote"></p>
+        <div class="tablewrap"><table id="imptable"><thead><tr><th>Kind</th><th>Order</th><th>Need date</th><th class="num">Quantity</th><th>Against the supplier date</th></tr></thead><tbody></tbody></table></div>
+      </details>
+    </div>
+    <div class="creditbox" id="custhost">
+      <details class="how" id="custdetails"><summary>Message to the supplier</summary>
+        <p class="note">A draft for you to edit and send. This page never sends anything to a supplier.</p>
+        <div class="drafts" id="drafts"></div>
+      </details>
+    </div>
+    <div class="toolbar" id="toolbar" role="toolbar" aria-label="Actions"></div>
+    <dl class="what" id="what"></dl>
+  </section>
+
+  </div>
+
+  <div id="tab-new" role="tabpanel" class="stack" hidden>
+  <section class="card" id="new-card">
+    <h2>Create PO</h2>
+    <p class="note" id="newnote"></p>
+    <div class="npform" id="newform"></div>
+    <p class="note" id="newmsg" role="status"></p>
+  </section>
+  </div>
+
+  <div id="tab-msgs" role="tabpanel" class="stack" hidden>
+  <section class="card" id="msgs-card">
+    <h2>New Messages</h2>
+    <p class="note" id="msgs-note">New messages in your own M3 inbox. They are always yours, whichever buyer is selected above.</p>
+    <ul class="msgs" id="msgs"></ul>
+    <p class="empty" id="msgs-empty" hidden>0 new messages.</p>
+  </section>
+  </div>
+
+  <section class="card" id="activity-card">
+    <details id="activity-details">
+      <summary><h2>Activity</h2></summary>
+      <p class="note">Every step this page takes in M3, and whether it worked. Times are in your local time zone.</p>
+      <ul class="log" id="log"></ul>
+    </details>
+  </section>
+
+  <section class="card" id="reslog-card">
+    <h2>Resolution Log</h2>
+    <p class="note" id="reslog-note">What you decided and did.</p>
+    <ul class="reslog" id="reslog"></ul>
+    <p class="note" id="reslog-empty">Nothing yet. What you do here is listed with the time.</p>
+  </section>
+
+  <section class="card" id="settings-card">
+    <details class="how" id="settings"><summary>Settings</summary>
+      <p class="note">This page asks you for no setting and keeps nothing in your browser. Everything below was read from M3 when the page loaded.</p>
+      <dl class="setgrid" id="setgrid"></dl>
+    </details>
+  </section>
+
+  <footer class="foot">
+    <details class="how" id="srcdetails"><summary>Data sources</summary>
+      <p id="source"></p>
+    </details>
+    <span id="pagever">Version 2026-11-05 · build e46e0fd6</span>
+    <span>M3 + Claude. Live actions write only what the confirmation shows, one record at a time, and read the result back from M3. Nothing here is sent to a supplier, a customer or a colleague: email opens a draft in your own mail program.</span>
+  </footer>
+
+  <dialog id="dlg" aria-labelledby="dlg-title">
+    <h2 id="dlg-title">Action</h2>
+    <p><span class="modechip" id="dlg-mode"></span></p>
+    <p class="note" id="dlg-lead"></p>
+    <pre class="dlgtext" id="dlg-text" hidden></pre>
+    <button class="btn" id="dlg-copy" type="button" hidden>Copy text</button>
+    <div class="fields" id="dlg-fields"></div>
+    <div class="dlgerr" id="dlg-err" hidden></div>
+    <p class="note" id="dlg-stepslead"></p>
+    <ol id="dlg-steps"></ol>
+    <p class="note" id="dlg-foot"></p>
+    <div class="row">
+      <button class="btn" id="dlg-cancel" type="button">Cancel</button>
+      <button class="btn primary" id="dlg-go" type="button">Confirm</button>
+    </div>
+  </dialog>
+</div>
+<script>(function () {
+  'use strict';
+  var SERVER = 'M3 Manufacturing MCP';
+  var $ = function (id) { return document.getElementById(id); };
+  var el = function (tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+  var pad2 = function (n) { return String(n).padStart(2, '0'); };
+  var ymd = function (d) { return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); };
+  var stamp = function () { var t = new Date(); return ymd(t) + ' ' + pad2(t.getHours()) + ':' + pad2(t.getMinutes()); };
+  var isoDate = function (v) { var t = String(v == null ? '' : v).trim(); if (/^\d{8}$/.test(t)) return t.slice(0, 4) + '-' + t.slice(4, 6) + '-' + t.slice(6, 8); var m = t.match(/^(\d{4}-\d{2}-\d{2})/); return m ? m[1] : ''; };
+  var addDays = function (iso, n) { var d = new Date(iso + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+  var dayDiff = function (a, b) { return Math.round((new Date(a + 'T00:00:00Z') - new Date(b + 'T00:00:00Z')) / 86400000); };
+  var num = function (v) { return v == null || v === '' || !isFinite(Number(v)) ? null : Number(v); };
+  var fmtN = function (v) { var x = num(v); return x == null ? 'Not available' : x.toLocaleString('en-US', { maximumFractionDigits: 2 }); };
+  var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+  // A field by name, whatever its capitalisation; null when M3 returned nothing in it.
+  var pick = function (r, names) {
+    if (!r || typeof r !== 'object') return null;
+    for (var i = 0; i < names.length; i++) { var k = Object.keys(r).find(function (x) { return x.toLowerCase() === names[i].toLowerCase(); }); if (k && r[k] !== null && String(r[k]).trim() !== '') return r[k]; }
+    return null;
+  };
+  // Status comes as a name with the code in brackets, as a number, or as a plain name: read the code.
+  var scode = function (v) { if (v == null) return null; var t = String(v), m = t.match(/\((\d+)\)/); if (m) return Number(m[1]); m = t.trim().match(/^\d+$/); return m ? Number(m[0]) : null; };
+  var CUTS = [30, 50, 100, 200, 250, 500];
+
+  var ICONS = {
+    success: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>',
+    reject: '<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>',
+    alert: '<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/>',
+    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/>',
+    locked: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/>',
+    launch: '<path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    transfer: '<path d="M4 8h13l-3-3M20 16H7l3 3"/>',
+    edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/>',
+    copy: '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/>',
+    report: '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M9.5 15l2 2 3.5-4"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+    send: '<path d="M4 12l16-8-6 16-3-7z"/>',
+    release: '<path d="M5 12h12M13 7l5 5-5 5"/>'
+  };
+  var iconEl = function (name) {
+    var s = el('span', 'ic');
+    s.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[name] || '') + '</svg>';
+    return s;
+  };
+  var KIND_ICON = { ok: 'success', warn: 'alert', bad: 'reject', info: 'info', muted: 'info' };
+
+  var state = { sort: { key: 'rank', dir: 1 }, user: '', userName: '', email: '', company: '', division: '', fac: '', whs: '', userCompany: '', today: ymd(new Date()), todaySrc: 'this computer\'s clock (M3 gave no date)', scope: '', allUsers: null, usersLoading: false, shownIds: null, rows: [], msgs: [], msgsOk: null, conn: 'none', mcp: null, tools: [], busy: false, view: 'act', filter: 'all', kpi: null, query: '', picked: null, liveInfo: null, notes: [], resLog: [], resDb: null, supNames: {}, mode: 'live', custFor: null, drafts: {} };
+  var ACTIONS = {};
+  var KPIS = [];
+
+  // ---------- messages, connector calls, users (the same as the rep page) ----------
+  var banner = function (text, bad) {
+    var b = $('banner');
+    if (!text) { b.hidden = true; return; }
+    b.replaceChildren(iconEl(bad === true ? 'reject' : 'alert'), el('span', null, text));
+    b.className = 'banner' + (bad === true ? ' bad' : '');
+    b.hidden = false;
+  };
+  var errText = function (e) {
+    var code = e && e.code, msg = (e && e.message) || '';
+    switch (code) {
+      case 'not_in_manifest': return 'This page is not allowed to use ' + SERVER + ' (it was declined or switched off for this page). Allow it in the page permissions, then reload.';
+      case 'server_not_connected': return SERVER + ' is not connected. Add it in claude.ai Settings, then Connectors, and reload.';
+      case 'needs_reauth': return 'The connection to ' + SERVER + ' has expired. Reconnect it in claude.ai Settings, then Connectors.';
+      case 'selection_required': return 'You have more than one connector with this name. Choose one when asked, then reload.';
+      case 'blocked_by_policy': return 'Your organization blocks this action for this tool.';
+      case 'approval_required': return 'This call needs an approval that was not given.';
+      case 'tool_error': return 'M3 reported an error: ' + (msg || 'no details given');
+      case 'server_unavailable': case 'upstream_error': case 'cancelled': case 'rate_limited':
+        return 'No clear answer from M3 (' + code + ')' + (msg ? ': ' + msg : '') + '.';
+      default: return (code ? code + ': ' : '') + (msg || 'Unknown error');
+    }
+  };
+  var ambiguous = function (e) { return !!e && (e.code === 'server_unavailable' || e.code === 'upstream_error' || e.code === 'cancelled'); };
+  var log = function (kind, text, order) {
+    var li = el('li', kind);
+    var mk = el('span', 'mark');
+    mk.append(iconEl(kind === 'ok' ? 'success' : kind === 'bad' ? 'reject' : kind === 'warn' ? 'alert' : 'info'));
+    li.append(mk, el('span', 'time', pad2(new Date().getHours()) + ':' + pad2(new Date().getMinutes())), el('span', null, (order ? 'PO ' + order + ': ' : '') + text));
+    $('log').insertBefore(li, $('log').firstChild);
+  };
+
+  // ---------- connector calls (live mode) ----------
+  var unwrap = function (p) { if (typeof p === 'string') { try { return JSON.parse(p); } catch (e) { return p; } } return p; };
+  var toolName = function (name) {
+    var hit = state.tools.find(function (t) { return t.name === name; }) || state.tools.find(function (t) { return t.name.slice(-name.length) === name; });
+    return hit ? hit.name : name;
+  };
+  var hasTool = function (name) { return state.tools.some(function (t) { return t.name === name || t.name.slice(-name.length) === name; }); };
+  var call = async function (tool, input, opts) {
+    var r = await state.mcp.callTool(SERVER, toolName(tool), input || {}, opts);
+    return unwrap(r && r.payload !== undefined ? r.payload : r);
+  };
+  var rowsOf = function (p) { if (Array.isArray(p)) return p; if (p && Array.isArray(p.data)) return p.data; if (p && Array.isArray(p.rows)) return p.rows; return []; };
+  var recordOf = function (p) { return p && p.data && !Array.isArray(p.data) ? p.data : p; };
+  var fresh = { cache: false };
+  var findVal = function (obj, re) {
+    if (!obj || typeof obj !== 'object') return null;
+    var k = Object.keys(obj).find(function (x) { return re.test(x) && obj[x] !== null && obj[x] !== ''; });
+    return k ? obj[k] : null;
+  };
+  var freeQty = function (bal) {
+    if (!bal || typeof bal !== 'object') return null;
+    var isNum = function (k) { return bal[k] !== null && bal[k] !== '' && bal[k] !== undefined && isFinite(Number(bal[k])); };
+    var order = ['AllocatableNet', 'AllocatableOnHandBalance', 'AvailableInventory'];
+    var pick = order.find(isNum);
+    if (!pick) { var keys = Object.keys(bal).filter(isNum); pick = keys.find(function (k) { return /allocatable/i.test(k); }) || keys.find(function (k) { return /available/i.test(k); }); }
+    if (!pick) return null;
+    var others = order.filter(function (k) { return k !== pick && isNum(k); }).map(function (k) { return k + ' ' + Number(bal[k]); }).join(', ');
+    return { key: pick, value: Number(bal[pick]), others: others };
+  };
+  var brief = function (p) { var s = ''; try { s = typeof p === 'string' ? p : JSON.stringify(p); } catch (e) { s = String(p); } return s.length > 280 ? s.slice(0, 280) + '…' : s; };
+
+  var connect = async function () {
+    if (state.conn === 'ok') return true;
+    if (!window.claude || typeof window.claude.use !== 'function') { banner('Live M3 needs the connector access that claude.ai provides. Open this page from claude.ai.', true); return false; }
+    var mcp = null;
+    try { mcp = await window.claude.use('mcp'); } catch (e) { mcp = null; }
+    if (!mcp) { banner('The connector access is not available in this view. Open the page from claude.ai and allow ' + SERVER + ' when asked.', true); return false; }
+    state.mcp = mcp;
+    try {
+      var listed = await mcp.listTools(SERVER);
+      var s = (listed.servers || []).find(function (x) { return x.server === SERVER; });
+      state.tools = s ? s.tools || [] : [];
+    } catch (e) { state.tools = []; banner(errText(e), true); }
+    state.conn = 'ok';
+    return true;
+  };
+
+  var pool = async function (tasks, limit, strict) {
+    var results = new Array(tasks.length), next = 0, firstErr = null;
+    var worker = async function () {
+      while (next < tasks.length) {
+        var i = next++;
+        try { results[i] = await tasks[i](); } catch (e) { if (!firstErr) firstErr = e; results[i] = undefined; }
+      }
+    };
+    var ws = []; for (var w = 0; w < Math.min(limit || 6, tasks.length); w++) ws.push(worker());
+    await Promise.all(ws);
+    if (strict && firstErr) throw firstErr;
+    return results;
+  };
+  var nameCache = {};
+  var userName = async function (id) {
+    if (!id) return '';
+    if (id in nameCache) return nameCache[id];
+    var n = '';
+    if (hasTool('M3_MNS150MI_GetUserData')) { try { n = String(recordOf(await call('M3_MNS150MI_GetUserData', { User: id }, fresh)).UserName || ''); } catch (e) { n = ''; } }
+    nameCache[id] = n; return n;
+  };
+  var emailCache = {};
+  var userEmail = async function (id) {
+    if (!id) return '';
+    if (id in emailCache) return emailCache[id];
+    var m = '';
+    if (hasTool('M3_MNS150MI_GetUserData')) { try { m = String(recordOf(await call('M3_MNS150MI_GetUserData', { User: id }, fresh)).EmailAddress || ''); } catch (e) { m = ''; } }
+    emailCache[id] = m; return m;
+  };
+  var person = function (id) { var n = nameCache[id]; return n ? n + ' (' + id + ')' : id; };
+
+  var loadAllUsers = async function () {
+    if (state.allUsers) return state.allUsers;
+    if (state.usersLoading) return state.usersLoading;
+    if (!hasTool('M3_MNS150MI_LstUserData_ListUserData')) return null;
+    state.usersLoading = (async function () {
+      var all = {}, key = '', pages = 0, added = 1;
+      try {
+        while (added > 0 && pages < 40) {
+          var rows = rowsOf(await call('M3_MNS150MI_LstUserData_ListUserData', key ? { User: key } : {}, fresh)); added = 0; pages++;
+          rows.forEach(function (r) { if (r && r.User && !all[r.User]) { all[r.User] = { id: String(r.User), name: String(r.Description || r.UserName || ''), company: r.DefaultCompany == null ? '' : String(r.DefaultCompany) }; added++; } });
+          if (!rows.length) break;
+          key = String(rows[rows.length - 1].User);
+        }
+        state.allUsers = Object.keys(all).map(function (k) { return all[k]; });
+        state.allUsers.forEach(function (u) { if (u.name && !nameCache[u.id]) nameCache[u.id] = u.name; });
+      } catch (e) { state.allUsers = null; }
+      state.usersLoading = false;
+      return state.allUsers;
+    })();
+    return state.usersLoading;
+  };
+  // Started in the background when the page loads; the dropdown fills when it is done.
+  var loadUsers = async function () { loadAllUsers().then(function () { renderScope(); }); };
+  var byName = function (a, b) { return (a.name || a.id).localeCompare(b.name || b.id); };
+  // Searches the user list by name or user ID. Returns the matching users, or null with a message.
+  var userSearch = async function (raw, setMsg) {
+    var typed = String(raw || '').trim(), low = typed.toLowerCase(), idq = typed.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (idq.length < 2) { setMsg('Type at least two letters of the name or the user ID.'); return null; }
+    setMsg('Reading the user list from M3…');
+    var all = await loadAllUsers();
+    if (!all) { setMsg('The user list could not be read from M3 in this view.'); return null; }
+    var found = all.filter(function (u) { return u.id.toUpperCase().indexOf(idq) > -1 || u.name.toLowerCase().indexOf(low) > -1; }).sort(byName);
+    if (!found.length) { setMsg('No buyer matches ' + typed + '.'); return null; }
+    return found;
+  };
+  var findUsers = async function (raw) {
+    state.finding = true; renderMode();
+    try { await findUsersInner(raw); } finally { state.finding = false; renderMode(); }
+  };
+  var findUsersInner = async function (raw) {
+    var typed = String(raw || '').trim(), msg = $('scopeFindMsg');
+    if (!msg) return;
+    if (!typed) { state.shownIds = null; renderScope(); msg.textContent = ''; return; }
+    var found = await userSearch(typed, function (m) { msg.textContent = m; });
+    if (!found) return;
+    state.shownIds = found.map(function (u) { return u.id; });
+    renderScope();
+    if (found.length === 1) { msg.textContent = 'Showing the purchases of ' + person(found[0].id) + '.'; if (found[0].id !== state.scope && !state.busy) { state.scope = found[0].id; state.picked = null; state.kpi = null; $('scopeUser').value = state.scope; refresh(false); } return; }
+    msg.textContent = found.length + ' buyers match. Pick one in the list.' + (found.length > 15 ? ' Type more letters to narrow it down.' : '');
+  };
+  var renderScope = function () {
+    var s = $('scopeUser'); if (!s) return;
+    var seen = {}, opts = [];
+    var add = function (id) { if (!id || seen[id]) return; seen[id] = 1; opts.push([id, person(id) + (id === state.user ? ' (you)' : '')]); };
+    add(state.user);
+    var pool = state.shownIds ? (state.allUsers || []).filter(function (u) { return state.shownIds.indexOf(u.id) > -1; }) : (state.allUsers || []).filter(function (u) { return state.userCompany && u.company === state.userCompany; });
+    pool.slice().sort(byName).forEach(function (u) { add(u.id); });
+    add(state.scope);
+    s.replaceChildren();
+    opts.forEach(function (o) { s.append(new Option(o[1], o[0])); });
+    s.value = state.scope || '';
+    s.disabled = state.busy;
+  };
+
+  // ---------- what the page knows about the buyer's purchasing ----------
+  var canWrite = function () { return state.conn === 'ok' && !!state.user && state.scope === state.user; };
+  var supLabel = function (no, name) { var n = name || state.supNames[no] || ''; return n ? n + ' (' + no + ')' : (no || 'Not available'); };
+
+  // Who has the ball, in plain words. esc = shown under Needs Action.
+  var CATS = {
+    late: { label: 'Supplier is late', icon: 'reject', kind: 'bad', esc: true },
+    noconf: { label: 'Supplier owes a date', icon: 'clock', kind: 'warn', esc: true },
+    earlier: { label: 'Ask supplier earlier', icon: 'alert', kind: 'warn', esc: true },
+    send: { label: 'You send it', icon: 'alert', kind: 'warn', esc: true },
+    stop: { label: 'You clear a stop', icon: 'locked', kind: 'bad', esc: true },
+    release: { label: 'You release it', icon: 'alert', kind: 'warn', esc: true },
+    put: { label: 'Warehouse puts away', icon: 'info', kind: 'info', esc: true },
+    unk: { label: 'Check the status', icon: 'info', kind: 'muted', esc: true },
+    ok: { label: 'On track', icon: 'success', kind: 'ok', esc: false }
+  };
+  var CAT_ORDER = ['late', 'noconf', 'earlier', 'send', 'stop', 'release', 'put', 'unk'];
+  var STATUS_WORDS = { 0: 'New entry', 5: 'Work in progress', 6: 'Work in progress', 10: 'Cannot be printed', 11: 'Stopped: below the minimum value', 12: 'Stopped: needs authorization', 13: 'Stopped: needs an account string', 14: 'Stopped: budget exceeded', 15: 'Ready to send', 20: 'Sent, no confirmation', 25: 'Claim open', 31: 'Date confirmed', 32: 'Price confirmed', 33: 'Confirmed, waits for approval', 35: 'Confirmed', 40: 'Shipment advised', 45: 'On the way', 50: 'Received, not put away', 51: 'Put away, not inspected', 60: 'In quality inspection', 64: 'Rejected after inspection', 65: 'Inspection done', 69: 'Rejected after inspection', 70: 'Partly put away' };
+  var POP_CODE = { AutoError: 0, AutoWarning: 5, PlanOrdMan: 10, PlanOrdAuto: 15, 'Pur/planMan': 20, PlanPolicy: 30, ManualStatus: 40, ManualOrAuto: 50, ManualOrAutoStatus: 50, AutoAssigned: 55, Released: 60 };
+  var POP_WORDS = { 0: 'Stopped by M3 planning', 5: 'Proposal with a warning', 10: 'Proposed by M3 planning', 15: 'Proposed by M3 planning', 20: 'Firm proposal', 30: 'Set by the planning policy', 40: 'Manual status', 50: 'Waits for authorization', 55: 'Created from an inquiry', 60: 'Already released' };
+  var AM_WORDS = { 'Rel-ReschedIn': 'M3 says: release it and move the delivery earlier', ReleaseOrder: 'M3 says: release it', DeleteOrder: 'M3 says: delete it, the need has gone', Delayed: 'M3 says: it is delayed', RescheduleIn: 'M3 says: bring it in earlier', RescheduleOut: 'M3 says: push it out' };
+
+  var lineRow = function (r) {
+    var po = String(pick(r, ['PurchaseOrderNumber']) || ''), ln = num(pick(r, ['PurchaseOrderLineNumber'])), sf = num(pick(r, ['PurchaseOrderLineSuffix'])) || 0;
+    var stRaw = pick(r, ['PurchaseOrderLineStatus', 'LineStatus', 'OrderLineStatus', 'LowestPurchaseOrderStatus', 'PurchaseOrderStatus', 'Status']);
+    return { id: po + '/' + ln + (sf ? '.' + sf : ''), type: 'po', po: po, line: ln, suffix: sf, supplier: String(pick(r, ['SupplierNumber']) || ''), supplierName: String(pick(r, ['SupplierName']) || ''),
+      item: String(pick(r, ['ItemNumber']) || ''), name: String(pick(r, ['PurchaseOrderItemName', 'ItemName']) || ''), qty: num(pick(r, ['OrderedQuantityAltUom', 'OrderedQuantity'])), uom: String(pick(r, ['PurchaseOrderUom']) || ''),
+      confQty: num(pick(r, ['ConfirmedQuantity'])), recQty: num(pick(r, ['ReceivedQuantity'])), stored: num(pick(r, ['StoredQuantity'])), rejQty: num(pick(r, ['RejectedQuantity'])),
+      req: isoDate(pick(r, ['RequestedDeliveryDate'])), conf: isoDate(pick(r, ['ConfirmedDeliveryDate'])), plan: isoDate(pick(r, ['PlanningDate'])),
+      whs: String(pick(r, ['Warehouse']) || ''), fac: String(pick(r, ['Facility']) || ''), buyer: String(pick(r, ['Buyer']) || ''), status: scode(stRaw), statusRaw: stRaw == null ? '' : String(stRaw), amount: num(pick(r, ['LineAmountOrderCurrency'])), imp: null };
+  };
+  var popRow = function (r) {
+    var no = num(pick(r, ['PlannedOrderNumber'])), s1 = num(pick(r, ['PlannedOrderSubnumber'])) || 0, s2 = num(pick(r, ['PlannedOrderSubnumber2'])) || 0;
+    var raw = pick(r, ['PlannedOrderStatus']), code = raw == null ? null : (String(raw).trim() in POP_CODE ? POP_CODE[String(raw).trim()] : scode(raw));
+    return { id: 'P' + no + (s1 || s2 ? '.' + s1 + '.' + s2 : ''), type: 'pop', planned: { no: no, s1: s1, s2: s2 }, supplier: String(pick(r, ['SupplierNumber']) || ''), supplierName: String(pick(r, ['SupplierName']) || ''),
+      item: String(pick(r, ['ItemNumber']) || ''), name: String(pick(r, ['PurchaseOrderItemName', 'ItemName']) || ''), qty: num(pick(r, ['PlannedQuantity'])), uom: String(pick(r, ['PurchaseOrderUnitOfMeasure']) || ''),
+      rel: isoDate(pick(r, ['ReleaseDate'])), req: isoDate(pick(r, ['DeliveryDate'])), conf: '', plan: isoDate(pick(r, ['PlanningDate'])) || isoDate(pick(r, ['DeliveryDate'])),
+      whs: String(pick(r, ['Warehouse']) || ''), fac: String(pick(r, ['Facility']) || ''), buyer: String(pick(r, ['Buyer']) || ''), am: String(pick(r, ['ActionMessage']) || ''), popStatus: code, popRaw: raw == null ? '' : String(raw), currency: String(pick(r, ['Currency']) || ''), imp: null };
+  };
+  var releasable = function (r) { return r.type === 'pop' && r.popStatus != null && [0, 50, 60].indexOf(r.popStatus) < 0; };
+
+  // Sorts every row into the group that has the ball. Needs state.today.
+  var classify = function (r) {
+    var t = state.today;
+    r.daysLate = 0; r.unconf = false;
+    if (r.type === 'pop') {
+      r.cat = 'release'; r.daysLate = r.rel && r.rel < t ? dayDiff(t, r.rel) : 0;
+      r.when = r.rel; return r;
+    }
+    var st = r.status, d = r.conf || r.req;
+    r.when = d;
+    if (st == null) r.cat = 'unk';
+    else if (st >= 11 && st <= 14) { r.cat = 'stop'; r.daysLate = r.req && r.req < t ? dayDiff(t, r.req) : 0; }
+    else if (st < 20) { r.cat = 'send'; r.daysLate = r.req && r.req < t ? dayDiff(t, r.req) : 0; }
+    else if (st < 50) {
+      r.unconf = st < 31 && !r.conf;
+      if (d && d < t) { r.cat = 'late'; r.daysLate = dayDiff(t, d); }
+      else r.cat = r.unconf ? 'noconf' : 'ok';
+    } else if (st <= 70) r.cat = 'put';
+    else r.cat = 'ok';
+    return r;
+  };
+  var rankOf = function (r) {
+    var im = r.imp, base = 3;
+    if (im && im.n > 0 && im.short > 0) base = im.firstNeed && dayDiff(im.firstNeed, state.today) <= 7 ? 0 : 1;
+    else if (r.cat === 'late' || r.cat === 'stop' || r.cat === 'send') base = 2;
+    if (!CATS[r.cat].esc) base = 5;
+    return base * 1e6 - Math.min(r.daysLate || 0, 9999) * 100 + CAT_ORDER.indexOf(r.cat);
+  };
+  var ballText = function (r) {
+    var c = CATS[r.cat], x = c.label;
+    if (r.cat === 'late') x += ' · ' + r.daysLate + ' day' + (r.daysLate === 1 ? '' : 's');
+    if (r.cat === 'release' && r.daysLate) x += ' · ' + r.daysLate + ' day' + (r.daysLate === 1 ? '' : 's') + ' overdue';
+    return { text: x, kind: c.kind, icon: c.icon };
+  };
+  var itemText = function (r) { return r.item + (r.name ? ' · ' + r.name : ''); };
+  var idText = function (r) { return r.type === 'po' ? 'PO ' + r.po + ' / ' + r.line + (r.suffix ? '.' + r.suffix : '') : 'Planned PO ' + r.planned.no; };
+  var affectsText = function (r) {
+    var im = r.imp;
+    if (!CATS[r.cat].esc && r.cat === 'ok' && !im) return '';
+    if (!im) return 'Not checked';
+    if (im.failed) return 'Plan could not be read';
+    if (im.empty) return 'Plan is empty';
+    if (im.notIn) return 'Not in the plan';
+    if (!im.n) return 'Nothing depends on it';
+    return im.n + ' order' + (im.n === 1 ? '' : 's') + ' · first need ' + im.firstNeed + (im.short ? ' · ' + fmtN(im.short) + ' short' : '');
+  };
+
+  // ---------- the material plan: what depends on a line ----------
+  var CAT_NAMES = { customerorder: 'Customer order', manufacturingorder: 'Manufacturing order', manufacturingorder2: 'Manufacturing order', distributionorder: 'Distribution order', planneddo2: 'Distribution order', planneddo: 'Distribution order' };
+  var catName = function (c) { var k = String(c).toLowerCase().replace(/[^a-z0-9]/g, ''); return CAT_NAMES[k] || (/forecast/i.test(c) ? 'Forecast' : String(c)); };
+  // Walks the plan by date without the line itself: demand that goes below zero depends on it.
+  var impactOf = function (rows, me) {
+    var recs = rows.map(function (x, i) {
+      return { i: i, cat: String(pick(x, ['OrderCategory']) || ''), no: String(pick(x, ['OrderNumber']) || ''), ln: pick(x, ['OrderLineNumber']), date: isoDate(pick(x, ['PlanningDate'])), q: num(pick(x, ['TransactionQuantity'])) || 0,
+        bal: num(pick(x, ['ProjectedOnHandBalance'])), am: String(pick(x, ['ActionMessage']) || ''), alt: isoDate(pick(x, ['AlternatePlanningDate'])) };
+    }).filter(function (x) { return x.date; }).sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : a.i - b.i; });
+    if (!recs.length) return { checked: true, empty: true };
+    var start = (recs[0].bal == null ? 0 : recs[0].bal) - recs[0].q;
+    var isMe = function (x) { return me.planned ? (/PlannedPo/i.test(x.cat) && x.no === String(me.planned)) : (/PurchaseOrder/i.test(x.cat) && x.no === String(me.order) && (x.ln == null || String(Number(x.ln)) === String(me.line))); };
+    var mine = recs.find(isMe);
+    if (!mine) return { checked: true, notIn: true };
+    var out = { checked: true, n: 0, orders: [], forecasts: 0, short: 0, firstNeed: '', mine: { date: mine.date, q: mine.q, am: mine.am, alt: mine.alt } };
+    if ((mine.am === 'RescheduleIn') || (mine.alt && mine.alt < mine.date)) out.earlier = { alt: mine.alt || '', days: mine.alt ? dayDiff(mine.date, mine.alt) : null };
+    // Firm orders decide what is short. Forecasts are not firm: they are counted on their own, never in the short quantity.
+    var bal = start, balF = start, minBal = 0, dates = [], fc = 0;
+    recs.forEach(function (x) { if (dates.indexOf(x.date) < 0) dates.push(x.date); });
+    var affected = [];
+    dates.forEach(function (d) {
+      var grp = recs.filter(function (x) { return x.date === d; });
+      grp.forEach(function (x) { if (isMe(x)) return; balF += x.q; if (!/forecast/i.test(x.cat)) bal += x.q; });
+      if (d < mine.date) return;
+      if (bal < 0) { grp.forEach(function (x) { if (x.q < 0 && !isMe(x) && !/forecast/i.test(x.cat)) affected.push({ x: x }); }); if (bal < minBal) minBal = bal; }
+      if (balF < 0) grp.forEach(function (x) { if (x.q < 0 && /forecast/i.test(x.cat)) fc++; });
+    });
+    out.forecasts = fc;
+    var arrive = me.arrive || mine.date;
+    affected.forEach(function (a) {
+      var x = a.x;
+      out.orders.push({ cat: catName(x.cat), raw: x.cat, no: x.no, ln: x.ln, need: x.date, qty: Math.abs(x.q), slack: dayDiff(x.date, arrive), cust: '' });
+    });
+    out.orders.sort(function (a, b) { return a.need < b.need ? -1 : a.need > b.need ? 1 : 0; });
+    out.n = out.orders.length; out.firstNeed = out.n ? out.orders[0].need : '';
+    var lack = -minBal, mq = Math.abs(mine.q);
+    out.short = out.n ? Math.min(lack, mq || lack) : 0; out.lack = lack; out.covers = mq;
+    out.orders = out.orders.slice(0, 10);
+    return out;
+  };
+
+  var planCache = {};
+  var loadPlan = function (item, whs) {
+    var k = item + '|' + whs;
+    if (!(k in planCache)) planCache[k] = (async function () { try { return rowsOf(await call('M3_MMS080MI_LstMtPlByItmWhs', { ItemNumber: item, Warehouse: whs }, fresh)); } catch (e) { return null; } })();
+    return planCache[k];
+  };
+  // The impact of one line: which orders depend on it, read from the material plan (cached in planCache).
+  var impactFor = async function (r) {
+    var plan = await loadPlan(r.item, r.whs), t = state.today;
+    if (!plan) { r.imp = { checked: true, failed: true }; return; }
+    var me = r.type === 'pop' ? { planned: r.planned.no } : { order: r.po, line: r.line, arrive: r.conf || (r.cat === 'late' ? t : (r.plan || r.req)) };
+    r.imp = impactOf(plan, me);
+    r.earlierInfo = r.imp.earlier || null;
+    if (r.imp.earlier && r.cat === 'ok') r.cat = 'earlier';
+  };
+  var checkImpact = async function () {
+    var rows = state.rows, t = state.today;
+    var late = rows.filter(function (r) { return r.type === 'po' && r.cat === 'late'; }).sort(function (a, b) { return b.daysLate - a.daysLate || (b.amount || 0) - (a.amount || 0); });
+    var over = rows.filter(function (r) { return r.type === 'pop' && r.rel && r.rel < t; }).sort(function (a, b) { return b.daysLate - a.daysLate; });
+    var open = rows.filter(function (r) { return r.type === 'po' && r.status != null && r.status >= 20 && r.status < 50 && r.cat !== 'late'; }).sort(function (a, b) { return (a.plan || 'z') < (b.plan || 'z') ? -1 : 1; });
+    var picked = late.slice(0, 10).concat(over.slice(0, 10)), pairs = {};
+    picked.forEach(function (r) { pairs[r.item + '|' + r.whs] = 1; });
+    var extra = [];
+    open.forEach(function (r) { var k = r.item + '|' + r.whs; if (!pairs[k] && Object.keys(pairs).length + extra.length < 30 && extra.length < 20) { extra.push(r); pairs[k] = 1; } });
+    var all = picked.concat(extra);
+    state.impNote = (late.length > 10 ? 'Impact checked for the 10 latest of ' + late.length + ' delayed lines. ' : '') + (over.length > 10 ? 'Impact checked for 10 of ' + over.length + ' overdue planned orders. ' : '') + (open.length > extra.length ? 'The "needed earlier" check covered ' + extra.length + ' of ' + open.length + ' open lines. ' : '');
+    await pool(all.map(function (r) { return function () { return impactFor(r); }; }), 6);
+    rows.forEach(function (r) { r.rank = rankOf(r); });
+  };
+
+  // ---------- reading everything the lists need ----------
+  var safeRead = async function (label, fn) { try { return { rows: await fn() }; } catch (e) { state.notes.push('Could not read ' + label + '. ' + errText(e)); return { rows: null }; } };
+  var readToday = async function () {
+    state.today = ymd(new Date()); state.todaySrc = 'this computer\'s clock (M3 gave no date)';
+    if (!hasTool('M3_ARS200MI_ServerTimeZone')) return;
+    try {
+      var p = recordOf(await call('M3_ARS200MI_ServerTimeZone', {}, fresh)), found = '';
+      Object.keys(p || {}).forEach(function (k) { if (!found && /date/i.test(k)) found = isoDate(p[k]); });
+      if (!found) Object.keys(p || {}).forEach(function (k) { if (!found) found = isoDate(p[k]); });
+      if (found) { state.today = found; state.todaySrc = 'the M3 system date'; }
+    } catch (e) { /* the computer's date stays */ }
+  };
+  var readMe = async function () {
+    var u = recordOf(await call('M3_MNS150MI_GetUserData_CurrentUser', {}, fresh)) || {};
+    state.user = String(pick(u, ['User']) || ''); state.userName = String(pick(u, ['UserName']) || ''); state.email = String(pick(u, ['EmailAddress']) || '');
+    state.company = String(pick(u, ['Company', 'CompanyNumber']) || ''); state.division = String(pick(u, ['Division']) || ''); state.fac = String(pick(u, ['Facility']) || ''); state.whs = String(pick(u, ['Warehouse']) || '');
+    state.userCompany = state.company;
+    if (state.user && state.userName) nameCache[state.user] = state.userName;
+    if (!state.scope) state.scope = state.user;
+  };
+  var loadMain = async function () {
+    var scope = state.scope, t = state.today;
+    state.notes = [];
+    var lineQ = function (label, input) { return safeRead(label, async function () { var rows = rowsOf(await call('M3_PPS200MI_SearchLine', Object.assign({ Buyer_ExactSearch: scope }, input), fresh)); if (CUTS.indexOf(rows.length) >= 0) state.notes.push('M3 returned exactly ' + rows.length + ' ' + label + ', so the list may be cut off. Narrow it in M3 or search by PO.'); return rows; }); };
+    var res = await Promise.all([
+      lineQ('purchase lines not yet sent', { LowestPurchaseOrderStatus_LessThan: 'Printed (20)' }),
+      lineQ('sent and confirmed purchase lines', { LowestPurchaseOrderStatus_LargerThan: 'ReadyForPrintout (15)', LowestPurchaseOrderStatus_LessThan: 'GoodsReceived (50)' }),
+      lineQ('received purchase lines', { LowestPurchaseOrderStatus_LargerThan: 'TransportNotified (45)', LowestPurchaseOrderStatus_LessThan: 'PutAway-Complete (75)' }),
+      safeRead('the planned purchase orders', async function () { var rows = rowsOf(await call('M3_PPS170MI_SearchPOP', { Buyer_ExactSearch: scope, ReleaseDate_LessThan: addDays(t, 6) }, fresh)); if (CUTS.indexOf(rows.length) >= 0) state.notes.push('M3 returned exactly ' + rows.length + ' planned purchase orders, so the list may be cut off.'); return rows; })
+    ]);
+    if (res.every(function (x) { return x.rows === null; })) throw new Error('None of the purchase lists could be read from M3.');
+    var seen = {}, rows = [];
+    res.slice(0, 3).forEach(function (x) { (x.rows || []).forEach(function (r) { var o = lineRow(r); if (!o.po || o.line == null || seen[o.id]) return; seen[o.id] = 1; if (o.status != null && (o.status >= 75 || o.status === 99)) return; rows.push(classify(o)); }); });
+    var overdue = 0, soon = 0;
+    ((res[3].rows) || []).forEach(function (r) { var o = popRow(r); if (o.planned.no == null || o.popStatus === 60 || !o.rel || o.rel > addDays(t, 5)) return; rows.push(classify(o)); if (o.rel < t) overdue++; else soon++; });
+    state.relCount = { overdue: overdue, soon: soon };
+    state.rows = rows; state.rows.forEach(function (r) { r.rank = rankOf(r); });
+    state.liveInfo = { at: stamp() };
+  };
+  var loadSupNames = async function () {
+    var need = {};
+    state.rows.forEach(function (r) { if (r.supplier && r.supplierName) state.supNames[r.supplier] = r.supplierName; });
+    state.rows.forEach(function (r) { if (r.supplier && !state.supNames[r.supplier]) need[r.supplier] = 1; });
+    if (!hasTool('M3_CRS620MI_SearchSupplier')) return;
+    await pool(Object.keys(need).slice(0, 40).map(function (no) { return async function () {
+      try { var row = rowsOf(await call('M3_CRS620MI_SearchSupplier', { SupplierNumber_ExactSearch: no }, fresh))[0]; var n = row && pick(row, ['SupplierName', 'Name']); if (n) state.supNames[no] = String(n); } catch (e) { /* the number stays */ }
+    }; }), 6);
+  };
+  var loadMsgs = async function () {
+    state.msgs = []; state.msgsOk = null; state.msgsMore = 0;
+    if (!hasTool('M3_CRS420MI_LstByActDate')) { state.msgsOk = false; return; }
+    try {
+      var rows = rowsOf(await call('M3_CRS420MI_LstByActDate', { CompanyNumber: Number(state.company) || undefined, MessageReceiver: state.user, FromStatus: 10, ToStatus: 10 }, fresh));
+      rows = rows.filter(function (r) { var s = pick(r, ['Status', 'MessageStatus']); return s == null || scode(s) === 10 || String(s).trim() === '10'; });
+      var list = rows.map(function (r) { return { id: String(pick(r, ['MailId', 'MailNumber']) || ''), date: isoDate(pick(r, ['EntryDate', 'ReceivedDate', 'ActionDate'])), desc: String(pick(r, ['Description', 'MessageDescription']) || ''), text: '' }; }).filter(function (m) { return m.id; });
+      list.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+      state.msgsMore = Math.max(0, list.length - 10); list = list.slice(0, 10);
+      await pool(list.map(function (m) { return async function () {
+        try { var lines = rowsOf(await call('M3_CRS420MI_LstFreeText', { MailId: m.id }, fresh)); m.text = lines.map(function (l) { var v = pick(l, ['AdditionalText', 'Text', 'FreeText', 'TextLine']); if (v == null) { var k = Object.keys(l).find(function (x) { return typeof l[x] === 'string' && !/id$|number|identity|date/i.test(x); }); v = k ? l[k] : ''; } return String(v).trim(); }).filter(Boolean).join(' '); } catch (e) { m.text = ''; m.textErr = true; }
+      }; }), 4);
+      state.msgs = list; state.msgsOk = true;
+    } catch (e) { state.msgsOk = false; state.msgsErr = errText(e); }
+  };
+
+  // ---------- reading more about one line when it is opened ----------
+  var headCache = {};
+  var loadHead = function (po) {
+    if (!(po in headCache)) headCache[po] = (async function () { try { var h = recordOf(await call('M3_PPS200MI_GetHead', { PurchaseOrderNumber: po }, fresh)); return { currency: String(pick(h, ['Currency']) || '') }; } catch (e) { return { currency: '' }; } })();
+    return headCache[po];
+  };
+  var custCache = {};
+  var loadCust = async function (r) {
+    if (!r.imp || !r.imp.orders) return;
+    await pool(r.imp.orders.filter(function (o) { return /Customer/i.test(o.cat) && (o.need < state.today || o.slack < 0) && !o.cust; }).slice(0, 10).map(function (o) { return async function () {
+      if (!(o.no in custCache)) custCache[o.no] = (async function () {
+        try { var h = recordOf(await call('M3_OIS100MI_GetOrderHead', { OrderNumber: o.no }, fresh)), cn = pick(h, ['CustomerNumber']); if (!cn) return ''; var n = recordOf(await call('M3_CRS610MI_GetBasicData_CustomerName', { CustomerNumber: cn }, fresh)); return String(pick(n, ['CustomerName']) || ''); } catch (e) { return ''; }
+      })();
+      o.cust = (await custCache[o.no]) || 'customer name not available';
+    }; }), 4);
+  };
+  var stockCache = {}, relCache = {}, altCache = {};
+  var loadStock = function (item) {
+    if (!(item in stockCache)) stockCache[item] = (async function () {
+      var rows = rowsOf(await call('M3_MMS200MI_LstItmWhsByItm', { ItemNumber: item }, fresh));
+      return rows.map(function (x) { return { whs: String(pick(x, ['Warehouse']) || ''), name: String(pick(x, ['ItemName']) || ''), onhand: num(pick(x, ['ApprovedOnHandBalance', 'OnHandBalance', 'OnHand', 'PhysicalBalance'])), avail: num(pick(x, ['AvailableInventory', 'AllocatableNet'])), safety: num(pick(x, ['SafetyStock'])) || 0, res: num(pick(x, ['ReservedQuantity'])) || 0, resPlan: num(pick(x, ['ReservedPlannedOrderQuantity'])) || 0, lead: num(pick(x, ['LeadTime'])) }; });
+    })();
+    return stockCache[item];
+  };
+  var loadRel = function (from, to) {
+    var k = from + '>' + to;
+    if (!(k in relCache)) relCache[k] = (async function () {
+      try { var rows = rowsOf(await call('M3_DPS001MI_LstRelation', { RelationType: 'Distr-TwoWhs (1)', FromWarehouse: from, ToWarehouse: to }, fresh)); if (!rows.length) return null; var x = rows[0], dk = Object.keys(x).find(function (y) { return /transport|days/i.test(y) && num(x[y]) != null; }); return { days: dk ? num(x[dk]) : null }; }
+      catch (e) { if (/does not exist/i.test(String(e && e.message))) return null; return undefined; }
+    })();
+    return relCache[k];
+  };
+  var loadAlts = function (item) {
+    if (!(item in altCache)) altCache[item] = (async function () {
+      try { var rows = rowsOf(await call('M3_PPS115MI_LstAltSupplier', { ItemNumber: item }, fresh)); return rows.map(function (x) { return { sup: String(pick(x, ['AlternateSupplierNumber', 'SupplierNumber']) || ''), price: num(pick(x, ['NetPriceLocalCurrency', 'PurchasePrice'])), cur: String(pick(x, ['LocalCurrency', 'Currency']) || ''), lead: num(pick(x, ['SupplyLeadTime'])), status: String(pick(x, ['AgreementStatus']) || ''), valid: /^valid/i.test(String(pick(x, ['AgreementStatus']) || '')) }; }); }
+      catch (e) { if (/does not exist/i.test(String(e && e.message))) return []; return null; }
+    })();
+    return altCache[item];
+  };
+  // Stock elsewhere, a distribution relation, other suppliers: read once per line when it is opened.
+  var loadOptions = async function (r) {
+    var full = r.type === 'po' && ['late', 'noconf', 'earlier'].indexOf(r.cat) >= 0, fm = r.type === 'po' && r.cat === 'ok';
+    if (r.opt || !(full || fm) || state.impPending) return;
+    r.opt = { loading: true }; renderPanel();
+    // A line outside the first impact check (only the 10 latest late lines and a few others are checked at load) gets its impact now, when it is opened.
+    if (!r.imp && full) { try { await impactFor(r); r.rank = rankOf(r); renderList(); } catch (e) { /* the options then say the impact was not checked */ } }
+    var o = { stock: null, here: null, cands: [], alts: null, swap: null, poLines: null, err: '' };
+    try { o.poLines = await readLines(r.po); } catch (e) { o.poLines = null; }
+    if (full) {
+      try {
+        o.stock = await loadStock(r.item);
+        o.here = o.stock.find(function (x) { return x.whs === r.whs; }) || null;
+        var others = o.stock.filter(function (x) { return x.whs && x.whs !== r.whs && x.avail != null && x.avail - x.safety > 0; }).sort(function (a, b) { return (b.avail - b.safety) - (a.avail - a.safety); }).slice(0, 4);
+        for (var i = 0; i < others.length; i++) { var rel = await loadRel(others[i].whs, r.whs); o.cands.push({ whs: others[i].whs, free: others[i].avail - others[i].safety, own: others[i].res + others[i].resPlan, rel: rel }); }
+      } catch (e) { o.err = errText(e); }
+      o.alts = await loadAlts(r.item);
+      o.swap = await loadSwap(r);
+    }
+    r.opt = o; renderPanel();
+  };
+
+  // ---------- names, and the swap candidates: MOs that depend on the line, and their substitutes ----------
+  var nameCache2 = {};
+  var itemName = function (item) {
+    if (!(item in nameCache2)) nameCache2[item] = (async function () { try { var b = recordOf(await call('M3_MMS200MI_GetItmBasic', { ItemNumber: item }, fresh)); return String(pick(b, ['ItemName', 'ItemDescription', 'Name']) || ''); } catch (e) { return ''; } })();
+    return nameCache2[item];
+  };
+  var withName = function (item, name) { return item + (name ? ' · ' + name : ''); };
+  var loadSwap = async function (r) {
+    var out = { mos: [], rel: [], err: '' }, seen = {};
+    var mos = ((r.imp && r.imp.orders) || []).filter(function (o) { if (!/ManufacturingOrder/i.test(o.raw) || seen[o.no]) return false; seen[o.no] = 1; return true; }).slice(0, 3);
+    if (!mos.length) return out;
+    try {
+      out.rel = rowsOf(await call('M3_MMS020MI_LstItemRelation', { ItemNumber: r.item }, fresh)).map(function (x) {
+        return { item: String(pick(x, ['RelatedItem', 'RelatedItemNumber', 'ItemNumberRelated', 'SubstituteItem']) || ''), type: scode(pick(x, ['ReplacementType'])), start: isoDate(pick(x, ['StartDate', 'ValidFromDate', 'StartingDate'])) };
+      }).filter(function (x) { return x.item && (x.type === 3 || x.type === 5); }).slice(0, 3);
+    } catch (e) { out.err = 'The item relations could not be read: ' + errText(e); return out; }
+    for (var i = 0; i < mos.length; i++) {
+      var o = mos[i], m = { no: o.no, need: o.need, reason: '', subs: [] };
+      try {
+        var mat = rowsOf(await call('M3_PMS100MI_SearchMaterial', { ManufacturingOrderNumber_ExactSearch: o.no, ComponentNumber_ExactSearch: r.item }, fresh));
+        if (mat.length !== 1) { m.reason = mat.length ? 'The order has ' + mat.length + ' material lines with this item: ask Claude in chat.' : 'No material line for this item was found on the order.'; out.mos.push(m); continue; }
+        var ml = mat[0]; m.fac = String(pick(ml, ['Facility']) || ''); m.product = String(pick(ml, ['ProductNumber']) || ''); m.seq = num(pick(ml, ['SequenceNumber'])); m.qty = num(pick(ml, ['ComponentQuantity'])); m.whs = String(pick(ml, ['Warehouse']) || r.whs);
+        if ((num(pick(ml, ['ReportedQuantity2'])) || 0) > 0) m.reason = 'Material was already issued on this line, so M3 would refuse.';
+        var hd = recordOf(await call('M3_PMS100MI_Get', { Facility: m.fac, ManufacturingOrderNumber: o.no, ProductNumber: m.product }, fresh));
+        m.status = String(pick(hd, ['ManufacturingOrderStatus', 'Status', 'LowestStatus', 'HighestStatus']) || ''); m.start = isoDate(pick(hd, ['StartDate', 'PlannedStartDate', 'StartingDate'])); m.ordQty = num(pick(hd, ['OrderedQuantityAltUom', 'OrderedQuantity']));
+        var sc = scode(m.status); if (sc != null && sc >= 90 && !m.reason) m.reason = 'The order is completed.';
+        if (!m.reason && (!m.start || m.ordQty == null)) m.reason = 'M3 gave no start date or quantity for the order, and it cannot be rescheduled without them.';
+        m.productName = await itemName(m.product);
+      } catch (e) { m.reason = 'The order could not be read: ' + errText(e); out.mos.push(m); continue; }
+      if (!m.reason) {
+        for (var j = 0; j < out.rel.length; j++) {
+          var rl = out.rel[j], s = { item: rl.item, type: rl.type, reason: '', name: '' };
+          if (rl.start && rl.start > state.today) s.reason = 'starts ' + rl.start;
+          else {
+            try {
+              var rec = (await loadStockWhs(rl.item, m.whs));
+              if (!rec) s.reason = 'no stock record in warehouse ' + m.whs;
+              else {
+                s.name = rec.name; var oh = rec.onhand != null ? rec.onhand : rec.avail;
+                if (oh == null) s.reason = 'M3 gave no stock figure';
+                else { s.free = oh - rec.resPlan - rec.safety; s.arith = fmtN(s.free) + ' free (' + fmtN(oh) + ' on hand - ' + fmtN(rec.resPlan) + ' planned out - ' + fmtN(rec.safety) + ' safety stock)'; if (m.qty != null && s.free < m.qty) s.reason = 'only ' + s.arith.replace(/ \(.*/, '') + ' free, the line needs ' + fmtN(m.qty); }
+              }
+            } catch (e) { s.reason = 'stock could not be read'; }
+          }
+          m.subs.push(s);
+        }
+      }
+      out.mos.push(m);
+    }
+    return out;
+  };
+  var whsStock = {};
+  var loadStockWhs = async function (item, whs) {
+    var k = item + '|' + whs;
+    if (!(k in whsStock)) whsStock[k] = (async function () { var rows = rowsOf(await call('M3_MMS200MI_LstItmWhsByItm', { ItemNumber: item, Warehouse: whs }, fresh)); var x = rows[0]; return x ? { whs: whs, name: String(pick(x, ['ItemName']) || ''), onhand: num(pick(x, ['ApprovedOnHandBalance', 'OnHandBalance', 'OnHand'])), avail: num(pick(x, ['AvailableInventory', 'AllocatableNet'])), safety: num(pick(x, ['SafetyStock'])) || 0, resPlan: num(pick(x, ['ReservedPlannedOrderQuantity'])) || 0 } : null; })();
+    return whsStock[k];
+  };
+  // ---------- resolution log (kept in the page's database, the same as the rep page) ----------
+  var renderResLog = function () {
+    var ul = $('reslog'); if (!ul) return; ul.replaceChildren();
+    var tdy = state.today;
+    var rows = (state.resLog || []).slice(0, 30);
+    $('reslog-empty').hidden = rows.length > 0;
+    $('reslog-note').textContent = state.resDb ? 'What you decided and did. Kept in this page\'s database, so it is still here when you come back.' : 'What you decided and did. Kept for this visit only: the page cannot reach its database.';
+    rows.forEach(function (r) {
+      var dt = new Date(r.at), pad = function (x) { return String(x).padStart(2, '0'); };
+      var day = dt.getFullYear() + '-' + pad(dt.getMonth() + 1) + '-' + pad(dt.getDate());
+      var when = pad(dt.getHours()) + ':' + pad(dt.getMinutes());
+      if (day !== tdy) when = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][dt.getDay()] + ' ' + when;
+      var li = el('li'); var t = el('span', 'rt', when); var box = el('span', 'rb'); box.append(el('span', 'rx', r.text), el('span', 'rs', 'You · ' + (r.name || r.who || 'buyer')));
+      li.append(t, box); ul.append(li);
+    });
+  };
+  var addResolution = async function (text, orderId) {
+    var e = { at: new Date().toISOString(), text: text, who: state.user || '', name: (state.user && nameCache[state.user]) || state.user || '', order: orderId || '' };
+    state.resLog = [e].concat(state.resLog || []); renderResLog();
+    var db = await getDb();
+    if (db) { try { await db.collection('resolution_log').add(e); state.resDb = true; } catch (x) { /* kept for this visit only */ } }
+  };
+  var loadResolution = async function () {
+    var db = await getDb();
+    if (!db) { state.resDb = false; renderResLog(); return; }
+    try {
+      var snap = await db.collection('resolution_log').get();
+      var rows = snap.docs.map(function (d) { return d.data() || {}; }).filter(function (r) { return r.at && r.text; });
+      var mine = (state.resLog || []).filter(function (r) { return !rows.some(function (x) { return x.at === r.at && x.text === r.text; }); });
+      state.resLog = rows.concat(mine).sort(function (a, b) { return a.at < b.at ? 1 : -1; }); state.resDb = true;
+    } catch (e) { state.resDb = false; }
+    renderResLog();
+  };
+  var dbNs;
+  var getDb = async function () {
+    if (dbNs !== undefined) return dbNs;
+    try { dbNs = (window.claude && typeof window.claude.use === 'function') ? await window.claude.use('db') : null; } catch (e) { dbNs = null; }
+    if (dbNs && typeof dbNs.collection !== 'function') dbNs = null;
+    return dbNs;
+  };
+
+  // ---------- the key measures ----------
+  KPIS = [
+    { key: 'late', label: 'Supplier is late', icon: 'reject', kind: 'bad',
+      pred: function (r) { return r.type === 'po' && r.cat === 'late'; },
+      sub: function (l) { if (!l.length) return 'None'; var mx = Math.max.apply(null, l.map(function (r) { return r.daysLate; })); return 'Oldest is ' + mx + ' day' + (mx === 1 ? '' : 's') + ' late'; },
+      how: 'Purchase lines the supplier has (status 20 to 49) whose confirmed date has passed, or whose requested date has passed when nothing is confirmed. Lines not yet sent to the supplier and goods already received are not counted: they are our side.' },
+    { key: 'owes', label: 'Supplier owes a date', icon: 'clock', kind: 'warn',
+      pred: function (r) { return r.type === 'po' && r.unconf; },
+      sub: function (l) { var d = l.filter(function (r) { return r.cat === 'late'; }).length; return l.length ? d + ' of them already late' : 'None'; },
+      how: 'Every line that was sent to the supplier (status 20) and has no confirmed date and no confirmed quantity. There is no waiting limit: a line sent today counts.' },
+    { key: 'send', label: 'You send it or clear a stop', icon: 'alert', kind: 'warn',
+      pred: function (r) { return r.cat === 'send' || r.cat === 'stop'; },
+      sub: function (l) { var s = l.filter(function (r) { return r.cat === 'stop'; }).length; return l.length ? s + ' stopped, ' + (l.length - s) + ' ready to send' : 'None'; },
+      how: 'Purchase lines below status 20: the supplier does not know about them yet. Stopped ones (status 11 to 14) need the stop cleared first. A date that has passed here is our delay, not the supplier\'s.' },
+    { key: 'release', label: 'You release it', icon: 'alert', kind: 'warn',
+      pred: function (r) { return r.type === 'pop'; },
+      sub: function (l) { var o = l.filter(function (r) { return r.rel < state.today; }).length; return l.length ? o + ' overdue, ' + (l.length - o) + ' due in 5 days' : 'None'; },
+      how: 'Your planned purchase orders whose release date has passed, or falls within the next 5 days. Later ones are left out.' },
+    { key: 'earlier', label: 'Needed earlier', icon: 'alert', kind: 'warn',
+      pred: function (r) { return r.type === 'po' && !!r.earlierInfo; },
+      sub: function (l) { return l.length ? 'Ask the supplier for an earlier date' : 'None'; },
+      how: 'Open lines that are not late but that M3 planning wants earlier (the action message says reschedule in, or M3 suggests an earlier date). Only the open lines of up to 20 item and warehouse pairs are checked, earliest dates first; the note above the list says how many.' },
+    { key: 'msgs', label: 'New messages', icon: 'info', kind: 'info', custom: true,
+      how: 'New messages in your own M3 inbox (status New). They are always yours, whichever buyer is selected.' }
+  ];
+  var current = function () { return state.rows.find(function (r) { return r.id === state.picked; }) || null; };
+  var isEsc = function (r) { return CATS[r.cat].esc; };
+  var pill = function (r) { var s = ballText(r), x = el('span', 'st ' + s.kind); x.append(iconEl(s.icon), document.createTextNode(s.text)); return x; };
+
+  var renderTiles = function () {
+    var box = $('tiles'); box.replaceChildren();
+    if (state.kpi) {
+      var kk = KPIS.find(function (x) { return x.key === state.kpi; });
+      var cb = el('button', 'chipbtn'); cb.type = 'button'; cb.setAttribute('aria-pressed', 'true'); cb.append(document.createTextNode('Showing: ' + (kk ? kk.label : 'measure') + '  ×'));
+      cb.addEventListener('click', function () { state.kpi = null; renderAll(); }); box.append(cb); box.hidden = false; return;
+    }
+    box.hidden = state.view !== 'act'; if (state.view !== 'act') return;
+    var mk = function (key, label, icon, kind, n) {
+      var bt = el('button', 'chipbtn'); bt.type = 'button'; bt.setAttribute('aria-pressed', state.filter === key ? 'true' : 'false');
+      if (icon) { var ic = iconEl(icon); ic.className += ' st ' + kind; bt.append(ic); }
+      bt.append(document.createTextNode(label + ' '), el('span', 'n', String(n)));
+      bt.addEventListener('click', function () { state.filter = key; renderAll(); }); box.append(bt);
+    };
+    mk('all', 'All', null, null, state.rows.filter(isEsc).length);
+    CAT_ORDER.forEach(function (k) { var n = state.rows.filter(function (r) { return r.cat === k; }).length; if (n) mk(k, CATS[k].label, CATS[k].icon, CATS[k].kind, n); });
+  };
+  var renderKpis = function () {
+    var box = $('kpitiles'); box.replaceChildren(); var how = $('kpihow'); how.replaceChildren();
+    $('kpi-note').textContent = state.liveInfo ? 'Counted over the ' + state.rows.length + ' lines and planned orders of ' + person(state.scope) + ' in the list below, as of ' + state.liveInfo.at + '. Click a measure to filter the list.' + (state.impNote ? ' ' + state.impNote : '') : 'Loading from M3…';
+    KPIS.forEach(function (k) {
+      var list = k.custom ? [] : state.rows.filter(k.pred);
+      var na = k.custom && state.msgsOk === false;
+      var b2 = el('button', 'tile' + (na ? ' na' : '')); b2.type = 'button';
+      var v = el('span', 'v');
+      if (na) v.append(document.createTextNode('Not available'));
+      else { v.append(document.createTextNode(k.custom ? (state.msgsOk === null ? '…' : String(state.msgs.length + (state.msgsMore ? state.msgsMore : 0))) : String(list.length))); var ic = iconEl(k.icon); ic.className += ' st ' + k.kind; v.append(ic); }
+      b2.append(v, el('span', 'l', k.label));
+      if (!na) {
+        b2.append(el('span', 's', k.custom ? (state.msgsMore ? state.msgsMore + ' more not shown · ' : '') + 'In your own inbox' : k.sub(list)));
+        b2.setAttribute('aria-pressed', state.kpi === k.key ? 'true' : 'false');
+        b2.addEventListener('click', function () { if (k.custom) { showTab('msgs'); return; } state.kpi = state.kpi === k.key ? null : k.key; if (state.view !== 'act' && !state.kpi) state.view = 'act'; renderAll(); });
+      } else { b2.disabled = true; b2.append(el('span', 's', 'The inbox could not be read.')); }
+      box.append(b2);
+      var li = el('li'); li.append(el('b', null, k.label + ': '), document.createTextNode(k.how)); how.append(li);
+    });
+  };
+
+  var SORT_COLS = [['id', 'PO / line'], ['supplier', 'Supplier'], ['item', 'Item no'], ['qty', 'Qty'], ['req', 'Requested'], ['conf', 'Confirmed'], ['rank', 'Owner'], ['aff', 'Affects'], ['whs', 'Warehouse']];
+  var sortIcon = function () {
+    var NS = 'http://www.w3.org/2000/svg', sv = document.createElementNS(NS, 'svg'); sv.setAttribute('viewBox', '0 0 8 12'); sv.setAttribute('class', 'sortic'); sv.setAttribute('aria-hidden', 'true');
+    [['u', 'M4 0 L8 5 L0 5 Z'], ['d', 'M4 12 L8 7 L0 7 Z']].forEach(function (p) { var pa = document.createElementNS(NS, 'path'); pa.setAttribute('class', p[0]); pa.setAttribute('d', p[1]); sv.appendChild(pa); });
+    return sv;
+  };
+  var renderSortHead = function () {
+    var tr = $('table').tHead.rows[0];
+    if (!tr.dataset.built) {
+      tr.replaceChildren();
+      SORT_COLS.forEach(function (c) {
+        var th = el('th', c[0] === 'qty' ? 'num' : null); th.dataset.sort = c[0];
+        var bt = el('button', 'sortbtn'); bt.type = 'button'; bt.title = 'Sort by ' + c[1].toLowerCase(); bt.append(document.createTextNode(c[1]), sortIcon());
+        bt.addEventListener('click', function () { state.sort = state.sort.key === c[0] ? { key: c[0], dir: -state.sort.dir } : { key: c[0], dir: 1 }; renderList(); });
+        th.append(bt); tr.append(th);
+      });
+      tr.dataset.built = '1';
+    }
+    [].forEach.call(tr.children, function (th) { th.setAttribute('aria-sort', th.dataset.sort === state.sort.key ? (state.sort.dir > 0 ? 'ascending' : 'descending') : 'none'); });
+  };
+  var dateTd = function (date, r, kind) {
+    var td = document.createElement('td'), t = state.today;
+    if (!date) { td.textContent = 'Not set'; return td; }
+    var cls = '', icon = null, tip = '';
+    if (date < t) { cls = 'late'; icon = 'reject'; tip = 'This date has passed'; }
+    else if (date === t) { cls = 'today'; icon = 'clock'; tip = 'Due today'; }
+    else if (kind === 'conf' && r.req && date > r.req) { cls = 'after'; icon = 'alert'; tip = 'Promised after the requested date'; }
+    var sp = el('span', 'dtag' + (cls ? ' ' + cls : '')); if (icon) sp.append(iconEl(icon)); sp.append(document.createTextNode(date)); if (tip) sp.title = tip;
+    td.append(sp); return td;
+  };
+  var renderList = function () {
+    var body = $('table').tBodies[0]; body.replaceChildren();
+    var q = state.query.trim().toLowerCase();
+    var nEsc = state.rows.filter(isEsc).length, nOn = state.rows.length - nEsc;
+    $('tabbtn-act').textContent = 'Needs Action (' + nEsc + ')'; $('tabbtn-ok').textContent = 'On Track (' + nOn + ')';
+    var kd = state.kpi ? KPIS.find(function (x) { return x.key === state.kpi; }) : null;
+    var shown = state.rows.filter(function (r) {
+      if (kd) { if (kd.pred && !kd.pred(r)) return false; }
+      else { if ((state.view === 'act') !== isEsc(r)) return false; if (state.view === 'act' && state.filter !== 'all' && r.cat !== state.filter) return false; }
+      if (!q) return true;
+      return (r.po + ' ' + (r.planned ? r.planned.no : '') + ' ' + r.supplier + ' ' + supLabel(r.supplier, r.supplierName) + ' ' + r.item + ' ' + r.name).toLowerCase().indexOf(q) > -1;
+    });
+    renderSortHead();
+    var SV = { id: function (r) { return r.id; }, supplier: function (r) { return supLabel(r.supplier, r.supplierName).toLowerCase(); }, item: function (r) { return r.item; }, qty: function (r) { return r.qty || 0; }, req: function (r) { return r.req || ''; },
+      conf: function (r) { return r.conf || r.rel || ''; }, whs: function (r) { return r.whs; }, rank: function (r) { return r.rank; }, aff: function (r) { return r.imp && r.imp.n ? r.imp.firstNeed : 'zzzz'; } };
+    var sv = SV[state.sort.key] || SV.rank;
+    shown.sort(function (a, b) { var x = sv(a), y = sv(b), c = x < y ? -1 : x > y ? 1 : 0; return c * state.sort.dir || (a.id < b.id ? -1 : 1); });
+    $('datelegend').textContent = 'Dates: red means the date has passed, amber means due today or promised after the requested date.';
+    shown.forEach(function (r) {
+      var tr = document.createElement('tr'); tr.dataset.key = r.id; tr.tabIndex = 0;
+      var cf = r.type === 'pop' ? dateTd(r.rel, r, 'rel') : dateTd(r.conf, r, 'conf');
+      if (r.type === 'pop' && r.rel) cf.append(document.createTextNode(' (release by)'));
+      var st = document.createElement('td'); st.append(pill(r));
+      tr.append(el('td', null, r.type === 'po' ? r.po + ' / ' + r.line + (r.suffix ? '.' + r.suffix : '') : 'Planned PO ' + r.planned.no), el('td', null, supLabel(r.supplier, r.supplierName)), el('td', null, itemText(r)), el('td', 'num', fmtN(r.qty)), dateTd(r.req, r, 'req'), cf, st, el('td', null, affectsText(r)), el('td', null, r.whs || 'Not available'));
+      body.append(tr);
+    });
+    $('empty').hidden = shown.length > 0;
+    $('list-title').textContent = kd ? kd.label : state.view === 'act' ? 'Needs Action' : 'On Track';
+    $('empty').textContent = !state.liveInfo ? 'Nothing loaded. Use Refresh from M3.' : state.rows.length ? (!state.query && !state.kpi ? (state.view === 'act' ? 'Nothing needs action. Everything is on track.' : 'Nothing is on track right now.') : 'Nothing matches these filters.') : 'No open purchase lines or planned orders found for ' + person(state.scope) + ' as the buyer.';
+    $('orders-note').textContent = state.liveInfo ? shown.length + ' shown' + (kd ? ' for this measure, from Needs Action and On Track' : '') + ', most urgent first (what the most orders wait for, soonest). Click a heading to sort, click a row to open it.' + (state.notes.length ? ' ' + state.notes.join(' ') : '') : 'Loading from M3…';
+    renderPanel();
+  };
+
+  // ---------- one shared panel under the list ----------
+  var nextStep = function (r) {
+    var c = r.cat;
+    if (c === 'late') return { kind: 'bad', tag: 'Next: ', body: 'get a real date from the supplier' + (r.unconf ? ' (nothing is confirmed yet)' : '') + ', then confirm it here. The orders below depend on it.' };
+    if (c === 'noconf') return { kind: 'warn', tag: 'Next: ', body: 'the supplier has the order but has not answered. Ask for a date, then confirm it here.' };
+    if (c === 'earlier') return { kind: 'warn', tag: 'Next: ', body: 'ask the supplier for an earlier date. If they agree, confirm the new date here.' };
+    if (c === 'send') return { kind: 'warn', tag: 'Next: ', body: 'send the order. The supplier does not know about it until you do.' };
+    if (c === 'stop') return { kind: 'bad', tag: 'Next: ', body: 'clear the stop in M3 first (' + (STATUS_WORDS[r.status] || 'stopped') + '). Then it can be sent.' };
+    if (c === 'release') return { kind: r.daysLate ? 'bad' : 'warn', tag: 'Next: ', body: releasable(r) ? 'release it, so M3 creates the purchase order.' : 'it cannot be released yet (' + (POP_WORDS[r.popStatus] || 'M3 stopped it') + ').' };
+    if (c === 'put') return { kind: 'info', tag: 'Waiting on our warehouse: ', body: 'the goods are in. Put-away or quality inspection has to finish; the supplier is not late.' };
+    if (c === 'unk') return { kind: 'muted', tag: 'Check: ', body: 'M3 gave no status for this line, so the page cannot tell who owns the next action.' };
+    return { kind: 'ok', tag: 'On track: ', body: 'confirmed for ' + (r.conf || r.req || 'a date M3 did not give') + '. Nothing needs you.' };
+  };
+  var whyText = function (r) {
+    if (r.type === 'pop') return 'M3 planning proposes to buy ' + fmtN(r.qty) + ' of this from ' + supLabel(r.supplier, r.supplierName) + '. Release date ' + (r.rel || 'not available') + (r.daysLate ? ', ' + r.daysLate + ' day' + (r.daysLate === 1 ? '' : 's') + ' ago' : '') + '. ' + (AM_WORDS[r.am] || (r.am ? 'M3 action message: ' + r.am + '.' : '')) + ' A planned order is a proposal, not supply the supplier has agreed.';
+    var t = [];
+    if (r.cat === 'late') t.push((r.conf ? 'The supplier promised ' + r.conf : 'Requested ' + r.req + ' and nothing confirmed') + ': ' + r.daysLate + ' day' + (r.daysLate === 1 ? '' : 's') + ' ago.');
+    if (r.cat === 'earlier' && r.earlierInfo) t.push('Confirmed for ' + (r.conf || 'a date M3 did not give') + ', but M3 planning wants it from ' + (r.earlierInfo.alt || 'an earlier date') + (r.earlierInfo.days ? ' (' + r.earlierInfo.days + ' days earlier)' : '') + '.');
+    if (r.cat === 'send' && r.req && r.req < state.today) t.push('The requested date ' + r.req + ' has passed. This is our delay, not the supplier\'s.');
+    if (r.cat === 'put') t.push('Received ' + fmtN(r.recQty) + ' of ' + fmtN(r.qty) + (r.stored != null ? ', put away ' + fmtN(r.stored) : '') + '.' + (r.status === 64 || r.status === 69 ? ' Rejected after inspection: you may need a replacement or a claim.' : ''));
+    if (r.unconf && r.cat !== 'late') t.push('The supplier has the order and has not confirmed a date or quantity.');
+    return t.join(' ');
+  };
+  var issueSentence = function (r) {
+    var im = r.imp;
+    if (!im) return 'The impact on orders was not checked for this line (only the most urgent lines are, to keep the page quick).';
+    if (im.failed) return 'The material plan could not be read, so the impact is not known.';
+    if (im.empty) return 'The plan returned nothing for this item and warehouse. That is not the same as nothing depending on it.';
+    if (im.notIn) return 'This line is not in the plan, so the impact could not be checked from it.';
+    if (!im.n) return 'Nothing in the plan depends on it: demand is covered without it.';
+    var s = im.n + ' order' + (im.n === 1 ? '' : 's') + ' depend' + (im.n === 1 ? 's' : '') + ' on it, the first needed ' + im.firstNeed + ', ' + fmtN(im.short) + ' short without it.';
+    if (im.lack > im.covers && im.covers) s += ' This line covers only ' + fmtN(im.covers) + ' of the ' + fmtN(im.lack) + ' short: other supply is needed too.';
+    if (im.forecasts) s += ' ' + im.forecasts + ' forecast' + (im.forecasts === 1 ? '' : 's') + ' also lean on it (forecasts are not firm orders).';
+    return s;
+  };
+
+  var buildOptions = function (r) {
+    var w = canWrite(), g = [], c = r.cat;
+    var addG = function (head, rows) { g.push({ head: head, rows: rows }); };
+    var opt = function (label, ok, stateText, date, why, btn) { return { label: label, ok: ok, stateText: stateText, date: date || '', why: why, btn: btn || null }; };
+    var deleteRow = function () {
+      var L = 'Delete this line', st = r.status;
+      if (r.suffix) return opt(L, false, 'Not available', '', 'This is a subline of line ' + r.line + '. The delete tool cannot name a subline: delete it in M3.', null);
+      return opt(L, true, 'Available', '', 'Removes line ' + r.line + ' from PO ' + r.po + ' (' + fmtN(r.qty) + ' ordered). Use it when you do not want this line any more. ' + (st >= 20 ? 'The supplier already has the order and is not told by this: use the message draft. ' : 'The order has not been sent to the supplier yet. ') + 'It cannot be undone from here.', w ? { text: 'Delete line', act: 'deleteLine', primary: false } : null);
+    };
+    var finishRow = function () {
+      var L = 'Stop expecting this line (finish mark)', st = r.status;
+      if (r.type === 'po' && st != null && st >= 15 && st <= 29) return deleteRow();
+      if (r.type !== 'po' || st == null || st < 31 || st >= 50) return opt(L, false, st != null && st < 31 ? 'Delete it instead' : 'Not available', '', st != null && st < 31 ? 'A line that is not confirmed yet is deleted, not finish marked: do it in M3 or ask Claude in chat.' : 'Only a confirmed line that has not been received can be finish marked.', null);
+      return opt(L, true, 'Available', '', 'M3 then expects nothing more on this line (' + fmtN(Math.max(0, (r.qty || 0) - (r.recQty || 0))) + ' still open). Only this line is finish marked: PO number and line number are sent. The supplier is not told: use the message draft.', w ? { text: 'Finish mark', act: 'finishMark', primary: false } : null);
+    };
+    if (r.type === 'pop') {
+      var rel = releasable(r), why = rel ? 'Sets the planned order to Released, then runs the release for you. M3 creates the purchase order and groups planned orders of the same supplier into one PO.' : 'M3 will not release it from here: ' + (POP_WORDS[r.popStatus] || 'it is stopped') + '.';
+      if (r.am === 'DeleteOrder') why += ' M3 suggests deleting it because the need has gone: you will be asked to say you want it anyway.';
+      addG('Options', [opt('Release the planned order', rel, rel ? 'Available' : 'Not available', r.plan || r.req, why, rel && w ? { text: 'Release', act: 'releasePOP', primary: true } : null)]);
+      return g;
+    }
+    if (c === 'send') { addG('Options', [opt('Send the order to the supplier', true, 'Available', '', 'Prints the order. In M3, status Printed (20) means the supplier has it. This page cannot see whether the document was produced or delivered.', w ? { text: 'Send PO', act: 'sendPO', primary: true } : null)].concat(r.type === 'po' && r.status != null && r.status >= 15 && r.status <= 29 ? [deleteRow()] : [])); return g; }
+    if (c === 'stop') { addG('Options', [opt('Clear the stop in M3', false, 'Done in M3', '', (STATUS_WORDS[r.status] || 'The order is stopped') + '. Clear it in M3 (authorization, account string or budget). Then it can be sent from here.', null)]); return g; }
+    if (c === 'put') {
+      var rows = [opt('Put-away by the warehouse', false, 'Their step', '', 'The goods are in. Chase the warehouse or quality inspection; nothing to write here.', null)];
+      if (r.status === 64 || r.status === 69) rows.push(opt('Ask the supplier for a replacement', true, 'Available', '', 'The goods were rejected after inspection.', { text: 'Email', act: 'mailSupplier', primary: false }));
+      addG('Options', rows); return g;
+    }
+    if (c === 'ok' || c === 'unk') { addG('Options', [opt('Nothing to do', false, 'On track', '', 'Confirmed and on time as far as M3 shows.', null)].concat(c === 'ok' ? [opt('Confirm a new date', true, 'Available', '', 'Use this if the supplier reports a delivery problem or a changed date or quantity. Enter what the supplier gave you. M3 then recalculates the planned date and the orders that depend on it.', w ? { text: 'Confirm date', act: 'confirmLine', primary: false } : null), finishRow()] : [])); return g; }
+    // late, noconf, earlier
+    var o = r.opt, rowsA = [];
+    rowsA.push(opt('Confirm date', true, 'Available', '', 'Use the date the supplier gave you. M3 then recalculates the planned date and the orders that depend on it.', w ? { text: 'Confirm date', act: 'confirmLine', primary: true } : null));
+    rowsA.push(opt(r.unconf ? 'Ask the supplier for a date' : 'Ask the supplier for an earlier date', true, 'Available', '', 'Opens an email draft for you to edit and send. Nothing is sent from this page.', { text: 'Email', act: 'mailSupplier', primary: false }));
+    var st = o && !o.loading ? o : null;
+    if (!st) rowsA.push(opt('Use stock from another warehouse', false, 'Checking…', '', 'Reading stock and distribution relations from M3.', null));
+    else if (st.err) rowsA.push(opt('Use stock from another warehouse', false, 'Not available', '', 'Stock could not be read: ' + st.err, null));
+    else {
+      var good = st.cands.filter(function (x) { return x.rel; });
+      if (good.length) {
+        var b = good[0], arr = b.rel.days != null ? addDays(state.today, b.rel.days) : '';
+        rowsA.push(opt('Use stock from another warehouse', true, 'Available', arr, 'Warehouse ' + b.whs + ' has ' + fmtN(b.free) + ' free above its safety stock' + (b.own ? ', but it has demand of its own (' + fmtN(b.own) + '): check its plan' : '') + '. Creates a distribution order proposal, not a moved stock.' + (b.rel.days != null ? ' Transport takes ' + b.rel.days + ' day' + (b.rel.days === 1 ? '' : 's') + '.' : ''), w ? { text: 'Create proposal', act: 'makeDO', primary: false } : null));
+      } else if (st.cands.length) rowsA.push(opt('Use stock from another warehouse', false, 'Not available', '', 'Warehouse ' + st.cands[0].whs + ' has stock, but there is no distribution relation to ' + r.whs + ' (or it could not be read). An administrator must add the relation.', null));
+      else rowsA.push(opt('Use stock from another warehouse', false, 'Not available', '', 'No other warehouse has free stock above its safety stock.', null));
+      var h = st.here, free = h && h.avail != null ? h.avail : null;
+      rowsA.push(opt('Use stock in this warehouse', free != null && free > 0, free != null && free > 0 ? 'Available' : 'Not available', '', free == null ? 'M3 gave no stock figure for ' + r.whs + '.' : (free > 0 ? fmtN(free) + ' free in ' + r.whs + ' (reserved ' + fmtN(h.res) + '). Moving it between orders is done by you in M3.' : 'No free stock in ' + r.whs + '.'), null));
+      var alts = st.alts ? st.alts.filter(function (a) { return a.sup && a.sup !== r.supplier && a.valid; }) : null;
+      var lead = h && h.lead != null ? h.lead : null;
+      if (alts == null) rowsA.push(opt('Buy from another supplier', false, 'Not available', '', 'The supplier agreements could not be read.', null));
+      else if (!alts.length) rowsA.push(opt('Buy from another supplier', false, 'Not available', '', 'No other supplier has a valid agreement for this item.', null));
+      else { var need = r.imp && r.imp.firstNeed ? r.imp.firstNeed : '', arrv = lead != null ? addDays(state.today, lead) : ''; rowsA.push(opt('Buy from another supplier', true, 'Available', arrv, alts.length + ' other supplier' + (alts.length === 1 ? '' : 's') + ' with a valid agreement' + (arrv ? '; the warehouse lead time of ' + lead + ' days gives ' + arrv + (need ? (arrv <= need ? ', in time for ' + need : ', too late for ' + need) : '') : '; no lead time in M3') + '. Creates a new PO directly (not a planned one). The delayed line stays as it is until you decide about it.', w ? { text: 'Create PO', act: 'createAlt', primary: false, arg: { alts: alts, arrive: arrv, lead: lead } } : null)); }
+    }
+    var sw = st && st.swap;
+    if (!st) rowsA.push(opt('Substitute item', false, 'Checking…', '', 'Reading the manufacturing orders and item relations.', null));
+    else if (sw && sw.err) rowsA.push(opt('Substitute item', false, 'Not available', '', sw.err, null));
+    else if (!sw || !sw.mos.length) rowsA.push(opt('Substitute item', false, 'Not available', '', r.imp && r.imp.n ? 'No manufacturing order depends on this line, so there is no material line to swap.' : 'Impact was not checked for this line, so no manufacturing order is known.', null));
+    else sw.mos.forEach(function (m) {
+      var L = 'Swap the material on MO ' + m.no;
+      if (m.reason) return rowsA.push(opt(L, false, 'Not available', '', m.reason, null));
+      if (!sw.rel.length) return rowsA.push(opt(L, false, 'Not available', '', 'No substitute (replacement type 3 or 5) is set up for ' + r.item + '. Never swap to an item without that relation.', null));
+      m.subs.forEach(function (s) {
+        var LL = L + ': ' + r.item + ' to ' + withName(s.item, s.name);
+        if (s.reason) return rowsA.push(opt(LL, false, 'Not available', '', 'Related item of type ' + s.type + ', but ' + s.reason + '.', null));
+        rowsA.push(opt(LL, true, 'Available', '', 'Related item of type ' + s.type + '. ' + s.arith + '. The line quantity ' + fmtN(m.qty) + ' stays as it is. Needs engineering or quality approval: M3 does not hold it, so you are asked to confirm it.', w ? { text: 'Swap', act: 'swapMat', primary: false, arg: { mo: m, sub: s } } : null));
+      });
+    });
+    rowsA.push(finishRow());
+    addG('Options', rowsA);
+    return g;
+  };
+  var renderOptions = function (r) {
+    var box = $('supplybox'); box.hidden = false;
+    var is = $('issues'); is.replaceChildren(); is.append(el('p', 'issueline', r.type === 'po' ? issueSentence(r) : (r.imp ? issueSentence(r) : 'Impact not checked for this planned order.')));
+    var fx = $('fixes'); fx.replaceChildren();
+    var groups = buildOptions(r), firstBtn = true;
+    groups.forEach(function (grp) {
+      var t = el('table'), tb = el('tbody');
+      var gh = el('tr', 'grouphead'); gh.append(el('td', null, grp.head), el('td', null, 'Status'), el('td', null, 'Date'), el('td', null, 'Details'), el('td', null, '')); tb.append(gh);
+      grp.rows.forEach(function (op) {
+        var tr = el('tr'); tr.append(el('td', null, op.label));
+        var st = document.createElement('td'), chip = el('span', 'chip ' + (op.ok ? 'ok' : 'muted')); if (op.ok) chip.append(iconEl('success')); chip.append(document.createTextNode(op.stateText)); st.append(chip);
+        tr.append(st, el('td', null, op.date || ''), el('td', null, op.why));
+        var ac = document.createElement('td'); ac.className = 'ac'; var abox = el('div', 'acbtns'); ac.append(abox);
+        if (op.btn) { var bt = el('button', 'btn' + (op.btn.primary ? ' primary' : '')); bt.type = 'button'; bt.textContent = op.btn.text; bt.disabled = state.busy; bt.addEventListener('click', function () { runAction(r, op.btn.act, op.btn.arg); }); abox.append(bt); }
+        tr.append(ac); tb.append(tr);
+      });
+      t.append(tb); var wr = el('div', 'tablewrap'); wr.append(t); fx.append(wr);
+    });
+    var det = $('impdetails'), ib = $('imptable').tBodies[0]; ib.replaceChildren();
+    var im = r.imp, has = !!(im && im.orders && im.orders.length);
+    det.hidden = !has;
+    if (has) {
+      $('impnote').textContent = 'From the material plan as of ' + state.liveInfo.at + ': demand that goes short without this line' + (im.orders.length >= 10 ? ' (the first 10 shown)' : '') + '. Orders already late show the customer.';
+      im.orders.forEach(function (o) {
+        var tr = document.createElement('tr');
+        tr.append(el('td', null, o.cat), el('td', null, o.no + (o.cust ? ' · ' + o.cust : '')), el('td', null, o.need), el('td', 'num', fmtN(o.qty)), el('td', null, o.slack < 0 ? (-o.slack) + ' day' + (o.slack === -1 ? '' : 's') + ' late' : 'In time'));
+        ib.append(tr);
+      });
+    }
+  };
+  var renderPanel = function () {
+    var r = current(), panel = $('panel');
+    document.querySelectorAll('#table tbody tr').forEach(function (tr) { var on = r && tr.dataset.key === r.id; tr.classList.toggle('picked', !!on); tr.setAttribute('aria-selected', on ? 'true' : 'false'); });
+    if (!r) { panel.hidden = true; return; }
+    panel.hidden = false;
+    $('panel-title').textContent = itemText(r);
+    $('panel-sub').textContent = idText(r) + ' · ' + supLabel(r.supplier, r.supplierName);
+    var facts = $('facts'); facts.replaceChildren();
+    var fact = function (label, node) { var d = el('div', 'fact'); d.append(el('span', 'k', label)); var v = el('span', 'v'); if (typeof node === 'string') v.textContent = node; else v.append(node); d.append(v); facts.append(d); };
+    fact('Owner', pill(r));
+    fact('Quantity', fmtN(r.qty) + (r.uom ? ' ' + r.uom : ''));
+    fact('Requested', r.req || 'Not set');
+    if (r.type === 'po') { fact('Confirmed', r.conf || 'Not confirmed'); fact('M3 status', STATUS_WORDS[r.status] || r.statusRaw || 'Not available'); if (r.recQty) fact('Received', fmtN(r.recQty)); }
+    else { fact('Release by', r.rel || 'Not set'); fact('M3 status', POP_WORDS[r.popStatus] || r.popRaw || 'Not available'); }
+    fact('Warehouse', r.whs || 'Not available');
+    var amt = r.type === 'po' ? r.amount : null;
+    var curTxt = r.type === 'pop' ? (r.currency ? ' ' + r.currency : ' (currency not available)') : (r.curKnown === 2 ? (r.cur ? ' ' + r.cur : ' (currency not available)') : ' (reading the currency…)');
+    fact('Line amount', amt != null ? fmtN(amt) + curTxt : 'Not available');
+    $('why').hidden = false; $('why').textContent = whyText(r);
+    var nx = nextStep(r), c = $('callout'); c.className = 'callout ' + nx.kind; c.replaceChildren(iconEl(KIND_ICON[nx.kind]));
+    var cb = el('span'); cb.append(el('b', null, nx.tag), document.createTextNode(nx.body)); c.append(cb);
+    var ro = $('roview'); ro.hidden = canWrite() || state.conn !== 'ok';
+    ro.textContent = 'You are viewing ' + person(state.scope) + '\'s purchases, so the actions that write to M3 are off. Email drafts still work. Switch back to yourself to act.';
+    renderOptions(r);
+    var cdet = $('custdetails'); if (state.custFor !== r.id) { cdet.open = false; state.custFor = r.id; }
+    $('custhost').hidden = r.type !== 'po' || ['late', 'noconf', 'earlier', 'put'].indexOf(r.cat) < 0;
+    $('toolbar').hidden = true; $('what').hidden = true;
+    renderDrafts();
+    if (!r.curKnown && r.type === 'po') { r.curKnown = 1; loadHead(r.po).then(function (h) { r.cur = h.currency; r.curKnown = 2; if (current() === r) renderPanel(); }); }
+    loadOptions(r); loadCust(r).then(function () { if (current() === r && r.imp && r.imp.orders && r.imp.orders.some(function (o) { return o.cust; }) && !r.custShown) { r.custShown = 1; renderPanel(); } });
+  };
+
+  // ---------- supplier drafts: for you to edit and send ----------
+  var draftText = function (r) {
+    var who = state.userName || state.user || '';
+    var head = 'Subject: Purchase order ' + r.po + ', line ' + r.line + ': delivery date\n\nHello,\n\n';
+    var body = 'Purchase order ' + r.po + ', line ' + r.line + ': ' + itemText(r) + ', ' + fmtN(r.qty) + (r.uom ? ' ' + r.uom : '') + ', requested ' + (r.req || 'date not set') + '.\n\n';
+    if (r.cat === 'late') body += (r.conf ? 'You confirmed ' + r.conf + '. ' : 'We have no confirmed date. ') + 'That date has passed (' + r.daysLate + ' day' + (r.daysLate === 1 ? '' : 's') + '). Please tell us today when you can deliver and how much.\n';
+    else if (r.cat === 'earlier') body += 'Confirmed for ' + (r.conf || 'a date we do not have') + '. Our planning now needs it from ' + ((r.earlierInfo && r.earlierInfo.alt) || 'an earlier date') + '. Can you deliver earlier, and if so on which date and for how much?\n';
+    else if (r.cat === 'put') body += 'The goods were rejected after inspection. Please tell us how you will replace them and when.\n';
+    else body += 'We have not received a confirmation. Please confirm the delivery date and the quantity.\n';
+    return head + body + '\nKind regards,\n' + who;
+  };
+  var cancelDraftText = function (r, me, open) {
+    var who = state.userName || state.user || '';
+    var rec = me && me.recQty ? ' The ' + fmtN(me.recQty) + ' already delivered stand as normal.' : '';
+    return 'Subject: Purchase order ' + r.po + ', line ' + r.line + ': cancelled, please do not deliver\n\nHello,\n\nWe are cancelling the open quantity on purchase order ' + r.po + ', line ' + r.line + ': ' + itemText(r) + ', ' + fmtN(open) + (r.uom ? ' ' + r.uom : '') + (r.conf ? ', previously confirmed for ' + r.conf : '') + '. Please do not deliver it.' + rec + '\n\nPlease confirm that you have noted the cancellation and that nothing is in transit. If goods have already been shipped, please tell us the quantity and the shipping date.\n\nKind regards,\n' + who;
+  };
+  var renderDrafts = function () {
+    var r = current(), box = $('drafts'); box.replaceChildren();
+    if (!r || r.type !== 'po' || !$('custdetails').open) return;
+    if (!(r.id in state.drafts)) state.drafts[r.id] = draftText(r);
+    var d = el('div', 'draft focus'), ta = el('textarea'); ta.value = state.drafts[r.id]; ta.rows = 10; ta.setAttribute('aria-label', 'Message to the supplier');
+    ta.addEventListener('input', function () { state.drafts[r.id] = ta.value; });
+    var row = el('div', 'row2');
+    var cp = el('button', 'btn'); cp.type = 'button'; cp.append(iconEl('copy'), document.createTextNode('Copy text')); cp.addEventListener('click', async function () { var ok = await copyText(state.drafts[r.id]); log(ok ? 'ok' : 'warn', ok ? 'Text copied. Nothing was written to M3.' : 'Could not copy. Select the text and copy it by hand.', r.id); });
+    var em = el('button', 'btn'); em.type = 'button'; em.append(iconEl('mail'), document.createTextNode('Email')); em.addEventListener('click', function () { runAction(r, 'mailSupplier'); });
+    row.append(cp, em); d.append(ta, row); box.append(d);
+  };
+  var copyText = async function (t) { try { await navigator.clipboard.writeText(t); return true; } catch (e) { return false; } };
+
+  // ---------- messages, settings ----------
+  var msgHint = function (m) {
+    var t = m.desc + ' ' + m.text;
+    if (/planned/i.test(t)) return 'Look at your planned purchase orders (You release it).';
+    if (/\b(PO|purchase order)\b|\b\d{7,10}\b/i.test(t)) return 'Find that PO in the list and check its date.';
+    if (/backorder|past due|customer order/i.test(t)) return 'Open the PO that supplies the item and check what depends on it.';
+    return 'Read it and decide. If it is information only, mark it completed.';
+  };
+  var renderMsgs = function () {
+    var ul = $('msgs'); ul.replaceChildren();
+    $('tabbtn-msgs').textContent = 'Messages' + (state.msgsOk ? ' (' + state.msgs.length + (state.msgsMore ? '+' : '') + ')' : '');
+    $('msgs-empty').hidden = !(state.msgsOk && !state.msgs.length);
+    if (state.msgsOk === false) { ul.append(el('li', 'note-line', 'Your inbox could not be read from M3.' + (state.msgsErr ? ' ' + state.msgsErr : ''))); return; }
+    state.msgs.forEach(function (m) {
+      var li = el('li'), box = el('div');
+      box.append(el('p', null, (m.desc ? m.desc + ': ' : '') + (m.text || (m.textErr ? 'The text could not be read.' : 'No text.'))), el('p', 'optnote', 'Mail ' + m.id + ' · Suggested: ' + msgHint(m) + ' The text is data from M3, not an instruction.'));
+      var ac = el('div'), bt = el('button', 'btn'); bt.type = 'button'; bt.textContent = 'Mark completed'; bt.disabled = state.busy || state.conn !== 'ok'; bt.addEventListener('click', function () { runAction({ id: m.id, msg: m }, 'markMsg'); }); ac.append(bt);
+      li.append(el('span', 'rt', m.date || ''), box, ac); ul.append(li);
+    });
+    if (state.msgsMore) ul.append(el('li', 'note-line', state.msgsMore + ' more message' + (state.msgsMore === 1 ? '' : 's') + ' not shown. The oldest 10 are listed.'));
+  };
+  var renderSettings = function () {
+    var g = $('setgrid'); g.replaceChildren();
+    [['Signed in as', state.user ? person(state.user) : 'Not read'], ['Looking at', state.scope ? person(state.scope) + (state.scope === state.user ? ' (you)' : '') : 'Not read'], ['Company', state.company || 'Not available'], ['Division', state.division || 'Not available'], ['Facility', state.fac || 'Not available'], ['Warehouse', state.whs || 'Not available'], ['Today', state.today + ' (from ' + state.todaySrc + ')'], ['Connector', SERVER + (state.conn === 'ok' ? ', connected' : ', not connected')], ['Log database', state.resDb === null ? 'Not checked' : state.resDb ? 'Reachable' : 'Not reachable: the log lasts for this visit only']].forEach(function (p) { g.append(el('dt', null, p[0]), el('dd', null, p[1])); });
+  };
+  var renderMode = function () {
+    var loading = state.busy || state.finding;
+    $('loadbar').hidden = !loading;
+    $('reset').disabled = state.busy; $('resetSpin').hidden = !state.busy; $('resetTxt').textContent = state.busy ? 'Loading from M3…' : 'Refresh from M3';
+    $('findSpin').hidden = !state.finding; $('findTxt').textContent = state.finding ? 'Finding…' : 'Find';
+    if ($('scopeUser')) $('scopeUser').disabled = state.busy;
+    $('modenote').textContent = state.conn === 'ok' ? 'Everything here is live from M3. Each action asks you to confirm, then writes to M3 once and reads the result back.' : (state.busy ? 'Connecting to M3…' : 'Not connected to M3.');
+    $('source').textContent = 'Live from ' + SERVER + ': PPS200MI SearchLine and GetHead (purchase lines, currency), PPS170MI SearchPOP (planned orders), MMS080MI LstMtPlByItmWhs (the material plan: what depends on a line), OIS100MI GetOrderHead and CRS610MI GetBasicData_CustomerName (the customer of a late order), MMS200MI LstItmWhsByItm (stock in every warehouse), DPS001MI LstRelation (distribution relations), PPS115MI LstAltSupplier (other suppliers), CRS620MI SearchSupplier (supplier names and the supplier look-up), MMS200MI SearchItem (the item look-up), PMS100MI SearchMaterial, Get and GetMatLine (the manufacturing order and its material line), MMS020MI LstItemRelation (substitutes), MMS200MI GetItmBasic (item names), PPS200MI LstLine2 (price read-back), CRS420MI LstByActDate and LstFreeText (your new messages), MNS150MI GetUserData and LstUserData (you, and the list of buyers), ARS200MI ServerTimeZone (today). Writes: PPS001MI ConfirmLine and FinishMark, PPS200MI DltLine, PPS600MI PrintPO, PPS170MI UpdPlannedPO and RelPOP, PPS370MI StartEntry, AddHead, AddLine and FinishEntry (new PO), PMS100MI UpdMatLine and Reschedule (swap), DPS170MI CrtPlannedDO, CRS420MI Complete. Nothing is invented: a value M3 did not give shows as Not available.';
+  };
+  var renderAll = function () {
+    renderTiles(); renderKpis(); renderResLog(); renderList(); renderMsgs(); renderSettings(); renderScope();
+    $('asof').textContent = state.liveInfo ? 'As of ' + state.liveInfo.at + ' (local time), live from M3' : (state.busy ? 'Loading from M3…' : 'Not loaded');
+    renderMode(); if ($('np-go')) updateNew();
+  };
+
+  // ---------- loading everything ----------
+  var loadLive = async function () {
+    planCache = {}; headCache = {}; custCache = {}; stockCache = {}; relCache = {}; altCache = {}; whsStock = {};
+    var ok = await connect();
+    if (!ok) { state.rows = []; state.liveInfo = null; return; }
+    try { await readMe(); } catch (e) { banner('M3 could not tell who you are, so nothing was loaded. ' + errText(e), true); state.rows = []; state.liveInfo = null; return; }
+    await readToday();
+    try { await loadMain(); } catch (e) { banner('M3 could not be reached for the purchase lists, so none are shown. ' + errText(e), true); state.rows = []; state.liveInfo = null; return; }
+    banner('');
+    // A line's options are built from the orders that depend on it. Hold them back until that impact has been read:
+    // otherwise a line that was just changed (after a write, say) gets options built on no impact, and keeps them.
+    state.impPending = true;
+    renderAll();
+    try { await checkImpact(); } finally { state.impPending = false; }
+    renderAll();
+    loadSupNames().then(function () { renderAll(); });
+    loadMsgs().then(function () { renderAll(); });
+    if (!state.allUsers && !state.usersLoading) loadUsers();
+  };
+  var refresh = async function (quiet) {
+    if (state.busy && !quiet) return;
+    state.busy = true;
+    if (!quiet) { $('orders-note').textContent = 'Loading from M3…'; renderAll(); }
+    var keep = state.picked;
+    await loadLive();
+    state.busy = false;
+    state.picked = keep && state.rows.some(function (r) { return r.id === keep; }) ? keep : null;
+    renderAll();
+  };
+  var setBusy = function (b) { state.busy = b; renderPanel(); renderMsgs(); renderMode(); };
+
+  // After a write that changes supply or dates, the options of the opened line are worked out again from what M3 shows now.
+  // M3's planning runs about a minute behind a change, so the plan is read again (three tries, 15 seconds apart) until it differs
+  // from the plan the options were built on. Then the impact and the options of that line are built anew.
+  var PLAN_ACTIONS = ['confirmLine', 'makeDO', 'createAlt', 'swapMat', 'finishMark', 'deleteLine'];
+  var reevaluateRow = async function (id) {
+    var r = state.rows.find(function (x) { return x.id === id; });
+    if (!r) return false;
+    stockCache = {}; whsStock = {}; relCache = {}; altCache = {};
+    delete planCache[r.item + '|' + r.whs];
+    if (r.cat === 'earlier') r.cat = 'ok';
+    r.earlierInfo = null; r.imp = null;
+    await impactFor(r);
+    r.rank = rankOf(r); r.opt = null; r.custShown = 0;
+    renderAll();
+    return true;
+  };
+  var settleOptions = async function (row, snap) {
+    if (!row || !row.item || !row.whs) return;
+    var key = row.item + '|' + row.whs, who = row.po || '';
+    try {
+      var changed = snap == null, cur = planCache[key] ? await planCache[key] : null;
+      if (!changed && cur && JSON.stringify(cur) !== snap) changed = true;
+      if (!changed) log('info', 'M3 planning runs a little behind a change. Checking the plan for ' + itemText(row) + ' again before the options are worked out anew.', who);
+      for (var i = 0; i < 3 && !changed; i++) {
+        await wait(15000);
+        delete planCache[key];
+        cur = await loadPlan(row.item, row.whs);
+        if (cur && JSON.stringify(cur) !== snap) changed = true;
+      }
+      if (!(await reevaluateRow(row.id))) return;
+      if (changed) log('ok', 'The orders and options for ' + idText(row) + ' were worked out again from what M3 shows now (' + stamp() + ').', who);
+      else log('warn', 'M3\'s plan for ' + itemText(row) + ' had not changed yet when it was read (' + stamp() + '), so the orders and options below may still follow the old plan. Use Refresh from M3 in a minute.', who);
+    } catch (e) { log('warn', 'The options could not be worked out again: ' + errText(e) + ' Use Refresh from M3.', who); }
+  };
+
+  // ---------- the confirmation pop-up ----------
+  var dlg = $('dlg'), dlgCfg = null, dlgRow = null;
+  var closeDlg = function () { if (typeof dlg.close === 'function') dlg.close(); else dlg.removeAttribute('open'); };
+  var readFields = function () { var v = {}; document.querySelectorAll('#dlg-fields [data-f]').forEach(function (n) { v[n.dataset.f] = n.value; }); return v; };
+  var field = function (id, label, value, o) { o = o || {}; return { id: id, label: label, value: value == null ? '' : value, hint: o.hint, required: o.required, type: o.type || 'text', options: o.options, hidden: !!o.hidden }; };
+  var runAction = function (r, key, arg) {
+    var a = ACTIONS[key];
+    if (state.busy) return;
+    if (a.custom) { a.custom(r); return; }
+    var cfg = a.build(r, arg); cfg.key = key;
+    dlgCfg = cfg; dlgRow = r;
+    $('dlg-title').textContent = cfg.title;
+    var chip = $('dlg-mode'); chip.className = 'modechip ' + (cfg.readOnly ? 'sim' : 'live'); chip.textContent = cfg.readOnly ? 'Read only: nothing is written to M3' : 'Live: this writes to M3';
+    $('dlg-lead').textContent = cfg.lead;
+    var dt = $('dlg-text'); dt.hidden = !cfg.text; dt.textContent = cfg.text || '';
+    var dcp = $('dlg-copy'); dcp.hidden = !cfg.text; dcp.onclick = async function () { var okc = await copyText(cfg.text); log(okc ? 'ok' : 'warn', okc ? 'Text copied. Nothing was written to M3.' : 'Could not copy. Select the text and copy it by hand.', cfg.logId); };
+    var fb = $('dlg-fields'); fb.replaceChildren();
+    cfg.fields.forEach(function (f) {
+      if (f.hidden) { var hi = el('input'); hi.type = 'hidden'; hi.id = 'f-' + f.id; hi.dataset.f = f.id; hi.value = f.value; fb.append(hi); return; }
+      var w = el('div', 'f'); var lab = el('label', null, f.label + (f.required && !cfg.readOnly ? ' *' : '')); lab.htmlFor = 'f-' + f.id; w.append(lab);
+      var inp;
+      if (f.type === 'select') { inp = el('select'); inp.append(new Option('Choose…', '')); f.options.forEach(function (x) { inp.append(new Option(x, x)); }); inp.value = f.value; }
+      else { inp = el('input'); inp.type = f.type === 'number' ? 'number' : f.type === 'date' ? 'date' : 'text'; inp.value = f.value; inp.autocomplete = 'off'; if (f.type === 'number') inp.step = 'any'; }
+      inp.id = 'f-' + f.id; inp.dataset.f = f.id; w.append(inp);
+      if (f.hint) w.append(el('small', null, f.hint));
+      fb.append(w);
+    });
+    $('dlg-err').hidden = true;
+    $('dlg-stepslead').textContent = cfg.stepsLead ? cfg.stepsLead : cfg.steps.length > 1 ? 'When you confirm, the page does these steps in order and stops at the first one that fails:' : 'When you confirm, the page does this:';
+    var ol = $('dlg-steps'); ol.replaceChildren(); cfg.steps.forEach(function (t) { ol.append(el('li', null, t)); });
+    $('dlg-foot').textContent = cfg.foot || '';
+    $('dlg-go').textContent = cfg.go;
+    if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+  };
+  $('dlg-cancel').addEventListener('click', closeDlg);
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) closeDlg(); });
+  $('dlg-go').addEventListener('click', async function () {
+    var cfg = dlgCfg; if (!cfg || state.busy) return;
+    var v = readFields();
+    var miss = cfg.fields.filter(function (f) { return f.required && !String(v[f.id] == null ? '' : v[f.id]).trim(); });
+    var bad = miss.length ? 'Fill in: ' + miss.map(function (f) { return f.label; }).join(', ') + '.' : (cfg.validate ? cfg.validate(v) : '');
+    if (bad) { var er = $('dlg-err'); er.textContent = bad; er.hidden = false; return; }
+    closeDlg(); setBusy(true);
+    var okRun = false, snapRow = dlgRow, snap = null, replan = !cfg.readOnly && PLAN_ACTIONS.indexOf(cfg.key) >= 0;
+    // The plan the options were built on, to see later whether M3's planning has caught up with the write.
+    if (replan && snapRow && snapRow.item && snapRow.whs) { try { var p0 = await loadPlan(snapRow.item, snapRow.whs); snap = p0 ? JSON.stringify(p0) : null; } catch (e) { snap = null; } }
+    try {
+      okRun = await cfg.live(v);
+      if (okRun && cfg.res) await addResolution(cfg.res(v), cfg.logId);
+    } catch (e) { log('bad', 'Stopped. ' + errText(e) + ' Check the record in M3 to see where it got to.', cfg.logId); }
+    state.busy = false;
+    if (!cfg.readOnly) await refresh(true); else renderAll();
+    if (okRun && replan) settleOptions(snapRow, snap);
+  });
+
+  // ---------- helpers for the writes ----------
+  var readLines = async function (po) { return rowsOf(await call('M3_PPS200MI_SearchLine', { PurchaseOrderNumber_ExactSearch: po }, fresh)).map(lineRow); };
+  // Reads again until the check passes: M3 updates some records a moment after the write.
+  var settle = async function (read, ok, tries, ms) {
+    var last = null;
+    for (var i = 0; i < tries; i++) { await wait(ms); try { last = await read(); if (ok(last)) return { ok: true, v: last }; } catch (e) { last = null; } }
+    return { ok: false, v: last };
+  };
+  var headCode = function (row) {
+    var raw = pick(row, ['LowestPurchaseOrderStatus']), c = scode(raw); if (c != null) return c;
+    var t = String(raw || ''); if (/^ReadyForPrintout/i.test(t)) return 15; if (/^(Printed|Confirmed|ConfirmedDate|ConfirmedPrice|Advised|Notified|Received)/i.test(t)) return 20; return null;
+  };
+
+  // ---------- the actions: confirm first, write once, read it back, log it ----------
+  ACTIONS.confirmLine = { label: 'Confirm date', icon: 'report',
+    build: function (r) {
+      return { title: 'Confirm date', logId: r.po, lead: 'Confirms what the supplier agreed for ' + idText(r) + ' (' + itemText(r) + ', ordered ' + fmtN(r.qty) + '). M3 then recalculates the planned date from it.',
+        fields: [field('po', 'PO', r.po, { hidden: true }), field('line', 'Line', r.line, { hidden: true }), field('suffix', 'Suffix', r.suffix, { hidden: true }),
+          field('date', 'Confirmed delivery date', r.conf || r.req || r.plan || '', { type: 'date', required: true, hint: 'Starts at the confirmed date on the PO if there is one, otherwise the requested date. Change it to the date the goods are in our warehouse, as the supplier gave it.' }),
+          field('qty', 'Confirmed quantity', (r.confQty > 0 ? r.confQty : r.qty), { type: 'number', required: true, hint: 'Starts at the confirmed quantity on the PO if there is one, otherwise the ordered quantity (' + fmtN(r.qty) + '). Change it if the supplier confirmed a different one.' }),
+          field('price', 'Confirmed price (optional)', '', { type: 'number', hint: 'Leave empty if the supplier gave no price.' }),
+          field('rest', 'If the quantity is below the ordered one', '', { type: 'select', options: ['Yes, the rest comes later', 'No, drop the rest'], hint: 'Do you still expect the rest from the supplier? Without an answer M3 would split the line.' })],
+        steps: ['PO ' + r.po + ' line ' + r.line + ': the date and quantity above are confirmed.', 'M3 moves the planned date to match the confirmed date; a later date means the supply arrives later in the plan.', 'The page reads the line back and tells you what M3 shows.'],
+        go: 'Confirm date',
+        validate: function (v) { var q = Number(v.qty); if (!(q > 0)) return 'The confirmed quantity must be above 0.'; if (q < (r.qty || 0) && !v.rest) return 'The quantity is below the ordered ' + fmtN(r.qty) + '. Say whether you still expect the rest.'; return ''; },
+        res: function (v) { return 'Confirmed date ' + v.date + ' for ' + fmtN(Number(v.qty)) + ' on PO ' + v.po + ' line ' + v.line + '.'; },
+        live: async function (v) {
+          var po = String(v.po), ln = Number(v.line), sf = Number(v.suffix || 0), qty = Number(v.qty), rest = /^Yes/.test(v.rest || '') ? 'later' : /^No/.test(v.rest || '') ? 'drop' : '';
+          var find = function (ls) { return ls.find(function (l) { return l.line === ln && l.suffix === sf; }); };
+          var before = find(await readLines(po));
+          if (!before) { log('bad', 'The line is not in M3 any more. Nothing was written.', po); return false; }
+          if (before.status != null && [15, 20, 25, 31, 32, 33, 35].indexOf(before.status) < 0) log('warn', 'The line is at "' + (STATUS_WORDS[before.status] || before.status) + '". M3 decides whether it can still be confirmed.', po);
+          var input = { PurchaseOrderNumber: po, PurchaseOrderLineNumber: ln, PurchaseOrderLineSuffix: sf, ConfirmedDeliveryDate: v.date, ConfirmedQuantity: qty };
+          if (String(v.price || '').trim()) input.ConfirmedPurchasePrice = Number(v.price);
+          if (rest === 'drop') input.FinishMark = true;
+          try { await call('M3_PPS001MI_ConfirmLine', input); log('info', 'Sent the confirmation to M3 (' + v.date + ', ' + fmtN(qty) + '). Reading the line back…', po); }
+          catch (e) { if (!ambiguous(e)) { log('bad', 'M3 did not confirm it: ' + errText(e) + ' Nothing was changed.', po); return false; } log('warn', 'No clear answer from M3. Reading the line to see whether it was saved. ' + errText(e), po); }
+          var res = await settle(function () { return readLines(po); }, function (ls) { var l = find(ls); return !!l && l.conf === v.date; }, 4, 2000);
+          var after = res.v ? find(res.v) : null;
+          if (!res.ok) { log('warn', 'M3 did not do what was asked, or has not finished: line ' + ln + ' shows ' + (after && after.conf ? 'confirmed ' + after.conf : 'no confirmed date') + ', not ' + v.date + '. Check PO ' + po + ' in M3 before trying again.', po); return false; }
+          var msg = 'M3 shows line ' + ln + ' confirmed for ' + after.conf + ', quantity ' + fmtN(after.confQty) + ', "' + (STATUS_WORDS[after.status] || after.statusRaw || 'status not available') + '".';
+          if (before.plan && after.plan && before.plan !== after.plan) msg += ' The planned date moved from ' + before.plan + ' to ' + after.plan + '.';
+          if (after.confQty != null && after.confQty !== qty) log('warn', msg + ' The confirmed quantity differs from the ' + fmtN(qty) + ' you typed.', po); else log('ok', msg, po);
+          if (before.qty != null && qty < before.qty) {
+            var subs = res.v.filter(function (l) { return l.line === ln && l.suffix > 0; });
+            if (rest === 'later') log(subs.length ? 'ok' : 'warn', subs.length ? 'The rest (' + fmtN(subs[0].qty) + ') is a separate subline that still needs its own confirmation.' : 'You said the rest comes later, but M3 shows no remaining subline yet (it can lag). Check the PO in M3.', po);
+            if (rest === 'drop') log(subs.length ? 'warn' : 'ok', subs.length ? 'You said to drop the rest, but M3 still shows a remaining subline. Do not treat the rest as dropped; check it in M3.' : 'M3 shows no remaining subline: the rest is dropped.', po);
+          }
+          log('info', 'The page now re-reads the plan to show what this does to the orders.', po);
+          return true;
+        } }; },
+    what: 'Confirms the date the supplier gave.' };
+
+  ACTIONS.sendPO = { label: 'Send PO', icon: 'send',
+    build: function (r) {
+      return { title: 'Send the order to the supplier', logId: r.po, lead: 'Prints PO ' + r.po + ' for ' + supLabel(r.supplier, r.supplierName) + '. In M3, status Printed (20) means the supplier has the order.',
+        fields: [field('po', 'PO', r.po, { hidden: true })],
+        steps: ['The page reads the order again. A stopped order is not sent.', 'M3 is asked to print PO ' + r.po + '. An order that was printed before is only printed as a copy.', 'The page reads the order back and tells you what M3 shows. It cannot see whether the document was produced or delivered.'],
+        go: 'Send PO', foot: 'This has an effect outside M3: the supplier receives the order. It cannot be undone from here.',
+        res: function () { return 'Asked M3 to send PO ' + r.po + ' to ' + supLabel(r.supplier, r.supplierName) + ' (the print request was accepted).'; },
+        live: async function (v) {
+          var po = String(v.po), ls = await readLines(po);
+          if (!ls.length) { log('bad', 'M3 shows no lines on this order. Nothing was written.', po); return false; }
+          var stopped = ls.filter(function (l) { return l.status >= 11 && l.status <= 14; });
+          if (stopped.length) { log('bad', 'The order is stopped (' + (STATUS_WORDS[stopped[0].status] || 'a stop') + '). Clear the stop in M3 first. Nothing was written.', po); return false; }
+          var copy = ls.every(function (l) { return l.status != null && l.status >= 20; });
+          var input = { PurchaseOrderNumber: po }; if (copy) input.PrintCopies = 1;
+          try { await call('M3_PPS600MI_PrintPO', input); log('ok', 'M3 accepted the print request' + (copy ? ' (a copy: the order was printed before)' : '') + '. This page cannot see whether the document was produced or delivered.', po); }
+          catch (e) { log(ambiguous(e) ? 'warn' : 'bad', (ambiguous(e) ? 'No clear answer from M3. Check the order in M3 before sending again. ' : 'M3 did not print it: ') + errText(e), po); return false; }
+          var res = await settle(async function () { return rowsOf(await call('M3_PPS200MI_SearchHead', { PurchaseOrderNumber_ExactSearch: po }, fresh))[0]; }, function (h) { var c = h && headCode(h); return c != null && c >= 20; }, 3, 2500);
+          if (res.ok) log('ok', 'M3 now shows the order as sent (' + String(pick(res.v, ['LowestPurchaseOrderStatus'])) + '): per M3\'s status the supplier has it.', po);
+          else log('warn', 'M3 does not show the order as sent yet' + (res.v ? ' (it shows ' + String(pick(res.v, ['LowestPurchaseOrderStatus']) || 'no status') + ')' : '') + '. Printing runs as a job: refresh in a moment, and check in M3 if it stays so.', po);
+          return true;
+        } }; },
+    what: 'Prints the order so the supplier receives it.' };
+
+  ACTIONS.releasePOP = { label: 'Release', icon: 'release',
+    build: function (r) {
+      var f = [field('po', 'Planned order', String(r.planned.no), { hidden: true })];
+      if (r.am === 'DeleteOrder') f.push(field('anyway', 'M3 suggests deleting this planned order', '', { type: 'select', required: true, options: ['Yes, release it anyway'], hint: 'M3 planning says the need has gone. Releasing creates a real purchase order of ' + fmtN(r.qty) + '.' }));
+      return { title: 'Release the planned order', logId: 'Planned PO ' + r.planned.no, lead: 'Turns planned order ' + r.planned.no + ' (' + itemText(r) + ', ' + fmtN(r.qty) + ' from ' + supLabel(r.supplier, r.supplierName) + ') into a purchase order.',
+        fields: f,
+        steps: ['The page reads your planned orders again and checks this one can be released and that no other planned order of this supplier is already at Released.', 'Planned order ' + r.planned.no + ' is set to Released.', 'The page checks that only this one is at Released, then asks M3 to run the release for this supplier and facility. M3 groups the planned orders of one supplier into one PO.', 'The page looks for the new PO and reads it back. A PO made from an overdue planned order keeps the old requested date.'],
+        go: 'Release', foot: 'A new purchase order is created in M3. It cannot be undone from here.',
+        res: function () { return 'Released planned order ' + r.planned.no + ' (' + itemText(r) + ', ' + fmtN(r.qty) + ' from ' + supLabel(r.supplier, r.supplierName) + ').'; },
+        live: async function (v) {
+          var p = r.planned, id = 'Planned PO ' + p.no;
+          var readPop = async function () { return rowsOf(await call('M3_PPS170MI_SearchPOP', { Buyer_ExactSearch: state.user }, fresh)).map(popRow); };
+          var rows = await readPop();
+          var me = rows.find(function (x) { return x.planned.no === p.no && x.planned.s1 === p.s1 && x.planned.s2 === p.s2; });
+          if (!me) { log('bad', 'It is not in your list of planned orders any more. Nothing was written.', id); return false; }
+          if (me.popStatus === 60) { log('bad', 'It is already at Released. Nothing was written.', id); return false; }
+          if (!releasable(me)) { log('bad', 'M3 will not release it from here: ' + (POP_WORDS[me.popStatus] || 'it is stopped') + '. Nothing was written.', id); return false; }
+          if (me.buyer && me.buyer !== state.user) { log('bad', 'It belongs to another buyer. Nothing was written.', id); return false; }
+          if (me.am === 'DeleteOrder' && !/^Yes/.test(v.anyway || '')) { log('bad', 'M3 suggests deleting it and you did not choose to release it anyway. Nothing was written.', id); return false; }
+          var clash = rows.filter(function (x) { return x.popStatus === 60 && x.planned.no !== p.no && x.supplier === me.supplier && x.fac === me.fac; });
+          if (clash.length) { log('bad', 'Planned order ' + clash.map(function (x) { return x.planned.no; }).join(', ') + ' is already at Released for this supplier and facility, so the release would take it too. Nothing was written.', id); return false; }
+          try { await call('M3_PPS170MI_UpdPlannedPO', { PlannedOrderNumber: p.no, PlannedOrderSubnumber: p.s1, PlannedOrderSubnumber2: p.s2, PlannedOrderStatus: 'Released' }); log('ok', 'Set planned order ' + p.no + ' to Released (step 1 of 2).', id); }
+          catch (e) { log(ambiguous(e) ? 'warn' : 'bad', 'M3 did not set it to Released: ' + errText(e) + ' The release was not run.', id); return false; }
+          var rows2 = await readPop();
+          var rel = rows2.filter(function (x) { return x.popStatus === 60 && x.supplier === me.supplier && x.fac === me.fac; });
+          if (rel.length !== 1 || rel[0].planned.no !== p.no) { log('bad', 'Stopped before the release: M3 shows ' + rel.length + ' planned orders at Released for this supplier and facility, not only this one. The release was NOT run. Planned order ' + p.no + ' is at Released now: set it back in M3 if you do not want it released.', id); return false; }
+          var heads = async function () { return rowsOf(await call('M3_PPS200MI_SearchHead', { Buyer_ExactSearch: state.user, SupplierNumber_ExactSearch: me.supplier, OrderDate_ExactSearch: state.today }, fresh)); };
+          var known = {}; try { (await heads()).forEach(function (h) { known[String(pick(h, ['PurchaseOrderNumber']))] = 1; }); } catch (e) { /* the new PO is then found by its lines */ }
+          try { await call('M3_PPS170MI_RelPOP', { FromBuyer: state.user, ToBuyer: state.user, FromSupplierNumber: me.supplier, ToSupplierNumber: me.supplier, FromFacility: me.fac, ToFacility: me.fac }); log('ok', 'Asked M3 to run the release (step 2 of 2). It runs in the background.', id); }
+          catch (e) { log(ambiguous(e) ? 'warn' : 'bad', 'The planned order is at Released, but the release did not run cleanly: ' + errText(e) + ' Check in M3 before trying again.', id); return false; }
+          var res = await settle(heads, function (hs) { return hs.some(function (h) { return !known[String(pick(h, ['PurchaseOrderNumber']))]; }); }, 6, 2500);
+          var newPo = res.v && res.v.map(function (h) { return String(pick(h, ['PurchaseOrderNumber'])); }).find(function (n) { return !known[n]; });
+          var gone = false; try { gone = !(await readPop()).some(function (x) { return x.planned.no === p.no; }); } catch (e) { gone = false; }
+          if (newPo) {
+            var ls = []; try { ls = await readLines(newPo); } catch (e) { ls = []; }
+            log('ok', 'M3 created PO ' + newPo + ' with ' + (ls.length ? ls.length + ' line' + (ls.length === 1 ? '' : 's') + ': ' + ls.map(function (l) { return itemText(l) + ' × ' + fmtN(l.qty) + ', requested ' + (l.req || 'not set') + ', "' + (STATUS_WORDS[l.status] || l.statusRaw || 'status not available') + '"'; }).join('; ') : 'lines that M3 has not shown yet') + '.', newPo);
+            if (me.rel && me.rel < state.today) log('warn', 'The planned order was overdue, so the new PO keeps the old requested date. A real delivery date has to come from the supplier.', newPo);
+          } else log('warn', 'M3 has not shown the new PO yet. The release runs in the background: refresh in a moment or look in M3.' + (gone ? ' The planned order is gone from your list.' : ' The planned order is still in your list.'), id);
+          return !!newPo || gone;
+        } }; },
+    what: 'Turns a planned order into a purchase order.' };
+
+  ACTIONS.makeDO = { label: 'Create proposal', icon: 'transfer',
+    build: function (r) {
+      var cands = ((r.opt && r.opt.cands) || []).filter(function (x) { return x.rel; });
+      return { title: 'Create a distribution order proposal', logId: r.po, lead: 'Proposes moving ' + itemText(r) + ' from another warehouse to ' + r.whs + ' while ' + idText(r) + ' is late. ' + (cands.length ? cands.map(function (x) { return 'Warehouse ' + x.whs + ' has ' + fmtN(x.free) + ' free above its safety stock' + (x.own ? ', but it has demand of its own (' + fmtN(x.own) + '): check its plan' : '') + '.' + (x.rel && x.rel.days != null ? ' Transport takes ' + x.rel.days + ' day' + (x.rel.days === 1 ? '' : 's') + '.' : ''); }).join(' ') + ' ' : '') + 'It is a proposal: no stock has moved until M3 shows a distribution order.',
+        fields: [field('from', 'From warehouse', cands.length ? cands[0].whs : '', { type: 'select', required: true, options: cands.map(function (x) { return x.whs; }), hint: cands.map(function (x) { return x.whs + ': ' + fmtN(x.free) + ' free above safety stock'; }).join('. ') }),
+          field('qty', 'Quantity', '', { type: 'number', required: true, hint: 'What the affected orders need before the late PO arrives, up to the free quantity.' }),
+          field('date', 'Planning date', state.today, { type: 'date', required: true, hint: 'Defaults to today. You can change it.' }),
+          field('status', 'Status of the proposal', 'Firm proposal (status 20)', { type: 'select', required: true, options: ['Firm proposal (status 20)', 'Released (status 60)'], hint: 'Firm: the planner releases it. Released: it is released in this same step and the planner has nothing left to release.' })],
+        steps: ['The page reads the stock in the sending warehouse again and stops if it is below the quantity.', 'M3 is asked to create the distribution order proposal for ' + r.item + ' into ' + r.whs + '.', 'The page reads the plan of the receiving warehouse and tells you which category and status M3 shows for it.'],
+        go: 'Create proposal', foot: 'It cannot be undone from here. Planned orders of a distribution order can only be removed in M3.',
+        validate: function (v) { var q = Number(v.qty), c = cands.find(function (x) { return x.whs === v.from; }); if (!(q > 0)) return 'The quantity must be above 0.'; if (c && q > c.free) return 'Warehouse ' + c.whs + ' has only ' + fmtN(c.free) + ' free above its safety stock.'; return ''; },
+        res: function (v) { return 'Created a distribution order proposal for ' + fmtN(Number(v.qty)) + ' of ' + itemText(r) + ' from ' + v.from + ' to ' + r.whs + ' (' + v.status.replace(/ \(.*/, '').toLowerCase() + ').'; },
+        live: async function (v) {
+          var qty = Number(v.qty), want = /Released/.test(v.status) ? 60 : 20;
+          var now = rowsOf(await call('M3_MMS200MI_LstItmWhsByItm', { ItemNumber: r.item, Warehouse: v.from }, fresh))[0];
+          var free = now ? (num(pick(now, ['AvailableInventory', 'AllocatableNet'])) || 0) - (num(pick(now, ['SafetyStock'])) || 0) : null;
+          if (free == null || free < qty) { log('bad', 'Warehouse ' + v.from + ' now has ' + (free == null ? 'no stock figure' : fmtN(free) + ' free above safety stock') + ', less than ' + fmtN(qty) + '. Nothing was written.', r.po); return false; }
+          var input = { FromWarehouse: v.from, Warehouse: r.whs, ItemNumber: r.item, PlannedQuantity: qty, PlanningDate: v.date, PlannedOrderStatus: want === 60 ? 'Released' : 'Pur/planMan' };
+          try { await call('M3_DPS170MI_CrtPlannedDO', input); log('info', 'Sent the proposal to M3: ' + fmtN(qty) + ' from ' + v.from + ' to ' + r.whs + '. Reading the plan back…', r.po); }
+          catch (e) { log(ambiguous(e) ? 'warn' : 'bad', (ambiguous(e) ? 'No clear answer from M3. Check the plan in M3 before trying again. ' : 'M3 did not create it: ') + errText(e), r.po); return false; }
+          var res = await settle(async function () { return rowsOf(await call('M3_MMS080MI_LstMtPlByItmWhs', { ItemNumber: r.item, Warehouse: r.whs }, fresh)); }, function (rows) { return rows.some(function (x) { return /PlannedDo|DistributionOrder/i.test(String(pick(x, ['OrderCategory']) || '')) && (num(pick(x, ['TransactionQuantity'])) || 0) > 0 && Math.abs((num(pick(x, ['TransactionQuantity'])) || 0) - qty) < 1e-9 && String(pick(x, ['ReferenceText']) || '').indexOf(v.from) > -1; }); }, 4, 2000);
+          var hit = res.v && res.v.find(function (x) { return /PlannedDo|DistributionOrder/i.test(String(pick(x, ['OrderCategory']) || '')) && Math.abs((num(pick(x, ['TransactionQuantity'])) || 0) - qty) < 1e-9 && String(pick(x, ['ReferenceText']) || '').indexOf(v.from) > -1; });
+          if (!hit) { log('warn', 'M3 accepted the call, but the plan of ' + r.whs + ' does not show the proposal yet (new planned orders can take a moment). Check in M3 before trying again.', r.po); return false; }
+          var st = num(pick(hit, ['Status'])), cat = String(pick(hit, ['OrderCategory']));
+          log(st === want ? 'ok' : 'warn', 'M3 shows ' + cat + ' ' + String(pick(hit, ['OrderNumber']) || '') + ', status ' + (st == null ? 'not available' : st) + ', ' + fmtN(qty) + ' on ' + (isoDate(pick(hit, ['PlanningDate'])) || 'no date') + '.' + (st === want ? '' : ' That is not the ' + want + ' you asked for: do not call it ' + (want === 60 ? 'released' : 'firm') + '.'), r.po);
+          return st === want;
+        } }; },
+    what: 'Proposes moving stock between your own warehouses.' };
+
+  ACTIONS.markMsg = { label: 'Mark completed', icon: 'report',
+    build: function (r) {
+      return { title: 'Mark the message completed', logId: 'Mail ' + r.msg.id, lead: 'Sets mail ' + r.msg.id + ' in your own inbox to Completed. It does not do what the message asks.', fields: [field('id', 'Mail', r.msg.id, { hidden: true })],
+        steps: ['M3 is asked to set the message to Completed.', 'The page reads your new messages again and checks it is gone from the list.'], go: 'Mark completed',
+        res: function () { return 'Marked mail ' + r.msg.id + ' completed.'; },
+        live: async function (v) {
+          try { await call('M3_CRS420MI_Complete', { MailId: v.id }); log('info', 'Asked M3 to complete mail ' + v.id + '. Reading your inbox back…', 'Mail ' + v.id); }
+          catch (e) { log(ambiguous(e) ? 'warn' : 'bad', (ambiguous(e) ? 'No clear answer from M3. Check the message in M3. ' : 'M3 did not complete it: ') + errText(e), 'Mail ' + v.id); return false; }
+          var res = await settle(async function () { return rowsOf(await call('M3_CRS420MI_LstByActDate', { CompanyNumber: Number(state.company) || undefined, MessageReceiver: state.user, FromStatus: 10, ToStatus: 10 }, fresh)); }, function (rows) { return !rows.some(function (x) { return String(pick(x, ['MailId', 'MailNumber'])) === String(v.id) && (pick(x, ['Status', 'MessageStatus']) == null || scode(pick(x, ['Status', 'MessageStatus'])) === 10); }); }, 3, 1500);
+          log(res.ok ? 'ok' : 'warn', res.ok ? 'M3 no longer lists mail ' + v.id + ' as new.' : 'M3 still lists mail ' + v.id + ' as new. Check it in M3.', 'Mail ' + v.id);
+          return res.ok;
+        } }; },
+    what: 'Marks a message completed.' };
+
+  ACTIONS.emailDraft = { label: 'Email', icon: 'mail',
+    build: function (r) {
+      var m = r.mail;
+      return { title: 'Email draft', logId: r.id, lead: 'Opens a draft in your own mail program. Nothing is sent from this page.', fields: [], text: m.body, go: 'Open in mail program', readOnly: true,
+        steps: ['To: ' + (m.to || '(add the recipient yourself: M3 gave no address)'), 'Subject: ' + m.subject, 'If your mail program does not open, use Copy text and paste it into a new email.'],
+        res: function () { return 'Opened an email draft ' + m.what + ' about ' + r.id + '.'; },
+        live: async function () {
+          var a = document.createElement('a'); a.href = 'mailto:' + m.to + '?subject=' + encodeURIComponent(m.subject) + '&body=' + encodeURIComponent(m.body);
+          a.target = '_blank'; a.rel = 'noopener'; a.style.display = 'none'; document.body.appendChild(a); a.click(); a.remove();
+          log('info', 'Opened an email draft ' + m.what + '. Nothing is sent from this page.', r.id); return true;
+        } }; },
+    what: 'Prepares an email draft.' };
+  ACTIONS.mailSupplier = { custom: function (r) {
+    var t = state.drafts[r.id] || draftText(r), m = t.match(/^Subject: (.*)\n\n/);
+    runAction({ id: r.id, mail: { to: '', subject: m ? m[1] : 'Purchase order ' + r.po, body: m ? t.slice(m[0].length) : t, what: 'to the supplier' } }, 'emailDraft');
+  } };
+
+
+  // ---------- create a PO by batch entry (used by "Buy from another supplier" and the Create PO tab) ----------
+  var poLive = async function (v) {
+    var lines = JSON.parse(v.lines), agree = JSON.parse(v.agree || '{}'), id = 'New PO';
+    var stop = function (msg, kind) { log(kind || 'bad', msg, id); return false; };
+    var started, msgNo;
+    try { started = recordOf(await call('M3_PPS370MI_StartEntry', { BatchOrigin: 'AUTO' })); } catch (e) { return stop('M3 did not start the batch: ' + errText(e) + ' Nothing was created.'); }
+    msgNo = pick(started, ['MessageNumber']);
+    if (msgNo == null) return stop('M3 gave no message number. Nothing was created.');
+    var open = ' The batch (message number ' + msgNo + ') stays open in M3: clear it in PPS370. Do not start a second batch from here.';
+    var po;
+    try { po = String(pick(recordOf(await call('M3_PPS370MI_AddHead', { MessageNumber: msgNo, SupplierNumber: v.supplier, Facility: v.fac, Warehouse: v.whs, RequestedDeliveryDate: v.date })), ['PurchaseOrderNumber']) || ''); }
+    catch (e) { return stop('M3 refused the header: ' + errText(e) + open); }
+    if (!po) return stop('M3 gave no PO number for the header.' + open);
+    id = 'PO ' + po;
+    log('info', 'Batch ' + msgNo + ' started and the header added for PO ' + po + '.', id);
+    var lineNos = [];
+    for (var i = 0; i < lines.length; i++) {
+      try {
+        var al = recordOf(await call('M3_PPS370MI_AddLine', { MessageNumber: msgNo, ItemNumber: lines[i].item, OrderedQuantityAltUom: lines[i].qty, PurchaseOrderNumber: po }));
+        var rp = String(pick(al, ['PurchaseOrderNumber']) || po); if (rp !== po) return stop('Line ' + (i + 1) + ' came back on PO ' + rp + ', not ' + po + '. FinishEntry was not run.' + open);
+        lineNos.push(num(pick(al, ['PurchaseOrderLineNumber'])));
+      } catch (e) { return stop('M3 refused line ' + (i + 1) + ' (' + lines[i].item + '): ' + errText(e) + ' FinishEntry was not run.' + open); }
+    }
+    try { await call('M3_PPS370MI_FinishEntry', { MessageNumber: msgNo }); log('ok', 'Asked M3 to finish the batch. The PO is created by a background job.', id); }
+    catch (e) { return stop((ambiguous(e) ? 'No clear answer from M3 on the finish: ' : 'M3 did not finish the batch: ') + errText(e) + open, ambiguous(e) ? 'warn' : 'bad'); }
+    var hd = await settle(async function () { try { return recordOf(await call('M3_PPS200MI_GetHead', { PurchaseOrderNumber: po }, fresh)); } catch (e) { var r2 = rowsOf(await call('M3_PPS200MI_SearchHead', { SupplierNumber_ExactSearch: v.supplier, Buyer_ExactSearch: state.user }, fresh)).filter(function (h) { return String(pick(h, ['PurchaseOrderNumber'])) === po; })[0]; return r2 || null; } }, function (h) { return !!h && !!pick(h, ['SupplierNumber', 'Supplier']); }, 4, 30000);
+    if (!hd.ok) return stop('Something went wrong, please check the Purchase order batch order entry in M3. Message number ' + msgNo + ', PO number ' + po + '. The page does not run FinishEntry again or start a new batch.');
+    var h = hd.v, diffs = [];
+    var chk = function (label, got, want) { if (want != null && String(got) !== String(want)) diffs.push(label + ': M3 shows ' + (got || 'nothing') + ', you asked for ' + want); };
+    chk('Supplier', pick(h, ['SupplierNumber']), v.supplier); chk('Facility', pick(h, ['Facility']), v.fac); chk('Warehouse', pick(h, ['Warehouse']), v.whs);
+    var rd = isoDate(pick(h, ['RequestedDeliveryDate'])); if (rd) chk('Requested date', rd, v.date);
+    var by = pick(h, ['Buyer']); if (by && String(by) !== state.user) diffs.push('Buyer: M3 shows ' + by + ', not you (' + state.user + ')');
+    var cur = String(pick(h, ['Currency']) || '');
+    var ls = []; try { ls = await readLines(po); } catch (e) { ls = []; }
+    var l2 = []; try { l2 = rowsOf(await call('M3_PPS200MI_LstLine2', { PurchaseOrderNumber: po }, fresh)); } catch (e) { l2 = []; }
+    lines.forEach(function (ln, k) {
+      var got = ls.find(function (x) { return x.item === ln.item; });
+      if (!got) { diffs.push('Line ' + (k + 1) + ' (' + ln.item + ') is not visible yet (the line search lags a little)'); return; }
+      if (got.qty !== ln.qty) diffs.push('Line ' + (k + 1) + ' quantity: M3 shows ' + fmtN(got.qty) + ', you asked for ' + fmtN(ln.qty));
+      var row2 = l2.find(function (x) { return String(pick(x, ['ItemNumber'])) === ln.item; }), pl = row2 && num(pick(row2, ['PurchasePriceLocalCurrency'])), ag = agree[ln.item];
+      if (ag && ag.price != null && pl != null) { if (Math.abs(pl - ag.price) > 1e-6) diffs.push('Price of ' + ln.item + ': the line shows ' + fmtN(pl) + ' in the local currency, the agreement says ' + fmtN(ag.price) + ' ' + (ag.cur || '(local currency)')); }
+      else log('info', 'The price of ' + ln.item + ' cannot be compared with an agreement from here (currencies or the agreement not available): check it in M3.', id);
+    });
+    var first = ls[0];
+    log(diffs.length ? 'warn' : 'ok', 'M3 shows PO ' + po + ' for supplier ' + v.supplier + ' with ' + (ls.length || 'no visible') + ' line' + (ls.length === 1 ? '' : 's') + (cur ? ', currency ' + cur : '') + (first ? ', status "' + (STATUS_WORDS[first.status] || first.statusRaw || 'not available') + '"' : '') + '.' + (diffs.length ? ' Differences: ' + diffs.join('; ') + '.' : ''), id);
+    if (first && first.status === 20) log('info', 'M3 already shows the order as sent (status 20): the supplier has it. It is not offered for printing.', id);
+    if (v.cdate && v.cqty) {
+      var nl = ls.find(function (x) { return x.item === lines[0].item; }), ln1 = nl ? nl.line : lineNos[0];
+      if (!nl || (nl.status !== 15 && nl.status !== 20) || (nl.recQty || 0) > 0 || nl.qty !== lines[0].qty) return stop('The new line is not as expected for a confirmation (status ' + (nl && nl.status) + '). The PO exists; the confirmation was not made. Use "Confirm date" on it.', 'warn') || true;
+      try { await call('M3_PPS001MI_ConfirmLine', { PurchaseOrderNumber: po, PurchaseOrderLineNumber: ln1, PurchaseOrderLineSuffix: 0, ConfirmedDeliveryDate: v.cdate, ConfirmedQuantity: Number(v.cqty) }); }
+      catch (e) { log(ambiguous(e) ? 'warn' : 'bad', 'The PO exists, but M3 did not confirm the line: ' + errText(e) + ' Use "Confirm date" on it.', id); return true; }
+      var cr = await settle(function () { return readLines(po); }, function (x) { var l = x.find(function (y) { return y.line === ln1 && y.suffix === 0; }); return !!l && l.conf === v.cdate; }, 4, 2000);
+      var cl = cr.v && cr.v.find(function (y) { return y.line === ln1 && y.suffix === 0; });
+      log(cr.ok ? 'ok' : 'warn', cr.ok ? 'M3 shows the new line confirmed for ' + cl.conf + ', quantity ' + fmtN(cl.confQty) + ', status "' + (STATUS_WORDS[cl.status] || cl.statusRaw || 'not available') + '". The planned date moved with it.' : 'M3 did not do what was asked: the new line does not show the confirmed date ' + v.cdate + ' (it shows ' + (cl && cl.conf || 'none') + '). Check PO ' + po + ' in M3.', id);
+    } else log('info', 'The new line is not confirmed yet: when the supplier answers, use "Confirm date" on it.', id);
+    log('info', 'The delayed original line still counts on its old date. Open it and confirm the supplier\'s real date, or finish mark it, so M3\'s action messages clear.', id);
+    return true;
+  };
+  var poSteps = ['M3 starts a batch, adds the header and the lines, and finishes the batch. The PO is created by a background job.', 'The page waits for it (up to about 2 minutes) and reads the header and every line back: supplier, buyer, facility, warehouse, dates, quantities and price.', 'Anything that differs from what you typed is shown. If a step fails, nothing more is done and no second batch is started.'];
+  ACTIONS.createAlt = { build: function (r, arg) {
+    var sh = r.imp && r.imp.short != null ? r.imp.short : null, ag = {};
+    return { title: 'Buy from another supplier', logId: 'New PO', lead: 'Creates a new PO directly for ' + withName(r.item, r.name) + '. The delayed ' + idText(r) + ' stays as it is until you decide about it.',
+      fields: [field('supplier', 'Supplier (valid agreement)', arg.alts[0].sup, { type: 'select', required: true, options: arg.alts.map(function (a) { return a.sup; }), hint: arg.alts.map(function (a) { return a.sup + (a.price != null ? ': ' + fmtN(a.price) + ' ' + (a.cur || '') + ' (local currency)' : ''); }).join('. ') }),
+        field('fac', 'Facility', r.fac, { required: true, hint: 'From the delayed line. Change it if needed.' }), field('whs', 'Warehouse', r.whs, { required: true, hint: 'From the delayed line. Change it if needed.' }),
+        field('date', 'Requested delivery date', arg.arrive || '', { type: 'date', required: true, hint: arg.arrive ? 'Today plus the warehouse lead time of ' + arg.lead + ' days. Change it if the supplier says otherwise.' : 'M3 gave no lead time: type the date.' }),
+        field('qty', 'Quantity', '', { type: 'number', required: true, hint: 'Short without the delayed PO: ' + (sh != null && sh > 0 ? fmtN(sh) : 'not known') + '. The delayed line is for ' + fmtN(r.qty) + '. Type the quantity to buy.' }),
+        field('cdate', 'Supplier already confirmed: date (optional)', '', { type: 'date', hint: 'Only if the supplier has confirmed. Leave both empty if not yet.' }), field('cqty', 'Supplier already confirmed: quantity (optional)', '', { type: 'number' }),
+        field('item', 'Item', r.item, { hidden: true })],
+      steps: poSteps, go: 'Create PO', foot: 'A new purchase order is created in M3. It cannot be undone from here.',
+      validate: function (v) { if (!(Number(v.qty) > 0)) return 'The quantity must be above 0.'; if (!!v.cdate !== !!v.cqty) return 'Give both the confirmed date and quantity, or leave both empty.'; if (v.cqty && Number(v.cqty) <= 0) return 'The confirmed quantity must be above 0.'; return ''; },
+      res: function (v) { return 'Created a new PO to supplier ' + v.supplier + ' for ' + fmtN(Number(v.qty)) + ' of ' + withName(r.item, r.name) + ', requested ' + v.date + '.'; },
+      live: async function (v) { var a = arg.alts.find(function (x) { return x.sup === v.supplier; }) || {}; ag[r.item] = { price: a.price, cur: a.cur }; v.lines = JSON.stringify([{ item: r.item, qty: Number(v.qty) }]); v.agree = JSON.stringify(ag); return poLive(v); } }; } };
+  ACTIONS.createNew = { build: function (r, plan) {
+    var f = [field('supplier', 'Supplier', plan.supplier, { hidden: true }), field('fac', 'Facility', plan.fac, { hidden: true }), field('whs', 'Warehouse', plan.whs, { hidden: true }), field('date', 'Date', plan.date, { hidden: true }), field('lines', 'Lines', JSON.stringify(plan.lines), { hidden: true }), field('agree', 'Agreements', JSON.stringify(plan.agree), { hidden: true })];
+    if (plan.dups.length) f.push(field('anyway', 'A PO or planned PO already exists for this', '', { type: 'select', required: true, options: ['Yes, create a new PO anyway'], hint: plan.dups.join('; ') + '. Add to the existing one or release the planned one instead, unless you really want a new PO.' }));
+    return { title: 'Create a new PO', logId: 'New PO', lead: 'Create a new PO to ' + supLabel(plan.supplier, plan.supName) + ', facility ' + plan.fac + ', warehouse ' + plan.whs + ', requested ' + plan.date + ': ' + plan.lines.map(function (l, i) { return 'line ' + (i + 1) + ' ' + withName(l.item, l.name) + ' × ' + fmtN(l.qty); }).join('; ') + '. ' + plan.notes.join(' '),
+      fields: f, steps: poSteps, go: 'Create PO', foot: 'A new purchase order is created in M3. It cannot be undone from here.',
+      res: function () { return 'Created a new PO to supplier ' + plan.supplier + ': ' + plan.lines.map(function (l) { return fmtN(l.qty) + ' × ' + l.item; }).join(', ') + ', requested ' + plan.date + '.'; },
+      live: async function (v) { var ok = await poLive(v); if (ok) { buildNewForm(); updateNew(); $('newmsg').textContent = ''; } return ok; } }; } };
+
+  // ---------- swap material on an MO (approval is explicit and required) ----------
+  ACTIONS.swapMat = { build: function (r, arg) {
+    var m = arg.mo, s = arg.sub, subTxt = withName(s.item, s.name), prod = withName(m.product, m.productName);
+    return { title: 'Swap material on MO ' + m.no, logId: 'MO ' + m.no, lead: prod + ', facility ' + m.fac + ', line ' + m.seq + '. Component ' + withName(r.item, r.name) + ' to ' + subTxt + ' (related item, replacement type ' + s.type + '). Quantity ' + fmtN(m.qty) + ' and warehouse ' + m.whs + ' stay as they are. Why: ' + idText(r) + ' is late. ' + s.arith + '.',
+      fields: [field('fac', 'Facility', m.fac, { hidden: true }), field('mo', 'MO', m.no, { hidden: true }), field('product', 'Product', m.product, { hidden: true }), field('seq', 'Line', m.seq, { hidden: true }), field('orig', 'Original', r.item, { hidden: true }), field('sub', 'Substitute', s.item, { hidden: true }), field('qty', 'Quantity', m.qty, { hidden: true }), field('whs', 'Warehouse', m.whs, { hidden: true }),
+        field('approval', 'Approval', '', { type: 'select', required: true, options: ['Yes, engineering or quality has approved ' + s.item + ' for ' + m.product + ', and quantity ' + fmtN(m.qty) + ' is right'], hint: 'M3 does not hold this approval. Choose it only if it is in place. A click on Swap or Confirm alone is not approval.' })],
+      steps: ['M3 changes the material line to the substitute (the component only).', 'Only if M3 shows the change, the MO is rescheduled with no date change: on its current start date ' + m.start + ', quantity ' + fmtN(m.ordQty) + ', infinite capacity. M3 recalculates the order, may change the times and the finish, and raises the priority to high.', 'The page reads the line and the MO back and tells you what M3 shows.'],
+      go: 'Swap material', foot: 'Not changed: purchase orders and planned POs (including the late one), other MOs. This cannot be undone from here: going back means another swap or a change in M3.',
+      res: function () { return 'Swapped ' + r.item + ' for ' + s.item + ' on MO ' + m.no + ' line ' + m.seq + ' (approval confirmed on the page).'; },
+      live: async function (v) {
+        var id = 'MO ' + v.mo, key = { Facility: v.fac, ManufacturingOrderNumber: v.mo, ProductNumber: v.product, SequenceNumber: Number(v.seq) };
+        var cur = recordOf(await call('M3_PMS100MI_GetMatLine', key, fresh));
+        if (String(pick(cur, ['ComponentNumber']) || '') !== v.orig) { log('bad', 'The line no longer holds ' + v.orig + ' (it shows ' + (pick(cur, ['ComponentNumber']) || 'nothing') + '). Nothing was written.', id); return false; }
+        var hd = recordOf(await call('M3_PMS100MI_Get', { Facility: v.fac, ManufacturingOrderNumber: v.mo, ProductNumber: v.product }, fresh));
+        var st0 = scode(pick(hd, ['ManufacturingOrderStatus', 'Status', 'LowestStatus', 'HighestStatus'])), start = isoDate(pick(hd, ['StartDate', 'PlannedStartDate', 'StartingDate'])), oq = num(pick(hd, ['OrderedQuantityAltUom', 'OrderedQuantity']));
+        if ((st0 != null && st0 >= 90) || !start || oq == null) { log('bad', 'The order cannot be swapped and rescheduled now (completed, or M3 gave no start date or quantity). Nothing was written.', id); return false; }
+        var sr = await loadStockFresh(v.sub, v.whs);
+        if (!sr || sr.free < Number(v.qty)) { log('bad', 'The substitute now has ' + (sr ? fmtN(sr.free) : 'no stock record') + ' free, less than the ' + fmtN(Number(v.qty)) + ' needed. Nothing was written.', id); return false; }
+        try { await call('M3_PMS100MI_UpdMatLine', Object.assign({ ComponentNumber: v.sub }, key)); log('info', 'Asked M3 to change the line to ' + v.sub + '. Reading it back…', id); }
+        catch (e) { if (!ambiguous(e)) { log('bad', 'M3 refused the change: ' + errText(e) + ' Nothing was changed and the MO was not rescheduled.', id); return false; } log('warn', 'No clear answer from M3. Reading the line to see whether it was saved. ' + errText(e), id); }
+        var rb = await settle(async function () { return recordOf(await call('M3_PMS100MI_GetMatLine', key, fresh)); }, function (x) { return String(pick(x, ['ComponentNumber']) || '') === v.sub; }, 4, 2000);
+        if (!rb.ok) { log('warn', 'M3 did not do what was asked, or has not finished: the line shows ' + (rb.v && pick(rb.v, ['ComponentNumber']) || 'no component') + ', not ' + v.sub + '. The MO was not rescheduled. Check it in M3 before trying again.', id); return false; }
+        var q = num(pick(rb.v, ['ComponentQuantity'])), wh = String(pick(rb.v, ['Warehouse']) || '');
+        log(q === Number(v.qty) && (!wh || wh === v.whs) ? 'ok' : 'warn', 'M3 shows line ' + v.seq + ' now holds ' + v.sub + ', quantity ' + fmtN(q) + (wh ? ', warehouse ' + wh : '') + (q === Number(v.qty) ? '' : ' (not the ' + fmtN(Number(v.qty)) + ' it had)') + '.', id);
+        try { await call('M3_PMS100MI_Reschedule', { Facility: v.fac, ManufacturingOrderNumber: v.mo, ProductNumber: v.product, OrderedQuantityAltUom: oq, FiniteCapacityPlanning: false, StartDate: start }); log('info', 'Asked M3 to reschedule the MO on its current start date ' + start + ' (no date change).', id); }
+        catch (e) { log('warn', 'The swap stands, but M3 refused or did not answer the reschedule: ' + errText(e) + ' The MO is not recalculated: the planner can reschedule it in M3 on a date the planner chooses.', id); return true; }
+        var fin = await settle(async function () { return recordOf(await call('M3_PMS100MI_Get', { Facility: v.fac, ManufacturingOrderNumber: v.mo, ProductNumber: v.product }, fresh)); }, function (x) { return !/ChangeInProgress/i.test(String(pick(x, ['ManufacturingOrderStatus', 'Status']) || '')); }, 4, 3000);
+        var ns = fin.v && isoDate(pick(fin.v, ['StartDate', 'PlannedStartDate', 'StartingDate'])), nf = fin.v && isoDate(pick(fin.v, ['FinishDate', 'PlannedFinishDate'])), pr = fin.v && pick(fin.v, ['Priority']);
+        log(ns && ns !== start ? 'warn' : 'ok', 'M3 shows the MO start ' + (ns ? (ns === start ? ns + ' (unchanged)' : 'moved from ' + start + ' to ' + ns) : 'not available') + (nf ? ', finish ' + nf : '') + (pr ? ', priority ' + pr : '') + (fin.ok ? '' : '. M3 was still recalculating when the page stopped waiting') + '.', id);
+        return true;
+      } }; } };
+  var loadStockFresh = async function (item, whs) { var x = rowsOf(await call('M3_MMS200MI_LstItmWhsByItm', { ItemNumber: item, Warehouse: whs }, fresh))[0]; if (!x) return null; var oh = num(pick(x, ['ApprovedOnHandBalance', 'OnHandBalance', 'OnHand'])), av = num(pick(x, ['AvailableInventory', 'AllocatableNet'])); var base = oh != null ? oh : av; return base == null ? null : { free: base - (num(pick(x, ['ReservedPlannedOrderQuantity'])) || 0) - (num(pick(x, ['SafetyStock'])) || 0) }; };
+
+  // ---------- finish mark one line ----------
+  ACTIONS.finishMark = { build: function (r) {
+    var open = Math.max(0, (r.qty || 0) - (r.recQty || 0)), im = r.imp;
+    var dep = !im ? 'The impact on orders was not checked for this line.' : im.n ? im.n + ' order' + (im.n === 1 ? '' : 's') + ' depend on it, the first needed ' + im.firstNeed + '.' : 'Nothing in the plan depends on it.';
+    return { title: 'Finish mark the line', logId: r.po, lead: 'Finish mark PO ' + r.po + ' line ' + r.line + ' (' + withName(r.item, r.name) + ', ' + fmtN(r.qty) + ' ordered, ' + (r.confQty != null ? fmtN(r.confQty) + ' confirmed' : 'none confirmed') + '). M3 then expects nothing more on this line: ' + fmtN(open) + ' that is still open. ' + dep,
+      fields: [field('po', 'PO', r.po, { hidden: true }), field('line', 'Line', r.line, { hidden: true }), field('suffix', 'Suffix', r.suffix, { hidden: true }),
+        field('supplierOk', 'Have you confirmed with the supplier that you can close this order?', '', { type: 'select', required: true, options: ['Yes', 'No'], hint: 'Answer this before you finish mark. M3 then expects nothing more on this line and the supplier is not told by it. Only answer Yes if the supplier has agreed.' })],
+      steps: ['The page reads the order again and checks the line is still there and can be finish marked.', 'M3 is asked to finish mark this line only (PO number, line number and suffix are sent).', 'The page reads the order back and tells you what M3 shows. The finish flag itself may not be visible: if so, it says so.'],
+      go: 'Finish mark', foot: 'The supplier is not told by this: afterwards a draft e-mail about the cancelled line is prepared for you to check and send. It cannot be undone from here. This action has not been tested against a live M3 yet.',
+      res: function () { return 'Asked M3 to finish mark PO ' + r.po + ' line ' + r.line + ' (the call was accepted).'; },
+      live: async function (v) {
+        if (v.supplierOk !== 'Yes') { log('warn', 'Nothing was written. Finish mark only after you have confirmed with the supplier that you can close this order.', r.po); return false; }
+        var po = String(v.po), ln = Number(v.line), sf = Number(v.suffix || 0), ls = await readLines(po);
+        var me = ls.find(function (l) { return l.line === ln && l.suffix === sf; });
+        if (!me) { log('bad', 'The line is not in M3 any more. Nothing was written.', po); return false; }
+        if (me.status != null && (me.status >= 50 || me.status < 31)) { log('bad', 'The line is at "' + (STATUS_WORDS[me.status] || me.status) + '", which this page does not finish mark. Nothing was written.', po); return false; }
+        try { await call('M3_PPS001MI_FinishMark', { PurchaseOrderNumber: po, PurchaseOrderLineNumber: ln, PurchaseOrderLineSuffix: sf }); log('info', 'M3 accepted the finish mark for line ' + ln + '. Reading the order back…', po); }
+        catch (e) { log(ambiguous(e) ? 'warn' : 'bad', (ambiguous(e) ? 'No clear answer from M3. Check the line in M3 before trying again. ' : 'M3 did not finish mark it: ') + errText(e), po); return false; }
+        await wait(2000);
+        var after = await readLines(po), mine = after.find(function (l) { return l.line === ln && l.suffix === sf; });
+        log('info', 'M3 shows PO ' + po + ' line ' + ln + ' at "' + (mine ? (STATUS_WORDS[mine.status] || mine.statusRaw || 'status not available') : 'no longer listed') + '"' + (mine ? ', ordered ' + fmtN(mine.qty) + ', confirmed ' + fmtN(mine.confQty) + ', received ' + fmtN(mine.recQty) : '') + '. The finish flag may not be visible in what M3 returns: this page cannot confirm it from here. ' + (after.length === ls.length ? 'The order still has all its lines.' : 'The number of lines on the order changed from ' + ls.length + ' to ' + after.length + '.'), po);
+        try { state.drafts[r.id] = cancelDraftText(r, me, Math.max(0, (me.qty || 0) - (me.recQty || 0))); } catch (e) {}
+        log('warn', 'Next: tell the supplier. M3 does not, so the supplier still expects this line. A draft e-mail about the cancelled line is ready under "Message to the supplier": check it, then use Email or Copy text. Nothing is sent from this page.', po);
+        try { $('custdetails').open = true; renderDrafts(); } catch (e) {}
+        return true;
+      } }; } };
+
+  // ---------- delete one line (status 15 to 29) ----------
+  ACTIONS.deleteLine = { build: function (r) {
+    var im = r.imp;
+    var dep = !im ? 'The impact on orders was not checked for this line.' : im.n ? im.n + ' order' + (im.n === 1 ? '' : 's') + ' depend on it, the first needed ' + im.firstNeed + '.' : 'Nothing in the plan depends on it.';
+    var told = r.status >= 20 ? 'The supplier already has the order and is not told by this: use the message draft.' : 'The order has not been sent to the supplier yet.';
+    return { title: 'Delete the line', logId: r.po, lead: 'Delete PO ' + r.po + ' line ' + r.line + ' (' + withName(r.item, r.name) + ', ' + fmtN(r.qty) + ' ordered, ' + (STATUS_WORDS[r.status] || 'status ' + r.status) + '). M3 then no longer expects it. ' + dep + ' ' + told,
+      fields: [field('po', 'PO', r.po, { hidden: true }), field('line', 'Line', r.line, { hidden: true }), field('suffix', 'Suffix', r.suffix, { hidden: true })],
+      steps: ['The page reads the order again and checks the line is still there, is not a subline and is at status 15 to 29.', 'M3 is asked to delete this line only (PO number and line number are sent).', 'The page reads the order back and tells you whether the line is gone.'],
+      go: 'Delete line', foot: 'It cannot be undone from here. The supplier is not told by this. This action has not been tested against a live M3 from this page yet.',
+      res: function () { return 'Asked M3 to delete PO ' + r.po + ' line ' + r.line + ' (the call was accepted).'; },
+      live: async function (v) {
+        var po = String(v.po), ln = Number(v.line), sf = Number(v.suffix || 0), ls = await readLines(po);
+        var me = ls.find(function (l) { return l.line === ln && l.suffix === sf; });
+        if (!me) { log('bad', 'The line is not in M3 any more. Nothing was written.', po); return false; }
+        if (sf) { log('bad', 'This is a subline, and the delete tool cannot name a subline. Nothing was written.', po); return false; }
+        if (me.status == null || me.status < 15 || me.status > 29) { log('bad', 'The line is at "' + (STATUS_WORDS[me.status] || me.status) + '", which this page does not delete. Nothing was written.', po); return false; }
+        try { await call('M3_PPS200MI_DltLine', { PurchaseOrderNumber: po, PurchaseOrderLineNumber: ln }); log('info', 'M3 accepted the delete for line ' + ln + '. Reading the order back…', po); }
+        catch (e) { log(ambiguous(e) ? 'warn' : 'bad', (ambiguous(e) ? 'No clear answer from M3. Check the line in M3 before trying again. ' : 'M3 did not delete it: ') + errText(e), po); return false; }
+        await wait(2000);
+        var after = []; try { after = await readLines(po); } catch (e) { after = []; }
+        var still = after.find(function (l) { return l.line === ln && l.suffix === sf; });
+        if (still) { log('warn', 'M3 still lists line ' + ln + ' at "' + (STATUS_WORDS[still.status] || still.statusRaw || 'status not available') + '". It can lag: check PO ' + po + ' in M3 before trying again.', po); return false; }
+        log('ok', 'M3 no longer lists line ' + ln + ' on PO ' + po + '. ' + (after.length ? 'The order has ' + after.length + ' line' + (after.length === 1 ? '' : 's') + ' left.' : 'The order shows no lines now.'), po);
+        return true;
+      } }; } };
+
+  // ---------- the Create PO tab ----------
+  // Look-up fields: type a number or a name, pick from the list M3 returns. Search tools take no "contains", so each search asks M3 for a range that starts with what was typed.
+  var firstUp = function (t) { return t ? t.charAt(0).toUpperCase() + t.slice(1) : t; };
+  var prefixQ = function (name, p) { var q = {}; q[name + '_LargerThan'] = p; q[name + '_LessThan'] = p.slice(0, -1) + String.fromCharCode(p.charCodeAt(p.length - 1) + 1); return q; };
+  var searchRows = async function (tool, q) { try { return rowsOf(await call(tool, q, fresh)); } catch (e) { return []; } };
+  var LOOKUP_MAX = 15;
+  var searchSuppliers = async function (text) {
+    var t = text.trim(), u = t.toUpperCase();
+    var qs = t ? [{ SupplierNumber_ExactSearch: u }, prefixQ('SupplierNumber', u), prefixQ('SearchKey', u), prefixQ('SupplierName', firstUp(t))] : [{ SupplierNumber_LargerThan: '0' }];
+    var res = await Promise.all(qs.map(function (q) { return searchRows('M3_CRS620MI_SearchSupplier', q); }));
+    var seen = {}, out = [];
+    res.forEach(function (rows) { rows.forEach(function (x) { var n = String(pick(x, ['SupplierNumber']) || ''); if (!n || seen[n] || String(pick(x, ['Status']) || '') !== '20') return; seen[n] = 1; var nm = String(pick(x, ['SupplierName', 'Name']) || ''); if (nm) state.supNames[n] = nm; out.push({ value: n, label: n, sub: nm }); }); });
+    out.sort(function (a, b) { return a.value < b.value ? -1 : a.value > b.value ? 1 : 0; });
+    return { items: out.slice(0, LOOKUP_MAX), more: out.length > LOOKUP_MAX };
+  };
+  var searchItems = async function (text) {
+    var t = text.trim(), u = t.toUpperCase();
+    var qs = t ? [{ ItemNumber_ExactSearch: u }, prefixQ('ItemNumber', u), prefixQ('ItemName', firstUp(t))] : [{ ItemNumber_LargerThan: '0' }];
+    var res = await Promise.all(qs.map(function (q) { return searchRows('M3_MMS200MI_SearchItem', q); }));
+    var seen = {}, out = [];
+    res.forEach(function (rows) { rows.forEach(function (x) { var n = String(pick(x, ['ItemNumber']) || ''); if (!n || seen[n] || !/\(20\)/.test(String(pick(x, ['Status']) || ''))) return; seen[n] = 1; out.push({ value: n, label: n, sub: String(pick(x, ['ItemName']) || '') }); }); });
+    out.sort(function (a, b) { return a.value < b.value ? -1 : a.value > b.value ? 1 : 0; });
+    return { items: out.slice(0, LOOKUP_MAX), more: out.length > LOOKUP_MAX };
+  };
+  var makeLookup = function (cfg) {
+    var wrap = el('div', 'lk'), inp = el('input'), list = el('ul', 'lklist'), chosen = null, seq = 0, timer = null, hi = -1, items = [];
+    inp.type = 'text'; inp.id = cfg.id; inp.autocomplete = 'off'; inp.placeholder = cfg.placeholder || ''; inp.setAttribute('role', 'combobox'); inp.setAttribute('aria-autocomplete', 'list'); inp.setAttribute('aria-expanded', 'false');
+    list.hidden = true; list.setAttribute('role', 'listbox'); wrap.append(inp, list);
+    var close = function () { list.hidden = true; inp.setAttribute('aria-expanded', 'false'); hi = -1; };
+    var choose = function (it) { chosen = it; inp.value = it.label + (it.sub ? ' \u00b7 ' + it.sub : ''); inp.classList.add('picked'); close(); };
+    var paint = function (res, text) {
+      list.replaceChildren(); items = res.items;
+      if (!items.length) list.append(el('li', 'note', text ? 'Nothing found for "' + text + '".' : 'Nothing found.'));
+      items.forEach(function (it) { var li = el('li'); li.setAttribute('role', 'option'); li.append(el('span', null, it.label), el('span', 'sub', it.sub || '')); li.addEventListener('mousedown', function (e) { e.preventDefault(); choose(it); }); list.append(li); });
+      if (res.more) list.append(el('li', 'note', 'More matches exist. Keep typing to narrow the list.'));
+      list.hidden = false; inp.setAttribute('aria-expanded', 'true'); hi = -1;
+    };
+    var run = function () {
+      var text = inp.value, my = ++seq; list.replaceChildren(el('li', 'note', 'Searching\u2026')); list.hidden = false;
+      cfg.search(text).then(function (res) { if (my === seq && document.activeElement === inp) paint(res, text.trim()); }).catch(function () { if (my === seq) list.replaceChildren(el('li', 'note', 'The search failed. You can still type the number.')); });
+    };
+    inp.addEventListener('input', function () { chosen = null; inp.classList.remove('picked'); clearTimeout(timer); timer = setTimeout(run, 250); });
+    inp.addEventListener('focus', function () { if (!chosen) run(); });
+    inp.addEventListener('blur', function () { seq++; close(); });
+    inp.addEventListener('keydown', function (e) {
+      var lis = [].filter.call(list.children, function (x) { return x.getAttribute('role') === 'option'; });
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { if (list.hidden) { run(); return; } e.preventDefault(); if (lis.length) { hi = (hi + (e.key === 'ArrowDown' ? 1 : -1) + lis.length) % lis.length; lis.forEach(function (li, i) { li.classList.toggle('on', i === hi); }); lis[hi].scrollIntoView({ block: 'nearest' }); } }
+      else if (e.key === 'Enter') { if (!list.hidden && hi >= 0 && items[hi]) { e.preventDefault(); choose(items[hi]); } }
+      else if (e.key === 'Escape') close();
+    });
+    return { el: wrap, input: inp, get: function () { return chosen ? chosen.value : inp.value.trim(); }, chosen: function () { return chosen; } };
+  };
+  var np = { sup: null, lines: [], seq: 0, body: null };
+  var renumberNew = function () { np.lines.forEach(function (l, i) { l.num.textContent = String(i + 1); l.rm.disabled = np.lines.length < 2; }); };
+  var addNewLine = function () {
+    var row = { lk: makeLookup({ id: 'np-item-' + (++np.seq), placeholder: 'Item number or name', search: searchItems }), q: el('input'), num: el('td', 'ln'), rm: el('button', 'btn') }, tr = el('tr');
+    row.q.type = 'number'; row.q.step = 'any'; row.q.min = '0'; row.q.placeholder = 'Quantity'; row.q.setAttribute('aria-label', 'Quantity');
+    row.rm.type = 'button'; row.rm.textContent = '\u2715'; row.rm.title = 'Remove this line'; row.rm.setAttribute('aria-label', 'Remove this line');
+    row.rm.addEventListener('click', function () { if (np.lines.length < 2) return; np.lines = np.lines.filter(function (l) { return l !== row; }); tr.remove(); renumberNew(); });
+    var t1 = el('td'), t2 = el('td', 'qty'), t3 = el('td', 'x'); t1.append(row.lk.el); t2.append(row.q); t3.append(row.rm);
+    tr.append(row.num, t1, t2, t3); np.body.append(tr); np.lines.push(row); renumberNew();
+    return row;
+  };
+  var buildNewForm = function () {
+    var host = $('newform'); host.replaceChildren(); np.lines = []; np.seq = 0;
+    var fld = function (label, node, hint, id) { var w = el('div', 'f'), lb = el('label', null, label); if (id) lb.htmlFor = id; w.append(lb, node); if (hint) w.append(el('small', null, hint)); return w; };
+    var mk = function (id, type) { var i = el('input'); i.id = id; i.type = type; i.autocomplete = 'off'; return i; };
+    np.sup = makeLookup({ id: 'np-sup', placeholder: 'Supplier number or name', search: searchSuppliers });
+    var fac = mk('np-fac', 'text'), whs = mk('np-whs', 'text'), date = mk('np-date', 'date');
+    [fac, whs].forEach(function (i) { i.addEventListener('input', function () { i.dataset.touched = '1'; }); });
+    var top = el('div', 'top'); top.append(fld('Supplier *', np.sup.el, null, 'np-sup'), fld('Facility *', fac, 'Starts at your own default', 'np-fac'), fld('Warehouse *', whs, 'Starts at your own default', 'np-whs'), fld('Requested delivery date *', date, null, 'np-date'));
+    var s1 = el('div', 'sect'); s1.append(el('h3', null, 'Order'), top);
+    var tbl = el('table', 'lines'), th = el('thead'), hr = el('tr'); ['', 'Item no *', 'Quantity *', ''].forEach(function (h) { hr.append(el('th', null, h)); }); th.append(hr); np.body = el('tbody'); tbl.append(th, np.body);
+    var add = el('button', 'btn'); add.type = 'button'; add.textContent = '+ Add line'; add.addEventListener('click', function () { addNewLine().lk.input.focus(); });
+    var s2 = el('div', 'sect'); s2.append(el('h3', null, 'Lines'), tbl, add);
+    var act = el('div', 'row'), bt = el('button', 'btn primary'); bt.id = 'np-go'; bt.type = 'button'; bt.textContent = 'Review and create'; act.append(bt);
+    host.append(s1, s2, act); addNewLine();
+    bt.addEventListener('click', reviewNew);
+  };
+  var updateNew = function () { var ok = canWrite(); [['np-fac', state.fac], ['np-whs', state.whs]].forEach(function (p) { var i = $(p[0]); if (i && !i.dataset.touched && p[1] && i.value !== p[1]) i.value = p[1]; }); $('np-go').disabled = state.busy || !ok; $('newnote').textContent = ok ? 'Pick the supplier and each item from the list. Facility and warehouse start at your own defaults in M3, and you can change them. The page checks for a valid agreement and for an existing PO before it asks you to confirm.' : (state.conn === 'ok' ? 'You are viewing another buyer, so creating a PO is off. Switch back to yourself.' : 'Not connected to M3.'); };
+  var reviewNew = async function () {
+    var g = function (id) { return $(id).value.trim(); }, msg = $('newmsg'), fail = function (t) { msg.textContent = t; };
+    if (!canWrite() || state.busy) return;
+    var sup = np.sup.get(), fac = g('np-fac'), whs = g('np-whs'), date = g('np-date'), lines = [];
+    if (!sup || !fac || !whs || !date) return fail('Fill in supplier, facility, warehouse and requested delivery date.');
+    np.lines.forEach(function (l, i) { var it = l.lk.get(), q = l.q.value.trim(); if (!it && !q) return; lines.push({ n: i + 1, item: it, qty: Number(q), name: l.lk.chosen() ? l.lk.chosen().sub : '' }); });
+    for (var i = 0; i < lines.length; i++) if (!lines[i].item || !(lines[i].qty > 0)) return fail('Line ' + lines[i].n + ' needs an item and a quantity above 0.');
+    if (!lines.length) return fail('Add at least one line.');
+    msg.textContent = 'Checking supplier, items, agreements and existing orders\u2026'; state.busy = true; updateNew();
+    try {
+      var sn = np.sup.chosen() ? np.sup.chosen().sub : '';
+      if (!np.sup.chosen() && hasTool('M3_CRS620MI_SearchSupplier')) {
+        try { var sr = rowsOf(await call('M3_CRS620MI_SearchSupplier', { SupplierNumber_ExactSearch: sup.toUpperCase() }, fresh))[0]; if (!sr) { state.busy = false; updateNew(); return fail('Supplier ' + sup + ' was not found. Pick one from the list.'); } sup = String(pick(sr, ['SupplierNumber']) || sup); sn = String(pick(sr, ['SupplierName', 'Name']) || ''); } catch (e) { sn = ''; }
+      }
+      if (sn) state.supNames[sup] = sn;
+      var agree = {}, notes = [], dups = [];
+      for (var k = 0; k < lines.length; k++) {
+        if (!lines[k].name && hasTool('M3_MMS200MI_SearchItem')) {
+          try { var ir = rowsOf(await call('M3_MMS200MI_SearchItem', { ItemNumber_ExactSearch: lines[k].item.toUpperCase() }, fresh))[0]; if (!ir) { state.busy = false; updateNew(); return fail('Line ' + lines[k].n + ': item ' + lines[k].item + ' was not found. Pick one from the list.'); } lines[k].item = String(pick(ir, ['ItemNumber']) || lines[k].item); lines[k].name = String(pick(ir, ['ItemName']) || ''); } catch (e) { }
+        }
+        if (!lines[k].name) lines[k].name = await itemName(lines[k].item);
+        var alts = await loadAlts(lines[k].item), rec = alts && alts.find(function (a) { return a.sup === sup && a.valid; });
+        if (rec) agree[lines[k].item] = { price: rec.price, cur: rec.cur };
+        else notes.push(alts === null ? 'The agreements for ' + lines[k].item + ' could not be read.' : 'No valid agreement for ' + lines[k].item + ' with this supplier: the price has no agreement behind it. You decide.');
+      }
+      state.rows.forEach(function (x) { if (x.supplier === sup && lines.some(function (l) { return l.item === x.item; }) && (x.type === 'pop' || (x.status != null && x.status < 50))) dups.push((x.type === 'pop' ? 'Planned PO ' + x.planned.no : 'PO ' + x.po + ' line ' + x.line) + ' for ' + x.item); });
+      msg.textContent = '';
+      state.busy = false; updateNew();
+      runAction({ id: 'new-po' }, 'createNew', { supplier: sup, supName: sn || state.supNames[sup] || '', fac: fac, whs: whs, date: date, lines: lines, agree: agree, notes: notes, dups: dups });
+    } catch (e) { state.busy = false; updateNew(); fail('The checks failed: ' + errText(e)); }
+  };
+
+  // ---------- tabs and wiring ----------
+  var showTab = function (name) {
+    var panels = { act: 'tab-orders', ok: 'tab-orders', new: 'tab-new', msgs: 'tab-msgs' };
+    ['tab-orders', 'tab-new', 'tab-msgs'].forEach(function (p) { $(p).hidden = p !== panels[name]; });
+    ['act', 'ok', 'new', 'msgs'].forEach(function (t) { $('tabbtn-' + t).setAttribute('aria-selected', t === name ? 'true' : 'false'); });
+    if (name === 'act' || name === 'ok') { state.view = name; state.kpi = null; var cur = current(); if (cur && isEsc(cur) !== (state.view === 'act')) state.picked = null; renderAll(); }
+    if (name === 'new') updateNew();
+    if (name === 'msgs') renderMsgs();
+  };
+  $('table').addEventListener('click', function (e) { var tr = e.target.closest('tr[data-key]'); if (tr && !state.busy) { state.picked = state.picked === tr.dataset.key ? null : tr.dataset.key; renderPanel(); if (state.picked) $('panel').scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } });
+  $('table').addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { var tr = e.target.closest('tr[data-key]'); if (tr && !state.busy) { e.preventDefault(); state.picked = state.picked === tr.dataset.key ? null : tr.dataset.key; renderPanel(); } } });
+  $('q').addEventListener('input', function () { state.query = $('q').value; renderList(); });
+  $('reset').addEventListener('click', function () { refresh(false); });
+  $('custdetails').addEventListener('toggle', function () { renderDrafts(); });
+  $('scopeFindBtn').addEventListener('click', function () { findUsers($('scopeFind').value); });
+  $('scopeFind').addEventListener('input', function () { if (!$('scopeFind').value.trim()) { state.shownIds = null; renderScope(); $('scopeFindMsg').textContent = ''; } });
+  $('scopeFind').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); findUsers($('scopeFind').value); } });
+  $('scopeUser').addEventListener('change', function () { if (state.busy) { renderScope(); return; } state.scope = $('scopeUser').value; state.picked = null; state.kpi = null; refresh(false); });
+  $('tabbtn-act').addEventListener('click', function () { showTab('act'); });
+  $('tabbtn-ok').addEventListener('click', function () { showTab('ok'); });
+  $('tabbtn-new').addEventListener('click', function () { showTab('new'); });
+  $('tabbtn-msgs').addEventListener('click', function () { showTab('msgs'); });
+  buildNewForm();
+
+  loadResolution();
+  refresh(false);
+})();
+</script>
+</body>
+</html>
