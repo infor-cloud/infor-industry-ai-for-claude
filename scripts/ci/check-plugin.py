@@ -5,9 +5,10 @@
 script checks the rest of the pre-submission checklist
 (https://claude.com/docs/plugins/pre-submission-checklist): the repository's
 layout, size and file names; the plugin folder's README, license, file types
-and file sizes; that every host the plugin names is described in its README;
-that no ION API credentials are committed; and, with --base, that the plugin's
-version was raised when anything in the plugin folder changed.
+and file sizes; that every SKILL.md front matter is valid YAML; that every host
+the plugin names is described in its README; that no ION API credentials are
+committed; and, with --base, that the plugin's version was raised when anything
+in the plugin folder changed.
 
 Errors are rules that would block the submission, stop validation, or hold the
 plugin for a reviewer. Warnings are things a reviewer may still ask about.
@@ -58,6 +59,9 @@ URL_HOST = re.compile(r"\bhttps?://([A-Za-z0-9.-]+\.[A-Za-z]{2,})")
 # Hosts that appear only as XML namespaces and are never fetched.
 NAMESPACE_HOSTS = {"www.w3.org"}
 IONAPI_KEYS = re.compile(r'"(saak|sask)"\s*:\s*"[^"]+"')
+FRONT_MATTER_KEY = re.compile(r"^([A-Za-z0-9_-]+):(?:[ \t]+(.*?))?[ \t]*$")
+DOUBLE_QUOTED = re.compile(r'^"(?:[^"\\]|\\.)*"(?:[ \t]+#.*)?$')
+SINGLE_QUOTED = re.compile(r"^'(?:[^']|'')*'(?:[ \t]+#.*)?$")
 # The directory's scan reads "pass <" (for example a loop counter named pass) as the
 # pass password manager reading a credential, and holds the plugin for a reviewer.
 PASS_COMMAND = re.compile(r"\bpass\s*<")
@@ -367,6 +371,73 @@ def check_plugin(report, folder, all_files):
             report.error(path, f"Names {host}, which README.md doesn't mention. Describe in README.md everything the plugin sends to or fetches from it.")
 
 
+def front_matter_problem(text):
+    """Why a strict YAML parser would reject this SKILL.md front matter, or None.
+
+    Claude Code reads front matter leniently, but the directory's scan parses it as
+    YAML; one it can't parse holds the plugin for a reviewer (REACH_UNKNOWN). The
+    usual cause is an unquoted value with ": " in it.
+    """
+    lines = text.split("\n")
+    if not lines or lines[0].strip() != "---":
+        return "doesn't start with a --- front matter block"
+    try:
+        end = next(i for i in range(1, len(lines)) if lines[i].strip() == "---")
+    except StopIteration:
+        return "front matter has no closing ---"
+    block = lines[1:end]
+    try:
+        import yaml  # PyYAML, when the machine has it: an exact answer
+    except ImportError:
+        yaml = None
+    if yaml is not None:
+        try:
+            data = yaml.safe_load("\n".join(block))
+        except yaml.YAMLError as exc:
+            return f"isn't valid YAML: {' '.join(str(exc).split())}"
+        if not isinstance(data, dict):
+            return "front matter isn't a set of key: value lines"
+        if not isinstance(data.get("description"), str):
+            return "description must be one text value"
+        return None
+
+    keys = {}
+    for number, line in enumerate(block, 2):
+        if not line.strip() or line.lstrip().startswith("#") or line[:1] in (" ", "\t"):
+            continue
+        match = FRONT_MATTER_KEY.match(line)
+        if not match:
+            return f"line {number} isn't a key: value line"
+        key, value = match.group(1), match.group(2) or ""
+        keys[key] = value
+        if not value or value[0] in "|>":
+            continue
+        if value[0] == '"':
+            if not DOUBLE_QUOTED.match(value):
+                return f"line {number}: the double-quoted value of {key} isn't closed, or has an unescaped quote"
+        elif value[0] == "'":
+            if not SINGLE_QUOTED.match(value):
+                return f"line {number}: the single-quoted value of {key} isn't closed"
+        elif value[0] in "[{&*!%@`" or value.startswith(("- ", "? ")):
+            return f"line {number}: the value of {key} starts with {value[0]!r}; put it in double quotes"
+        elif ": " in value or value.endswith(":"):
+            return f'line {number}: the value of {key} has ": " without quotes; put it in double quotes'
+        elif " #" in value or "\t#" in value:
+            return f'line {number}: the value of {key} is cut off at " #"; put it in double quotes'
+    if not keys.get("description"):
+        return "description must be one text value"
+    return None
+
+
+def check_skills(report, files):
+    for path in files:
+        if PurePosixPath(path).name != "SKILL.md" or os.path.islink(path):
+            continue
+        problem = front_matter_problem(Path(path).read_text(encoding="utf-8"))
+        if problem:
+            report.error(path, f"Front matter {problem}. The directory's scan can't read it and holds the plugin for a reviewer.")
+
+
 def check_version(report, folder, base):
     if git("cat-file", "-e", f"{base}^{{commit}}", check=False).returncode != 0:
         report.warning(None, f"Base commit {base} isn't in this clone, so the version raise wasn't checked.")
@@ -400,6 +471,7 @@ def main():
     report = Report()
     files = repo_files()
     check_repository(report, files)
+    check_skills(report, files)
     folders = plugin_folders(report)
     for folder in folders:
         check_plugin(report, folder, files)
