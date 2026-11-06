@@ -4,9 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>At-Risk Manufacturing Orders — Production Planner</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 /* Look and feel aligned with the Customer Service Rep dashboard (neutral palette, Source Sans 3, cards, chips, tiles).
    The planner's own class names are kept so the page logic is unchanged. */
@@ -2042,7 +2039,7 @@ th.n .sortbtn { flex-direction: row; }
         go.disabled = cancel.disabled = true; result(res, 'run', 'Clearing the log\u2026');
         try {
           let n = 0; const col = db.collection('actions');
-          for (let pass = 0; pass < 20; pass++) { const snap = await col.limit(500).get(); if (snap.empty) break; for (const d of snap.docs) { await col.doc(d.id).delete(); n++; } }
+          for (let batch = 0; batch < 20; batch++) { const snap = await col.limit(500).get(); if (snap.empty) break; for (const d of snap.docs) { await col.doc(d.id).delete(); n++; } }
           result(res, 'ok', n ? 'Cleared ' + n + ' log entr' + (n === 1 ? 'y' : 'ies') + '.' : 'The log was already empty.'); cancel.textContent = 'Close';
         } catch (e) { result(res, 'bad', 'The log could not be cleared: ' + ((e && e.message) || 'the call failed') + '. Some entries may be left.'); }
         cancel.disabled = false;

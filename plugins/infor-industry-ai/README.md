@@ -53,9 +53,7 @@ scripts and no telemetry. Data moves only through the connectors your organizati
   `assets/*.capabilities.json` file as the signed-in user, and keeps a log of the actions taken from it in the page's
   own storage. The rep dashboard also stores a daily total of backordered lines and each viewer's settings there, under
   their Claude user ID. Anyone the page is shared with can see that storage. Pages are private until shared, and can
-  contain customer and supplier details.
-- **Fonts.** The dashboards load their fonts from Google Fonts (`fonts.googleapis.com` and `fonts.gstatic.com`), so
-  opening a dashboard sends the viewer's IP address and browser details to Google.
+  contain customer and supplier details. The dashboards load nothing from other sites: no fonts, scripts or images.
 
 Infor's privacy policy: https://www.infor.com/about/privacy
 

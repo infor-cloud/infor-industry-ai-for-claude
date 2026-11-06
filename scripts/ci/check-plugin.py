@@ -58,6 +58,9 @@ URL_HOST = re.compile(r"\bhttps?://([A-Za-z0-9.-]+\.[A-Za-z]{2,})")
 # Hosts that appear only as XML namespaces and are never fetched.
 NAMESPACE_HOSTS = {"www.w3.org"}
 IONAPI_KEYS = re.compile(r'"(saak|sask)"\s*:\s*"[^"]+"')
+# The directory's scan reads "pass <" (for example a loop counter named pass) as the
+# pass password manager reading a credential, and holds the plugin for a reviewer.
+PASS_COMMAND = re.compile(r"\bpass\s*<")
 
 ON_CI = os.environ.get("GITHUB_ACTIONS") == "true"
 
@@ -344,6 +347,8 @@ def check_plugin(report, folder, all_files):
         if rel != ".claude-plugin/plugin.json":  # its URLs are listing links, not destinations
             for host in URL_HOST.findall(text):
                 hosts.setdefault(host.lower(), path)
+        if PASS_COMMAND.search(text):
+            report.error(path, 'Has "pass <", which the directory\'s scan reads as a credential read ("Uses a credential from the user\'s machine") and holds for a reviewer. Rename the variable, for example to batch.')
         if re.search(r"`[^`\n]*\.(png|jpe?g|gif|webp|woff2?|ttf|otf)`", text, re.IGNORECASE):
             report.warning(path, "Names an image or font path in backticks. Show bundled images in README.md with Markdown image syntax instead.")
         if rel == ".mcp.json" or rel.startswith("hooks/"):

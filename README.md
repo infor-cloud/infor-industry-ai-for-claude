@@ -54,7 +54,7 @@ Test on a non-production M3 environment first.
 
 ## Data and privacy
 
-The plugin has no server, hooks, scripts or telemetry. It reads and changes M3 data through the M3 connector as the signed-in user. When the Microsoft 365 connector is added, it can also e-mail colleagues and create Outlook drafts. The dashboards load their fonts from Google Fonts. The [plugin README](plugins/infor-industry-ai/README.md#data-and-privacy) describes each of these in full.
+The plugin has no server, hooks, scripts or telemetry. It reads and changes M3 data through the M3 connector as the signed-in user. When the Microsoft 365 connector is added, it can also e-mail colleagues and create Outlook drafts. The dashboards load nothing from other sites. The [plugin README](plugins/infor-industry-ai/README.md#data-and-privacy) describes each of these in full.
 
 Infor's privacy policy: https://www.infor.com/about/privacy
 
