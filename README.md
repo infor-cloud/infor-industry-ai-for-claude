@@ -22,8 +22,9 @@ M3 GenAI Gateway exposes M3 MI transactions as MCP tools. Claude calls them thro
 |---|---|
 | [`plugins/infor-industry-ai`](plugins/infor-industry-ai) | The plugin: the skills `m3-foundation`, `m3-buyer`, `m3-production-planner` and `m3-customer-service-rep`, and the buyer, planner and rep dashboards. Its [README](plugins/infor-industry-ai/README.md) describes each skill, the data the plugin sends and the write tools each skill may call. |
 | [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) | Makes this repository a plugin marketplace, so Claude Code can install the plugin from it. |
-| [`docs/setup.md`](docs/setup.md) | Setup and reference guide for the M3 connector: prerequisites, the four setup parts and who does each, the tool set, M3 roles and permissions, data safeguards and troubleshooting. |
+| [`docs`](docs/README.md) | The guides. [`setup.md`](docs/setup.md) is the setup and reference guide for the M3 connector: prerequisites, the four setup parts and who does each, the tool set, M3 roles and permissions, data safeguards and troubleshooting. [`demo-data.md`](docs/demo-data.md) covers the production planner demo data. |
 | [`scripts/genai-gateway`](scripts/genai-gateway) | `gg.py`, which lists, checks and sets up the M3 GenAI Gateway tools in a tenant, and [`tools/`](scripts/genai-gateway/tools), the customized tool definitions the skills need. |
+| [`demo`](demo) | Skills for demos on a demo or test tenant, installed separately from the plugin. [`m3-production-planner-demo-cleanup`](demo/m3-production-planner-demo-cleanup) sets up and cleans up the production planner's demo data ([guide](docs/demo-data.md)). |
 
 ## Get started
 

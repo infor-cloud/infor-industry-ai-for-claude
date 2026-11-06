@@ -40,7 +40,9 @@ Each tool is listed with its type, which version is in effect (`standard`, `cust
 python3 gg.py check
 ```
 
-`check` only reads. It compares the tenant with every tool in `tools/`, and with the tools each skill names on the tools line in its `SKILL.md` under [`plugins/infor-industry-ai/skills`](../../plugins/infor-industry-ai/skills):
+`check` only reads. It compares the tenant with every tool in `tools/`, and with the tools each skill names on the tools line in its `SKILL.md` under [`plugins/infor-industry-ai/skills`](../../plugins/infor-industry-ai/skills). To check other skills instead, such as the [demo data skill](../../docs/demo-data.md), pass their folder with `--skills`, for example `python3 gg.py check --skills ../../demo`.
+
+Each tool gets one of these results:
 
 | Result | What to do |
 |---|---|
