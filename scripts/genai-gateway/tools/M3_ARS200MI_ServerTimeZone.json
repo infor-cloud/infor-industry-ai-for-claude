@@ -4,7 +4,7 @@
   "transaction": "ServerTimeZone",
   "version": "2026-08-26T08:08:53.53Z",
   "type": "get",
-  "description": "Retrieves information about the current system date and time. The system date and time might differ from the users date and time depending on timezones. ",
+  "description": "Get the current date and time of the M3 server. The tool takes no input and returns two values: the server's local date and time with its offset from UTC, in ISO 8601 format (for example 2026-11-06T09:15:30.123+01:00), and the same moment in UTC (for example 2026-11-06T08:15:30.123Z). Use it when you need the current date or time, for example to tell whether a delivery date has passed or how many days an order is late, rather than relying on your own clock. The server's time zone can differ from the user's, so convert the time before you show it to the user.",
   "inputParameters": [],
   "outputParameters": [
     {

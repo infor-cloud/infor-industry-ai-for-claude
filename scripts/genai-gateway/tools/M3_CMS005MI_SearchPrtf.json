@@ -4,7 +4,7 @@
   "transaction": "SearchPrtf",
   "version": "2026-08-19T02:02:06.06Z",
   "type": "search",
-  "description": "This tool can search for Printer Files in M3 given many different search criteria. Printer files are used do define documents in M3 output management.",
+  "description": "Search the printer files in M3 output management, by printer file code, description, name, the program that uses the printer file, type (document or report), output interface (XML, CSV or override allowed), archiving or file type. Give at least one criterion. A printer file defines a document or report that M3 produces through output management, such as an order confirmation, a purchase order or a picking list. Each result gives the printer file code, description and name, the program that uses it, its type, and its output settings: whether an update panel is shown, stream file creation, global sequence numbering, output interface mode, archiving to Infor Document Management, file type, copies, version update and ordered printing. Use it to find the printer file behind a document, for example by its description or the program that prints it, and pass the printer file code to M3_CMS004MI_LstPrtfVariants or M3_CMS006MI_LstPrtfStructs.",
   "inputParameters": [
     {
       "name": "CONO",

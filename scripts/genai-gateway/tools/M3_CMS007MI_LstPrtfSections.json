@@ -4,7 +4,7 @@
   "transaction": "LstPrtfSections",
   "version": "2026-08-18T06:06:03.03Z",
   "type": "list",
-  "description": "This tool can list XML Sections used in M3 printer files. Printer files are used do define documents in M3 output management.",
+  "description": "List the sections of one XML structure of a printer file. A printer file defines a document or report that M3 produces through output management, such as an order confirmation, a purchase order or a picking list. Sections are the building blocks of the XML structure, such as metadata, header, row and total sections, and each holds elements (M3_CMS009MI_LstElemBySect). Each record gives the section number, status (not active, or active for XML, CSV, flat file or all formats), element name, section type, sequence number and level, grouping and subgrouping elements, Excel table and sheet names, label settings, the field that disables the section, whether empty elements are included, whether an XtendM3 script runs before the section is output, and the grouping and base sections. Give both the printer file and the XML structure (M3_CMS006MI_LstPrtfStructs); only that structure's sections are returned. Use it to see how a document is built, or why a section is missing from the output, for example because it is not active for the output format in use.",
   "inputParameters": [
     {
       "name": "PRTF",

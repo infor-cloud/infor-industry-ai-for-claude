@@ -4,7 +4,7 @@
   "transaction": "LstPrtfStructs",
   "version": "2026-08-18T05:05:55.55Z",
   "type": "list",
-  "description": "This tool lists XML Structure for M3 printer files. Printer files are used do define documents in M3 output management.",
+  "description": "List the XML structures of one printer file. A printer file defines a document or report that M3 produces through output management, such as an order confirmation, a purchase order or a picking list. An XML structure defines the layout of the XML or CSV output that M3 generates for the printer file. It is built from sections (M3_CMS007MI_LstPrtfSections), which hold elements (M3_CMS009MI_LstElemByStruct). Each record gives the structure ID, description and name, format (M3 standard document, M3 standard report or open), XML variant, root element, namespaces and schema, CSV and Excel template settings, related documents and their attachment limits, and the archiving settings for Infor Document Management, such as file type, merging and version update. Give the printer file code; only that printer file's structures are returned. To find the code, use M3_CMS005MI_SearchPrtf. Use it to see which structures a printer file has and how its output is generated, archived and combined with related documents.",
   "inputParameters": [
     {
       "name": "PRTF",

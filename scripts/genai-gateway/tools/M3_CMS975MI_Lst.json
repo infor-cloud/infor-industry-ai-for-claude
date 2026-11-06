@@ -4,7 +4,7 @@
   "transaction": "Lst",
   "version": "2026-08-19T02:02:00.00Z",
   "type": "list",
-  "description": "This tool lists the feature details for all features available. A feature is a new functionality in for example M3. The output is description of the feature, type, dates and if the feature is active or not in the tenant.",
+  "description": "List M3 features in feature ID order. M3 delivers new functionality as features, each identified by a feature ID (the KB number). Some are delivered turned off, so the tenant can activate them when it is ready. Each record gives the feature ID, the product and product version, description, module, configuration component and country version, feature type (zero impact, functional setting, feature toggle, feature toggle with process change, or immediate), whether the feature is active, the activation date, the end of the transition period after which the feature is permanently active, the completion and deployment dates, the Knowledge Base article ID, the responsible user, status, review progress, and the update in which the feature will be activated automatically. The feature ID you give is a starting point, not a filter: the list starts at that feature, or at the first feature when none is given, and continues until the record limit. Use it to browse features. To look up one feature, use M3_CMS975MI_Get; to find features by description, module, product, type, status or date, use M3_CMS975MI_Search; for the feature toggles of one product, use M3_CMS975MI_LstToggles.",
   "inputParameters": [
     {
       "name": "NCRN",

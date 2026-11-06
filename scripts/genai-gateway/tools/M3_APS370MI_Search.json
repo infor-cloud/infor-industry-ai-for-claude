@@ -4,7 +4,7 @@
   "transaction": "Search",
   "version": "2026-08-28T10:10:50.50Z",
   "type": "search",
-  "description": "Searches for goods reveived not invoiced purchase order transactions given many different search criteria.",
+  "description": "Search goods-received-not-invoiced records across purchase orders in the received-not-invoiced reconciliation in M3 (APS370), by division, purchase order, line, receiving number, item, transaction date, invoice matching status, currency, quantities or amounts. Give at least one criterion. Each result is one goods receipt on a purchase order line, with the same data as M3_APS370MI_LstRecByPO: received and invoiced quantities and cost amounts, currency, invoice matching status, the highest status of the purchase order and the transaction date. DepositAmount is the received cost amount minus the invoiced cost amount in local currency, and DefectiveQuantity is the reported quantity minus the invoiced quantity. A positive difference means part of the receipt is not yet invoiced; a negative one means more has been invoiced than received. Use it to find receipts that are still waiting for an invoice, for example for one item, before a given date or with a given matching status. Results stop at the record limit, so narrow the criteria rather than adding up a broad search. When you already have the purchase order number, use M3_APS370MI_LstRecByPO.",
   "inputParameters": [
     {
       "name": "CONO",

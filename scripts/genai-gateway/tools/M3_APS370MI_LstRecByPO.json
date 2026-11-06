@@ -4,7 +4,7 @@
   "transaction": "LstRecByPO",
   "version": "2026-08-28T10:10:59.59Z",
   "type": "list",
-  "description": "Lists goods received not invoiced transactions for purchase orders",
+  "description": "List the goods-received-not-invoiced records for one purchase order, from the received-not-invoiced reconciliation in M3 (APS370). Each record is one goods receipt on a purchase order line: the line and subnumber, receiving number, item, transaction date, received and invoiced quantities and cost amounts, currency, invoice matching status and the highest status of the purchase order. DepositAmount is the received cost amount minus the invoiced cost amount in local currency, and DefectiveQuantity is the reported quantity minus the invoiced quantity. A positive difference means part of the receipt is not yet invoiced; a negative one means more has been invoiced than received. Give the division together with the purchase order number: records are matched on both, so a blank division only finds records without a division. Use it to see what has been received but not yet invoiced on a purchase order, or why a supplier invoice does not match a receipt. To find such records across purchase orders, for example by item, date or matching status, use M3_APS370MI_Search.",
   "inputParameters": [
     {
       "name": "PUNO",

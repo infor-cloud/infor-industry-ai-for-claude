@@ -4,7 +4,7 @@
   "transaction": "Get",
   "version": "2026-08-19T02:02:51.51Z",
   "type": "get",
-  "description": "This tool retrieves information about a feature. A feature is a new functionality in for example M3. The output is description of the feature, type, dates and if the feature is active or not in the tenant for example\n",
+  "description": "Get one M3 feature by its feature ID (the KB number). M3 delivers new functionality as features, each identified by a feature ID (the KB number). Some are delivered turned off, so the tenant can activate them when it is ready. The result gives the product and product version, description, module, configuration component and country version, feature type (zero impact, functional setting, feature toggle, feature toggle with process change, or immediate), whether the feature is active, the activation date, the end of the transition period after which the feature is permanently active, the completion and deployment dates, the Knowledge Base article ID, the responsible user, status, review progress, and the update in which the feature will be activated automatically. Use it to answer whether a specific feature is active in this tenant, when it was or will be activated, and which Knowledge Base article describes it; M3_CMS975MI_GetKBURL returns the article link. An error is returned when the feature ID does not exist. To find a feature by its description, use M3_CMS975MI_Search.",
   "inputParameters": [
     {
       "name": "NCRN",

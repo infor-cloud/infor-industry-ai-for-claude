@@ -4,7 +4,7 @@
   "transaction": "LstElemByStruct",
   "version": "2026-08-18T06:06:23.23Z",
   "type": "list",
-  "description": "This tool can list XML section elements used in M3 printer files. Printer files are used do define documents in M3 output management.",
+  "description": "List the elements of every section of one XML structure of a printer file, section by section. A printer file defines a document or report that M3 produces through output management, such as an order confirmation, a purchase order or a picking list. Elements are the individual tags in the generated XML, each filled from an M3 field, a fixed value, a text or system data such as the current date, the user or the company. Each record gives the section number, the element's sequence number, type (text, start or end element), data source, data type, M3 field and table, fixed value, XML tag name, description, label settings, column number and Excel column format, length, alignment and padding, how zero values and debit/credit codes are shown, and the conditions that disable or hide the element. Give the printer file and the XML structure (M3_CMS006MI_LstPrtfStructs). Use it to see every field a document outputs, for example to check whether a field is included anywhere in the document. A large structure can exceed the record limit; then list one section at a time with M3_CMS009MI_LstElemBySect.",
   "inputParameters": [
     {
       "name": "PRTF",

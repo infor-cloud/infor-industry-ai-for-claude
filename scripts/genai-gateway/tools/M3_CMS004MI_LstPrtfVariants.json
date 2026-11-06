@@ -4,7 +4,7 @@
   "transaction": "LstPrtfVariants",
   "version": "2026-08-18T05:05:51.51Z",
   "type": "list",
-  "description": "This tool can list Printer files Variants for M3. Printer files are used do define documents in M3 output management.",
+  "description": "List the XML variants of one printer file. A printer file defines a document or report that M3 produces through output management, such as an order confirmation, a purchase order or a picking list. An XML variant defines variant-specific differences in the XML that the printer file generates. Each record gives the variant ID and description and the label settings for the variant: which label source is used (no label, standard message ID, overriding message or overriding name), the message IDs and message files, the overriding name, and whether the standard message is used when no translation exists. Give the printer file code; to find it, use M3_CMS005MI_SearchPrtf. Use it when you set up or troubleshoot document output, for example to see which variants a printer file has before you look at its XML structures with M3_CMS006MI_LstPrtfStructs.",
   "inputParameters": [
     {
       "name": "PRTF",
